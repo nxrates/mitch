@@ -1,0 +1,1555 @@
+id,name,aliases
+00001,3i Group,III
+00011,3M Company,MMM
+00021,A. O. Smith,AOS
+00031,A.P. Moller-Maersk,MAERSK-B
+00041,ABB Group,ABB
+00051,Abbott Laboratories,ABT
+00061,AbbVie,ABBV
+00071,Abertis Infraestructuras,ABE
+00081,Accenture,ACN
+00091,Accor,AC
+00101,Actelion,ATLN
+00111,Adecco,ADEN
+00121,Adidas,ADS
+00131,Admiral,ADM
+00141,Adobe,ADBE
+00151,Advanced Micro Devices,AMD
+00161,Advantest,6857
+00171,Adyen,ADYEN
+00181,AECC Aviation Power,600893
+00191,Aegon,AGN
+00201,Aena,AENA
+00211,Aeon,8267
+00221,Aercap Holdings,AER
+00231,AES Corporation,AES
+00241,Aflac,AFL
+00251,AGC Group,5201
+00261,Ageas,AGS
+00271,Agilent Technologies,A
+00281,Agnico Eagle Mines,AEM
+00291,Agricultural Bank of China,1288
+00301,Ahold,AH
+00311,Ahold Delhaize,AD
+00321,AIA Group,1299
+00331,AIB Group,AIBG
+00341,Air Liquide,AI
+00351,Air Products & Chemicals,APD
+00361,Airbnb,ABNB
+00371,Airbus,AIR
+00381,Ajinomoto,2802
+00391,Akamai Technologies,AKAM
+00401,Akzo Nobel,AKZA
+00411,Albemarle Corporation,ALB
+00421,Alcon,ALC
+00431,Alexandria Real Estate Equities,ARE
+00441,Alibaba,BABA
+00451,Alibaba Health,0241
+00461,Align Technology,ALGN
+00471,Alimentation Couche-Tard,ATD
+00481,Allegion,ALLE
+00491,Alliant Energy,LNT
+00501,Allianz,ALV
+00511,Allstate,ALL
+00521,Alnylam Pharmaceuticals,ALNY
+00531,Alphabet,GOOGL
+00541,Alps Electric,6770
+00551,Altice,ATC
+00561,Altria,MO
+00571,Amada,6113
+00581,Amadeus IT Holding,AMS
+00591,Amazon,AMZN
+00601,Amcor,AMCR
+00611,Ameren Corporation,AEE
+00621,American Electric Power,AEP
+00631,American Express,AXP
+00641,American International,AIG
+00651,American Tower,AMT
+00661,American Water Works,AWK
+00671,Ameriprise Financial,AMP
+00681,Ametek,AME
+00691,Amgen,AMGN
+00701,Amorepacific,090430
+00711,Amphenol,APH
+00721,ANA Group,9202
+00731,Analog Devices,ADI
+00741,Anglo American,AAL
+00751,Anheuser-Busch InBev,ABI
+00761,Ansys,ANSS
+00771,Anta Sports,2020
+00781,ANZ Holdings,ANZ
+00791,Aon,AON
+00801,Aozora Bank,8304
+00811,APA Corporation,APA
+00821,Apollo Global Management,APO
+00831,Apple,AAPL
+00841,Applied Materials,AMAT
+00851,AppLovin,APP
+00861,APR,035760
+00871,Aptiv,APTV
+00881,ArcelorMittal,MT
+00891,Arch Capital,ACGL
+00901,Archer-Daniels-Midland,ADM
+00911,Ares Management,ARES
+00921,argenx,ARGX
+00931,Arista Networks,ANET
+00941,Aristocrat Leisure,ALL
+00951,Arm,ARM
+00961,Arthur J. Gallagher & Co.,AJG
+00971,Asahi,2502
+00981,Asahi Holdings,5857
+00991,Asahi Kasei,3407
+01001,Ashtead,AHT
+01011,Asics,7936
+01021,ASM International,ASM
+01031,ASML Holding,ASML
+01041,Assa Abloy,ASSA-B
+01051,Assicurazioni Generali,G
+01061,Associated British Foods,ABF
+01071,Assurant,AIZ
+01081,Astellas Pharma,4503
+01091,AstraZeneca,AZN
+01101,AT&T,T
+01111,Atlantia,ATL
+01121,Atlas Copco,ATCO-A
+01131,Atlassian,TEAM
+01141,Atmos Energy,ATO
+01151,Atos,ATO
+01161,Autodesk,ADSK
+01171,Automatic Data Processing,ADP
+01181,AutoZone,AZO
+01191,AvalonBay Communities,AVB
+01201,Avery Dennison,AVY
+01211,Aviva,AV
+01221,AXA,CS
+01231,Axon Enterprise,AXON
+01241,BAE Systems,BA
+01251,Baidu,BIDU
+01261,Baker Hughes,BKR
+01271,Ball Corporation,BLL
+01281,Baloise,BALN
+01291,Banco Sabadell,SAB
+01301,Banco Santander,SAN
+01311,Bandai Namco Holdings,7832
+01321,Bank Hapoalim,POLI
+01331,Bank Leumi Le-Israel,LUMI
+01341,Bank of Montreal,BMO
+01351,Bank of New York Mellon,BK
+01361,Bank of Nova Scotia,BNS
+01371,Bank of America,BAC
+01381,Bank of China,3988
+01391,Bank of Ireland,BIRG
+01401,Barclays,BARC
+01411,Barratt Developments,BDEV
+01421,Barrick Gold,B
+01431,BASF,BAS
+01441,Baxter International,BAX
+01451,Bayer,BAYN
+01461,BBVA,BBVA
+01471,Banco Bilbao Vizcaya Argentaria,BBVA
+01481,Becton Dickinson,BDX
+01491,Beiersdorf,BEI
+01501,Beijing Kingsoft Office Software,688111
+01511,Berkeley Group Holdings,BKG
+01521,Berkshire Hathaway,BRK-B
+01531,Best Buy,BBY
+01541,BGF Retail,282330
+01551,BHP,BHP
+01561,Bio-Techne,TECH
+01571,Biogen,BIIB
+01581,BlackRock,BLK
+01591,Blackstone,BX
+01601,Block,SQ
+01611,BMW,BMW
+01621,BNK Financial,138930
+01631,BNP Paribas,BNP
+01641,BNY Mellon,BK
+01651,BOC Hong Kong,2388
+01661,Boeing,BA
+01671,Booking Holdings,BKNG
+01681,Boston Scientific,BSX
+01691,Bouygues,EN
+01701,BP,BP
+01711,Brambles,BXB
+01721,Brenntag,BNR
+01731,Bridgestone,5108
+01741,Bristol-Myers Squibb,BMY
+01751,British American Tobacco,BATS
+01761,British Land Company,BLND
+01771,Broadcom,AVGO
+01781,Broadridge Financial Solutions,BR
+01791,Brookfield,BN
+01801,Brookfield Asset Management,BAM
+01811,Brown & Brown,BRO
+01821,Brown–Forman,BF-B
+01831,BT Group,BT.A
+01841,Budweiser Brewing Company APAC,1876
+01851,Builders FirstSource,BLDR
+01861,Bunge Global,BG
+01871,Bunzl,BNZL
+01881,Burberry,BRBY
+01891,Burlington Stores,BURL
+01901,BXP,BXP
+01911,BYD Company,1211
+01921,C.H. Robinson,CHRW
+01931,Cadence Design Systems,CDNS
+01941,Caesars Entertainment,CZR
+01951,CaixaBank,CABK
+01961,Camden Property Trust,CPT
+01971,Cameco,CCJ
+01981,Campbell Soup Company,CPB
+01991,Canadian Imperial Bank,CM
+02001,Canadian Natural Resources,CNQ
+02011,Canadian National Railway,CNR
+02021,Canon,7751
+02031,Capgemini,CAP
+02041,Capita,CPI
+02051,Capital One Financial,COF
+02061,Cardinal Health,CAH
+02071,Carlisle Companies,CSL
+02081,Carlsberg,CARL-B
+02091,CarMax,KMX
+02101,Carnival,CCL
+02111,Carnival Corp,CCL
+02121,Carrefour,CA
+02131,Carrier Global,CARR
+02141,Carvana,CVNA
+02151,Casio Computer,6952
+02161,Caterpillar,CAT
+02171,Cboe Global Markets,CBOE
+02181,CBRE Group,CBRE
+02191,CDW Corporation,CDW
+02201,Cellnex Telecom,CLNX
+02211,Celltrion,068270
+02221,Cencora,COR
+02231,Cenovus Energy,CVE
+02241,Centene Corporation,CNC
+02251,CenterPoint Energy,CNP
+02261,Central Japan Railway,9022
+02271,Centrica,CNA
+02281,CF Industries,CF
+02291,CGI,GIB.A
+02301,Charles River Laboratories,CRL
+02311,Charles Schwab Corporation,SCHW
+02321,Charter Communications,CHTR
+02331,Check Point Software,CHKP
+02341,Cheil Worldwide,030000
+02351,Cheniere Energy,LNG
+02361,Cheung Kong Infrastructure Holdings,1038
+02371,Chevron Corporation,CVX
+02381,China Construction Bank,0939
+02391,China CSSC Holdings,600150
+02401,China Hongqiao,1378
+02411,China Life Insurance,2628
+02421,China Merchants Bank,3968
+02431,China Mobile,0941
+02441,China Northern Rare Earth,600111
+02451,China Overseas Land & Investment,0688
+02461,China Pacific Insurance Company,2601
+02471,China Petroleum & Chemical Corporation,0386
+02481,China Railway,601390
+02491,China Resources Beer,0291
+02501,China Resources Land,1109
+02511,China Resources Mixc Lifestyle,1209
+02521,China Resources Power,0836
+02531,China Shenhua Energy,1088
+02541,China State Construction Engineering,601668
+02551,China Telecom,0728
+02561,China Three Gorges Renewables,600905
+02571,China Tourism Duty Free Corporation,601888
+02581,China Unicom,0762
+02591,China United Network Communications,600050
+02601,China Yangtze Power,600900
+02611,Chipotle Mexican Grill,CMG
+02621,Chong Kun Dang,185750
+02631,Chow Tai Fook,1929
+02641,Chr. Hansen Holding,CHR
+02651,Christian Dior,CDI
+02661,Chubb Limited,CB
+02671,Chubu Electric Power,9502
+02681,Chugai Pharmaceutical,4519
+02691,Church & Dwight,CHD
+02701,Cie Financiere Richemont,CFR
+02711,Cigna,CI
+02721,Cincinnati Financial,CINF
+02731,Cincinnati Finl,CINF
+02741,Cintas,CTAS
+02751,Cisco,CSCO
+02761,Cisco Systems,CSCO
+02771,CITIC,0267
+02781,CITIC Securities,6030
+02791,Citigroup,C
+02801,Citizen Watch,7762
+02811,Citizens Financial,CFG
+02821,CJ,001040
+02831,CJ CheilJedang,097950
+02841,CJ Logistics,000120
+02851,CK Asset Holdings,1113
+02861,CK Hutchison Holdings,0001
+02871,Clorox,CLX
+02881,Cloudflare,NET
+02891,CLP Holdings,0002
+02901,CME,CME
+02911,CMS Energy,CMS
+02921,Cnh Industrial NV,CNHI
+02931,CNOOC,0883
+02941,Coca Cola Europac,CCEP
+02951,Cognizant,CTSH
+02961,Cognizant Tech Solutions,CTSH
+02971,Coinbase Global,COIN
+02981,Coles,COL
+02991,Colgate-Palmolive,CL
+03001,Coloplast,COLO-B
+03011,Comcast,CMCSA
+03021,Comcast Corp A,CMCSA
+03031,Commerzbank,CBK
+03041,Commonwealth Bank of Aus,CBA
+03051,Compass,CPG
+03061,Comsys,1721
+03071,Conagra Brands,CAG
+03081,Concordia Financial,7186
+03091,ConocoPhillips,COP
+03101,Consolidated Edison,ED
+03111,Constellation Brands,STZ
+03121,Constellation Energy,CEG
+03131,Constellation Software,CSU
+03141,Continental,CON
+03151,Copart,CPRT
+03161,Corning,GLW
+03171,Corpay,CPAY
+03181,Corteva,CTVA
+03191,Cosco Shipping,601919
+03201,Cosmax,192820
+03211,Cosmo AM&T,005070
+03221,Cosmo Chemical,005420
+03231,CoStar,CSGP
+03241,Costco,COST
+03251,Costco Wholesale,COST
+03261,Coterra,CTRA
+03271,Coterra Energy,CTRA
+03281,Country Garden,2007
+03291,Coway,021240
+03301,CP Kansas City,CP
+03311,Credit Agricole,ACA
+03321,Credit Saison,8253
+03331,Credit Suisse,CSGN
+03341,CRH,CRH
+03351,Croda International,CRDA
+03361,CrowdStrike,CRWD
+03371,CrowdStrike Holdings,CRWD
+03381,Crown Castle,CCI
+03391,CS Wind,112610
+03401,CSL,CSL
+03411,CSPC Pharmaceutical,1093
+03421,CSX Corporation,CSX
+03431,Cummins,CMI
+03441,CVS Health,CVS
+03451,CyberAgent,4751
+03461,CyberArk Software,CYBR
+03471,D.R. Horton,DHI
+03481,Daesang,001680
+03491,Daewoo E&C,047040
+03501,Daewoong,069620
+03511,Daewoong Pharmaceutical,069620
+03521,Dai Ichi Life Holdings,8750
+03531,Dai Nippon Printing,7912
+03541,Dai-ichi Life Insurance,8750
+03551,Daiichi Sankyo,4568
+03561,Daikin Industries,6367
+03571,Daimler,MBG
+03581,Daimler Truck Holding,DTG
+03591,Daiwa House Industry,1925
+03601,Daiwa Securities,8601
+03611,Danaher,DHR
+03621,Danone,BN
+03631,Danske Bank,DANSKE
+03641,Darden Restaurants,DRI
+03651,Dassault Systèmes,DSY
+03661,Datadog,DDOG
+03671,DaVita,DVA
+03681,Dayforce,DAY
+03691,DB Insurance,005830
+03701,DBS Holdings,D05
+03711,DCC,DCC
+03721,Deckers Brands,DECK
+03731,Deere & Co,DE
+03741,Delhaize,DELB
+03751,Dell Technologies,DELL
+03761,Delta Air Lines,DAL
+03771,DeNA,2432
+03781,Denki Kagaku Kogyo K.K.,4061
+03791,Denso,6902
+03801,Dentium,145720
+03811,Dentsu,4324
+03821,Deutsche Bank,DBK
+03831,Deutsche Börse,DB1
+03841,Deutsche Post,DHL
+03851,Deutsche Telekom,DTE
+03861,Deutsche Wohnen,DWN
+03871,Devon Energy,DVN
+03881,Dexcom,DXCM
+03891,DGB Financial,139130
+03901,Diageo,DGE
+03911,Diamondback Energy,FANG
+03921,DIC Corporation,4631
+03931,Digital Realty,DLR
+03941,Direct Line Insurance,DLG
+03951,Disco,6146
+03961,Discover Financial,DFS
+03971,The Walt Disney Company,DIS
+03981,Dixons Carphone,DC.
+03991,DL Group,000210
+04001,DL E&C,375500
+04011,DNB Bank,DNB
+04021,DocuSign,DOCU
+04031,Dollar General,DG
+04041,Dollar Tree,DLTR
+04051,Dollarama,DOL
+04061,Dominion Energy,D
+04071,Domino's,DPZ
+04081,Dongsuh,026960
+04091,Dongwon Systems,014820
+04101,DoorDash,DASH
+04111,Doosan,000150
+04121,Doosan Bobcat,241560
+04131,Doosan Enerbility,034020
+04141,Doosan Fuel Cell,336260
+04151,Doosan Robotics,454910
+04161,DoubleU Games,192080
+04171,Dover,DOV
+04181,Dow,DOW
+04191,Dowa,5714
+04201,DraftKings,DKNG
+04211,DSM Firmenich,DSFIR
+04221,DSV,DSV
+04231,DTE Energy,DTE
+04241,Duke Energy,DUK
+04251,DuPont,DD
+04261,Dynatrace,DT
+04271,E.ON,EOAN
+04281,East Japan Railway,9020
+04291,Eastman Chemical Company,EMN
+04301,Eaton Corporation,ETN
+04311,Ebara,6361
+04321,eBay,EBAY
+04331,Ecolab,ECL
+04341,Ecopro Materials,383310
+04351,Edison International,EIX
+04361,EDP Energias de Portugal,EDP
+04371,Edwards Lifesciences,EW
+04381,Eiffage,FGR
+04391,Eisai,4523
+04401,Electrolux,ELUX-B
+04411,Electronic Arts,EA
+04421,Elevance Health,ELV
+04431,Emart,139480
+04441,EMCOR Group,EME
+04451,Emerson Electric,EMR
+04461,Enagas,ENG
+04471,Enbridge,ENB
+04481,Endesa,ELE
+04491,Enel,ENEL
+04501,ENEOS,5020
+04511,ENEOS Holdings,5020
+04521,Engie,ENGI
+04531,Eni,ENI
+04541,ENN Energy,2688
+04551,Enphase Energy,ENPH
+04561,Entegris,ENTG
+04571,Entergy,ETR
+04581,EOG Resources,EOG
+04591,EPAM Systems,EPAM
+04601,EQT Corporation,EQT
+04611,Equifax,EFX
+04621,Equinix,EQIX
+04631,Equinor,EQNR
+04641,Equitable Holdings,EQH
+04651,Equity Residential,EQR
+04661,Ericsson,ERIC-B
+04671,Erie Indemnity,ERIE
+04681,Erste Bank,EBS
+04691,Essex Property Trust,ESS
+04701,EssilorLuxottica,EL
+04711,Essity,ESSITY-B
+04721,Estée Lauder Companies,EL
+04731,Everest,EG
+04741,Evergy,EVRG
+04751,Eversource Energy,ES
+04761,Exelon,EXC
+04771,Expand Energy,023350
+04781,Expedia,EXPE
+04791,Expeditors International,EXPD
+04801,Experian,EXPN
+04811,Extra Space Storage,EXR
+04821,Exxon Mobil,XOM
+04831,F&F,383220
+04841,F5,FFIV
+04851,FactSet Research Systems,FDS
+04861,Fair Isaac,FICO
+04871,Fairfax Financial Holdings,FFH
+04881,FANUC,6954
+04891,Fast Retailing,9983
+04901,Fastenal,FAST
+04911,Federal Realty Investment Trust,FRT
+04921,FedEx,FDX
+04931,Ferguson Enterprises,FERG
+04941,Ferrari,RACE
+04951,Ferrovial,FER
+04961,Fiat Chrysler Automobiles,FCAU
+04971,Fidelity National Information Services,FIS
+04981,Fifth Third Bancorp,FITB
+04991,Fila,081660
+05001,Fin Richemont Namen,CFR
+05011,First Citizens Bancshs,FCNCA
+05021,First Solar,FSLR
+05031,FirstEnergy,FE
+05041,Fiserv,FISV
+05051,Flutter Entertainment,FLTR
+05061,FNF,FNF
+05071,Foosung,093370
+05081,Ford Motor Company,F
+05091,Fortescue,FMG
+05101,Fortinet,FTNT
+05111,Fortis,FTS
+05121,Fortive,FTV
+05131,Fortum,FORTUM
+05141,Foshan Haitian Flavouring & Food,603288
+05151,Fox Corporation,FOXA
+05161,Franco-Nevada,FNV
+05171,Franklin Resources,BEN
+05181,Freeport-McMoRan,FCX
+05191,Fresenius,FRE
+05201,Fresenius Medical Care,FME
+05211,Fuji Electric,6504
+05221,Fujifilm,4901
+05231,Fujikura,5803
+05241,Fujitsu,6702
+05251,Fukuoka Financial,8354
+05261,Furukawa Electric,5801
+05271,Galaxy Entertainment,0027
+05281,Arthur J. Gallagher & Co.,AJG
+05291,Garmin,GRMN
+05301,Gartner,IT
+05311,Gas Natural SDG,GAS
+05321,GE Aerospace,GE
+05331,GE HealthCare,GEHC
+05341,GE Vernova,GEV
+05351,GEA,G1A
+05361,Geberit,GEBN
+05371,Geely Auto,0175
+05381,Gemalto,GTO
+05391,Gen Digital,GEN
+05401,Generac,GNRC
+05411,General Dynamics,GD
+05421,General Mills,GIS
+05431,General Motors,GM
+05441,Genmab,GMAB
+05451,Genuine Parts Company,GPC
+05461,GigaDevice,603986
+05471,Gilead Sciences,GILD
+05481,Givaudan,GIVN
+05491,GKN,GKN
+05501,GlaxoSmithKline,GSK
+05511,Glencore,GLEN
+05521,Global Payments,GPN
+05531,Globe Life,GL
+05541,GoDaddy,GDDY
+05551,Goldman Sachs,GS
+05561,Goodman,GMG
+05571,Graco,GGG
+05581,W.W. Grainger,GWW
+05591,Grand Korea Leisure,114090
+05601,Great Wall Motor Company,2333
+05611,Green Cross,006280
+05621,Green Cross Holdings,005250
+05631,Grifols,GRF
+05641,Groupe Bruxelles Lambert,GBLB
+05651,Groupe Société Générale,GLE
+05661,GS,078930
+05671,GS E&C,006360
+05681,GS Retail,007070
+05691,GS Yuasa,6674
+05701,GSK,GSK
+05711,Haidilao,6862
+05721,Haier,1169
+05731,Haier Smart Home,600690
+05741,Haleon,HLN
+05751,Halliburton,HAL
+05761,Hammerson,HMSO
+05771,Hana Financial,086790
+05781,Hana Tour,039130
+05791,Hanall Biopharma,009420
+05801,Hang Lung Properties,0101
+05811,Hang Seng Bank,0011
+05821,Hanil Cement,300720
+05831,Hanjin KAL,180640
+05841,Hankook,161390
+05851,Hankook & Co,000240
+05861,Hanmi Pharm,128940
+05871,Hanmi Science,008930
+05881,Hanmi Semiconductor,042700
+05891,Hannover Rück,HNR1
+05901,Hanon Systems,018880
+05911,Hansae,105630
+05921,Hansoh Pharmaceutical,3692
+05931,Hansol Chemical,014680
+05941,Hanssem,009240
+05951,Hanwha,000880
+05961,Hanwha Aerospace,012450
+05971,Hanwha Life,088350
+05981,Hanwha Ocean,042660
+05991,Hanwha Solutions,009830
+06001,Hanwha Systems,272210
+06011,Hanwha Vision,012450
+06021,Hartford Insurance,HIG
+06031,Hasbro,HAS
+06041,Haseko,1808
+06051,HCA Healthcare,HCA
+06061,HD Hyundai,267250
+06071,HD Hyundai Electric,267260
+06081,HD Hyundai Heavy Industries,329180
+06091,HD Hyundai Infracore,042670
+06101,HD Hyundai Mipo,010620
+06111,HD KSOE,009540
+06121,Healthpeak Properties,PEAK
+06131,HEICO Corporation,HEI
+06141,Heidelberg Materials,HEI
+06151,HeidelbergCement,HEI
+06161,Heineken,HEIA
+06171,Heineken Holding,HEIO
+06181,Heineken NV,HEIA
+06191,Henderson Land Development Company,0012
+06201,Hengan International,1044
+06211,Henkel Pref,HEN3
+06221,Henkel Vorzug,HEN3
+06231,Hennes & Mauritz,HM-B
+06241,Henry Schein,HSIC
+06251,Hermès International,RMS
+06261,Hess Corporation,HES
+06271,Hewlett Packard Enterprise,HPE
+06281,Hexagon,HEXA-B
+06291,Hilton Worldwide Holdings,HLT
+06301,Hino Motors,7205
+06311,Hitachi,6501
+06321,Hitachi Construction Machinery,6305
+06331,Hitachi Zōsen,7004
+06341,HiteJinro,000080
+06351,HKEX,0388
+06361,HL Mando,204320
+06371,HMM,011200
+06381,Holcim,HOLN
+06391,Hologic,HOLX
+06401,Home Depot,HD
+06411,Honda Motor,7267
+06421,Honeywell International,HON
+06431,Hong Kong and China Gas Company,0003
+06441,Hongkong Exch & Clearing,0388
+06451,Hormel Foods,HRL
+06461,Dr. Horton,DHI
+06471,Host Hotels & Resorts,HST
+06481,Hotel Shilla,008770
+06491,Howmet Aerospace,HWM
+06501,Hoya,7741
+06511,HP,HPQ
+06521,HS Hyosung Advanced Materials,298050
+06531,HSBC Holdings,HSBA
+06541,Hubbell Incorporated,HUBB
+06551,HubSpot,HUBS
+06561,Humana,HUM
+06571,Huntington Bancshares,HBAN
+06581,Huntington Ingalls Industries,HII
+06591,Hybe,352820
+06601,Hygon Information Technology,688041
+06611,Hyosung Heavy Industries,298040
+06621,Hyosung TNC,298020
+06631,Hyundai Department Store,069960
+06641,Hyundai E&C,000720
+06651,Hyundai Elevator,017800
+06661,Hyundai Glovis,086280
+06671,Hyundai Marine & Fire,001450
+06681,Hyundai Mobis,012330
+06691,Hyundai Motor,005380
+06701,Hyundai Rotem,064350
+06711,Hyundai Steel,004020
+06721,Hyundai WIA,011210
+06731,IAG,IAG
+06741,Iberdrola,IBE
+06751,IBM,IBM
+06761,Idemitsu Kosan,5019
+06771,IDEX Corporation,IEX
+06781,IDEXX Laboratories,IDXX
+06791,IHI Corporation,7013
+06801,Iliad,ILD
+06811,Iljin Hysolus,271940
+06821,Illinois Tool Works,ITW
+06831,Imperial Brands,IMB
+06841,Incyte,INCY
+06851,Inditex,ITX
+06861,Industria de Diseno Textil SA,ITX
+06871,Industrial and Commercial Bank of China,601398
+06881,Industrial Bank,601166
+06891,Industrial Bank of Korea,024110
+06901,Infineon Technologies,IFX
+06911,Informa,INF
+06921,ING Groep,INGA
+06931,Ingenico,ING
+06941,Ingersoll Rand,IR
+06951,Inmarsat,ISAT
+06961,Inpex,1605
+06971,Insulet Corporation,PODD
+06981,Intact Financial,IFC
+06991,Intel,INTC
+07001,Interactive Brokers,IBKR
+07011,Intercontinental Exchange,ICE
+07021,Intercontinental Hotels,IHG
+07031,International Flavors & Fragrances,IFF
+07041,International Paper,IP
+07051,Intertek,ITRK
+07061,Intesa Sanpaolo,ISP
+07071,Intuit,INTU
+07081,Intuitive Surgical,ISRG
+07091,Invesco,IVZ
+07101,Investment Kinnevik,KINV-B
+07111,Investor,INVE-B
+07121,Invitation Homes,INVH
+07131,IQVIA Holdings,IQV
+07141,Iron Mountain,IRM
+07151,Isetan Mitsukoshi,3099
+07161,ISU Specialty Chemical,078930
+07171,Isuzu Motors,7202
+07181,Itochu,8001
+07191,ITV,ITV
+07201,J. Front Retailing,3086
+07211,J.B. Hunt,JBHT
+07221,Jabil,JBL
+07231,Jack Henry & Associates,JKHY
+07241,Jacobs Solutions,J
+07251,Japan Airlines,9201
+07261,Japan Exchange,8697
+07271,Japan Post,6178
+07281,Japan Post Bank,7182
+07291,Japan Post Holdings,6178
+07301,Japan Tobacco,2914
+07311,JB Financial,175330
+07321,JD Health,6618
+07331,JD.com,JD
+07341,JFE Holdings,5411
+07351,JGC Holdings,1963
+07361,Jiangsu Hengrui Pharmaceuticals,600276
+07371,Johnson & Johnson,JNJ
+07381,Johnson Controls,JCI
+07391,Johnson Matthey,JMAT
+07401,JPMorgan Chase & Co,JPM
+07411,JTEKT,6473
+07421,Julius Baer,BAER
+07431,Juniper Networks,JNPR
+07441,Kajima,1812
+07451,Kakao,035720
+07461,KakaoBank,323410
+07471,KakaoPay,377300
+07481,Kangwon Land,035250
+07491,Kansai Electric Power,9503
+07501,Kao,4452
+07511,Kawasaki Heavy Industries,7012
+07521,Kawasaki Kisen Kaisha,9107
+07531,KB Financial,105560
+07541,KBC Groupe,KBC
+07551,KCC Corporation,002380
+07561,KDDI Corporation,9433
+07571,Keio,9008
+07581,Keisei Electric Railway,9009
+07591,Kellanova,K
+07601,Kenvue,KVUE
+07611,KEPCO,015760
+07621,KEPCO E&C,052690
+07631,KEPCO KPS,051600
+07641,Kering,KER
+07651,Kerry,0636
+07661,Keurig Dr Pepper,KDP
+07671,KeyCorp,KEY
+07681,Keyence,6861
+07691,Keysight Technologies,KEYS
+07701,KG Mobility,003620
+07711,Kia,000270
+07721,Kikkoman,2801
+07731,Kimberly-Clark,KMB
+07741,Kimco Realty,KIM
+07751,Kinder Morgan,KMI
+07761,Kingfisher,KGF
+07771,Kirin,2503
+07781,Kiwoom Securities,039490
+07791,KKR & Co,KKR
+07801,KLA Corporation,KLAC
+07811,Klepierre,LI
+07821,Kobe Steel,5406
+07831,Kolmar Korea,161890
+07841,Kolon Industries,120110
+07851,Komatsu,6301
+07861,Konami,9766
+07871,Kone,KNEBV
+07881,Konica Minolta,4902
+07891,Koninklijke DSM,DSM
+07901,Koninklijke KPN,KPN
+07911,Koninklijke Philips,PHIA
+07921,Korea Aerospace,047810
+07931,Korea Gas,036460
+07941,Korea Investment,071050
+07951,Korea Petrochemical,006650
+07961,Korea Zinc,010130
+07971,Korean Air,003490
+07981,KPN,KPN
+07991,Kraft Heinz,KHC
+08001,Krafton,259960
+08011,Kroger,KR
+08021,KT,030200
+08031,KT&G,033780
+08041,Kubota,6326
+08051,Kuehne + Nagel,KNIN
+08061,Kumho Petrochemical,011780
+08071,Kumho Tire,073240
+08081,Kuraray,3405
+08091,Kweichow Moutai,600519
+08101,Kyocera,6971
+08111,Kyowa Hakko Kirin,4151
+08121,L'Oréal,OR
+08131,L&F,066970
+08141,L3Harris Technologies,LHX
+08151,Labcorp Holdings,LDX
+08161,LafargeHolcim,HOLN
+08171,Lam Research,LRCX
+08181,Lamb Weston,LW
+08191,Land Securities,LAND
+08201,Las Vegas Sands,LVS
+08211,Lasertec,6920
+08221,Legal & General,LGEN
+08231,Legrand,LR
+08241,Leidos Holdings,LDOS
+08251,Lennar,LEN
+08261,Lennox International,LII
+08271,Lenovo,0992
+08281,Leonardo,LDO
+08291,LG,003550
+08301,LG Chem,051910
+08311,LG Display,034220
+08321,LG Electronics,066570
+08331,LG Energy Solution,373220
+08341,LG H&H,051900
+08351,LG Innotek,011070
+08361,LG Uplus,032640
+08371,Li Auto,2015
+08381,Li-Ning,2331
+08391,Liberty Formula One,FWONA
+08401,LIG Nex1,079550
+08411,Eli Lilly & Co,LLY
+08421,Linde,LIN
+08431,Lindt & Sprüngli Reg,LISN
+08441,Link REIT,0823
+08451,Live Nation Entertainment,LYV
+08461,LKQ Corporation,LKQ
+08471,Lloyds Banking,LLOY
+08481,Loblaw,L
+08491,Lockheed Martin,LMT
+08501,Loews Corporation,L
+08511,Logitech,LOGN
+08521,London Stock Exchange,LSEG
+08531,Longfor Properties,0960
+08541,LONGi Green Energy Technology,601012
+08551,Lonza,LONN
+08561,Lotte,004990
+08571,Lotte Chemical,011170
+08581,Lotte Chilsung,005300
+08591,Lotte Fine Chemical,004000
+08601,Lotte Shopping,023530
+08611,Lotte Wellfood,280360
+08621,Lowe's,LOW
+08631,LPL Financial Holdings,LPLA
+08641,LS Electric,010120
+08651,Lululemon Athletica,LULU
+08661,Luxottica,LUX
+08671,LVMH Moet Hennessy,MC
+08681,LX International,001120
+08691,LY Corporation,4689
+08701,LyondellBasell,LYB
+08711,M&T Bank,MTB
+08721,M3,2413
+08731,Macquarie,MQG
+08741,Manulife Financial,MFC
+08751,Marathon Petroleum,MPC
+08761,Markel,MKL
+08771,MarketAxess,MKTX
+08781,Marks & Spencer,MKS
+08791,Marriott International,MAR
+08801,Marsh McLennan,MMC
+08811,Martin Marietta Materials,MLM
+08821,Marubeni,8002
+08831,Marui,8252
+08841,Marvell Technology,MRVL
+08851,Masco,MAS
+08861,Mastercard,MA
+08871,Match,MTCH
+08881,Mazda Motor,7261
+08891,McCormick & Co,MKC
+08901,McDonald's,MCD
+08911,McKesson Corporation,MCK
+08921,Medtronic,MDT
+08931,Meiji,2269
+08941,Meituan,3690
+08951,Mengniu Dairy,2319
+08961,MercadoLibre,MELI
+08971,Mercari,4385
+08981,Mercedes-Benz,MBG
+08991,Merck,MRK
+09001,Merck & Co,MRK
+09011,Merck KGaA Stamm,MRK
+09021,Meritz Financial,138040
+09031,Meta Platforms,META
+09041,MetLife,MET
+09051,Mettler Toledo,MTD
+09061,MGM Resorts,MGM
+09071,Michelin,ML
+09081,Microchip Technology,MCHP
+09091,Micron Technology,MU
+09101,Microsoft,MSFT
+09111,MicroStrategy,MSTR
+09121,Mid-America Apartment Communities,MAA
+09131,MinebeaMitsumi,6479
+09141,Mirae Asset Securities,006800
+09151,Mitsubishi,8058
+09161,Mitsubishi Chemical,4188
+09171,Mitsubishi Electric,6503
+09181,Mitsubishi Estate,8802
+09191,Mitsubishi Heavy Industries,7011
+09201,Mitsubishi Logistics,9301
+09211,Mitsubishi Materials,5711
+09221,Mitsubishi Motors,7211
+09231,Mitsubishi UFJ Financial,8306
+09241,Mitsui,8031
+09251,Mitsui Chemicals,4183
+09261,Mitsui Fudosan,8801
+09271,Mitsui Mining & Smelting,5706
+09281,Mitsui O.S.K. Lines,9104
+09291,Miwon Commercial,002840
+09301,Mizuho Financial,8411
+09311,Moderna,MRNA
+09321,Mohawk Industries,MHK
+09331,Molina Healthcare,MOH
+09341,Molson Coors Beverage Company,TAP
+09351,Moncler,MONC
+09361,Mondelez International,MDLZ
+09371,Mondi,MNDI
+09381,MongoDB,MDB
+09391,Monolithic Power Systems,MPWR
+09401,Monster Beverage,MNST
+09411,Moody's,MCO
+09421,Morgan Stanley,MS
+09431,Morrison Supermarket,MRW
+09441,Motorola Solutions,MSI
+09451,MS&AD Insurance,8725
+09461,MSCI,MSCI
+09471,MTR Corporation,0066
+09481,MTU Aero Engines,MTX
+09491,Muenchener Rueckversich,MUV2
+09501,Murata Manufacturing,6981
+09511,NARI Technology,600406
+09521,Nasdaq,NDAQ
+09531,Natera,NTRA
+09541,National Australia Bank,NAB
+09551,National Bank of Canada,NA
+09561,National Grid,NG
+09571,NatWest,NWG
+09581,Naver,035420
+09591,NCSoft,036570
+09601,NEC Corporation,6701
+09611,Nestlé,NESN
+09621,NetApp,NTAP
+09631,NetEase,9999
+09641,Netflix,NFLX
+09651,Netmarble,251270
+09661,New Informa,INF
+09671,New World Development Company,0017
+09681,Newmont,NEM
+09691,News Corp,NWSA
+09701,Nexon,3659
+09711,Next,NXT
+09721,NextEra Energy,NEE
+09731,NGK Insulators,5333
+09741,NH Foods,2282
+09751,NH Investment & Securities,005940
+09761,Nichirei,2871
+09771,Nidec,6594
+09781,Nike,NKE
+09791,Nikon,7731
+09801,Nintendo,7974
+09811,Nippon Electric Glass,5214
+09821,Nippon Express,9147
+09831,Nippon Paper Industries,3863
+09841,Nippon Sheet Glass,5202
+09851,Nippon Steel,5401
+09861,Nippon Telegraph & Telephone,9432
+09871,Nippon Yusen K.K.,9101
+09881,NiSource,NI
+09891,Nissan Chemical Industries,4021
+09901,Nissan Motor,7201
+09911,Nisshin Seifun,2002
+09921,Nissui,1332
+09931,Nitori,9843
+09941,Nitto Denko,6988
+09951,NN,NN
+09961,Nokia,NOKIA
+09971,Nomura,8604
+09981,Nomura Holdings,NMR
+09991,Nongfu Spring,9633
+10001,Nongshim,004370
+10011,Nordea Bank,NDAFI
+10021,Nordson Corporation,NDSN
+10031,Norfolk Southern,NSC
+10041,Northern Trust,NTRS
+10051,Northrop Grumman,NOC
+10061,Norwegian Cruise Line Holdings,NCLH
+10071,Novartis,NOVN
+10081,Novo Nordisk,NOVO-B
+10091,Novonesis,NSIS-B
+10101,Novozymes,NZYM-B
+10111,NRG Energy,NRG
+10121,NSK Global,6471
+10131,NTN Corporation,6472
+10141,NTT Group,9432
+10151,NTT Data,9613
+10161,Nucor,NUE
+10171,Nutanix,NTNX
+10181,Nutrien,NTR
+10191,Nvidia,NVDA
+10201,NVR,NVR
+10211,NXP Semiconductors,NXPI
+10221,O'Reilly Automotive,ORLY
+10231,Obayashi,1802
+10241,OCBC Bank,O39
+10251,Occidental Petroleum,OXY
+10261,OCI Holdings,010060
+10271,Odakyu Electric Railway,9007
+10281,Oji Holdings,3861
+10291,Oki Electric Industry,6703
+10301,Okta,OKTA
+10311,Okuma,6103
+10321,Old Dominion Freight,ODFL
+10331,Old Mutual,OMU
+10341,Olympus,7733
+10351,Omnicom,OMC
+10361,Omron,6645
+10371,ON Semiconductor,ON
+10381,ONEOK,OKE
+10391,Oracle,ORCL
+10401,Orange,ORA
+10411,Orient Overseas,0316
+10421,Oriental Land,4661
+10431,Orion Holdings,001800
+10441,Orix,8591
+10451,Orkla,ORK
+10461,Osaka Gas,9532
+10471,Otis Worldwide,OTIS
+10481,Otsuka Pharmaceutical,4578
+10491,Ottogi,007310
+10501,Paccar,PCAR
+10511,Pacific Metals,5541
+10521,Packaging Corporation of America,PKG
+10531,Paddy Power Betfair,FLTR
+10541,Palantir Technologies,PLTR
+10551,Palo Alto Networks,PANW
+10561,Pan Ocean,028670
+10571,Panasonic,6752
+10581,Panasonic Holdings,6752
+10591,Pandora,PNDORA
+10601,Paramount Global,PARA
+10611,Parker Hannifin,PH
+10621,Partners Holding,004960
+10631,Paychex,PAYX
+10641,Paycom,PAYC
+10651,Paypal,PYPL
+10661,Pearson,PSON
+10671,Pembina Pipeline,PPL
+10681,Pentair,PNR
+10691,Pepsico,PEP
+10701,Pernod Ricard,RI
+10711,Persimmon,PSN
+10721,PetroChina,0857
+10731,Peugeot,UG
+10741,Pfizer,PFE
+10751,PG&E Corporation,PCG
+10761,Philip Morris International,PM
+10771,Philips,PHIA
+10781,Phillips 66,PSX
+10791,PI Advanced Materials,178920
+10801,Ping An Insurance,2318
+10811,Pinnacle West,PNW
+10821,Pinterest,PINS
+10831,PNC Financial Services,PNC
+10841,Poly Real Estate,600048
+10851,Pool Corporation,POOL
+10861,Poongsan,103140
+10871,Porsche Pref,P911
+10881,POSCO,005490
+10891,POSCO DX,022100
+10901,POSCO Future M,003670
+10911,POSCO International,047050
+10921,Power Assets Holdings,0006
+10931,Power Construction Corporation of China,601669
+10941,Power Corp of Canada,POW
+10951,PPG Industries,PPG
+10961,PPL Corporation,PPL
+10971,Principal Financial,PFG
+10981,Procter & Gamble,PG
+10991,Progressive Corporation,PGR
+11001,Prologis,PLD
+11011,Prosiebensat.1 Media,PSM
+11021,Prosus N.V.,PRX
+11031,Provident Financial,PFG
+11041,Prudential,PRU
+11051,Prudential Financial,PRU
+11061,Prysmian,PRY
+11071,PTC Group,PTC
+11081,Public Service Enterprise,PEG
+11091,Public Storage,PSA
+11101,Publicis,PUB
+11111,PulteGroup,PHM
+11121,Pure Storage,PSTG
+11131,QBE Insurance,QBE
+11141,Qualcomm,QCOM
+11151,Quanta Services,PWR
+11161,Quest Diagnostics,DGX
+11171,Rakuten,4755
+11181,Ralph Lauren Corporation,RL
+11191,Randgold Resources,RRS
+11201,Randstad,RAND
+11211,Raymond James Financial,RJF
+11221,RB Global,RBA
+11231,Realty Income,O
+11241,Reckitt Benckiser, RKT
+11251,Recruit Holdings,6098
+11261,Red Electrica Corporation,REE
+11271,Reed Elsevier,REL
+11281,Regency Centers,REG
+11291,Regeneron Pharmaceuticals,REGN
+11301,Regions Financial,RF
+11311,Reliance,RELIANCE
+11321,RELX Group,REL
+11331,Renault,RNO
+11341,Renesas Electronics,6723
+11351,Repsol,REP
+11361,Republic Services,RSG
+11371,ResMed,RMD
+11381,Resona,8308
+11391,Resona Holdings,8308
+11401,Restaurant Brands International,QSR
+11411,Revvity,RVTY
+11421,Rexam,REX
+11431,Rheinmetall,RHM
+11441,Ricoh,7752
+11451,Rio Tinto,RIO
+11461,Robinhood Markets,HOOD
+11471,Roblox,RBLX
+11481,Roche Holding,ROG
+11491,Rockwell Automation,ROK
+11501,Rollins,ROL
+11511,Rolls-Royce Holdings,RR
+11521,Roper Technologies,ROP
+11531,Ross Stores,ROST
+11541,Royal Bank of Canada,RY
+11551,Royal Bank of Scotland,RBS
+11561,Royal Caribbean,RCL
+11571,Royal Dutch Shell,SHEL
+11581,RPM International,RPM
+11591,RSA Insurance,RSA
+11601,RTX Corporation,RTX
+11611,RWE,RWE
+11621,RWE Stamm,RWE
+11631,Ryanair,RYA
+11641,S-1,012750
+11651,S-Oil,010950
+11661,S&P Global,SPGI
+11671,SABMiller,SAB
+11681,Safran,SAF
+11691,Sage,SGE
+11701,SAIC Motor,600104
+11711,Saint-Gobain,SGO
+11721,Salesforce,CRM
+11731,Sama Aluminium,SALCO
+11741,Sampo,SAMPO
+11751,Samsung Biologics,207940
+11761,Samsung C&T,028260
+11771,Samsung Card,029780
+11781,Samsung E&A,010950
+11791,Samsung Electro-Mechanics,009150
+11801,Samsung Electronics,005930
+11811,Samsung Fire & Marine,000810
+11821,Samsung Heavy Industries,010140
+11831,Samsung Life,032830
+11841,Samsung SDI,006400
+11851,Samsung SDS,018260
+11861,Samsung Securities,016360
+11871,Samyang Foods,003230
+11881,Sandoz,SDZ
+11891,Sands China,1928
+11901,Sandvik,SAND
+11911,Sanofi,SAN
+11921,Sany Heavy Industries,600031
+11931,SAP,SAP
+11941,Sapporo,2501
+11951,SBA Communications,SBAC
+11961,Schindler Holding,SCHN
+11971,Schlumberger,SLB
+11981,Schneider Electric,SU
+11991,Scor,SCR
+12001,Scottish & Southern Energy,SSE
+12011,Screen Holdings,7735
+12021,SD Biosensor,137310
+12031,Sea A ADR,SE
+12041,Seagate Technology,STX
+12051,Seah Besteel,001430
+12061,Seah Steel Holdings,003030
+12071,Sebang Global Battery,004490
+12081,Secom,9735
+12091,Seiko Epson,6724
+12101,Sekisui House,1928
+12111,Semiconductor Manufacturing International Corporation,0981
+12121,Sempra,SRE
+12131,Sempra Energy,SRE
+12141,ServiceNow,NOW
+12151,SES,SESG
+12161,Seven & I,3382
+12171,Severn Trent,SVT
+12181,SGS,SGSN
+12191,Shaanxi Coal Industry,601225
+12201,Shanxi Xinghuacun Fen Wine Factory,600809
+12211,Sharp,6753
+12221,Shell,SHEL
+12231,Shenzhou International,2313
+12241,Sherwin-Williams,SHW
+12251,Shimizu,1803
+12261,Shin-Etsu Chemical,4063
+12271,Shinhan Financial,055550
+12281,Shinsegae,004170
+12291,Shionogi & Co,4507
+12301,Shire,SHP
+12311,Shiseido,4911
+12321,Shizuoka Financial,8355
+12331,Shopify,SHOP
+12341,Showa Denko,4004
+12351,Siemens,SIE
+12361,Siemens Energy,ENR
+12371,Siemens Healthineers,SHL
+12381,Sika,SIKA
+12391,Simon Property,SPG
+12401,Singapore Telecom,Z74
+12411,Sino Biopharm,1177
+12421,Sinopec,0386
+12431,Sinopharm,1099
+12441,SK,034730
+12451,SK Biopharm,326030
+12461,SK Bioscience,302440
+12471,SK Chemicals,285130
+12481,SK Hynix,000660
+12491,SK IE Technology,361610
+12501,SK Innovation,096770
+12511,SK Networks,001740
+12521,SK Square,402340
+12531,SK Telecom,017670
+12541,Skandinaviska Enskilda Banken,SEB-A
+12551,Skanska,SKA-B
+12561,SKC,011790
+12571,SKF,SKF-B
+12581,Sky,SKY
+12591,Skyworks Solutions,SWKS
+12601,SL,005850
+12611,SMC Corporation,6273
+12621,Smith & Nephew,SN
+12631,Smiths,SMIN
+12641,Smurfit WestRock,SMWR
+12651,Snam Rete Gas,SRG
+12661,Snap-on,SNA
+12671,Snowflake,SNOW
+12681,Société Générale,GLE
+12691,Sodexo,SW
+12701,SoftBank,9434
+12711,SoftBank Group,9984
+12721,Sojitz,2768
+12731,Solvay,SOLB
+12741,Solventum,SOLV
+12751,Sompo,8630
+12761,Sompo Holdings,8630
+12771,Sonova,SOON
+12781,Sonova Holding,SOON
+12791,Sony,6758
+12801,Sony Group,6758
+12811,Southern Company,SO
+12821,Southwest Airlines,LUV
+12831,Spotify Technology,SPOT
+12841,SS&C Technologies Holdings,SSNC
+12851,SSE,SSE
+12861,St. James's Place Capital,STJ
+12871,Standard Chartered,STAN
+12881,Standard Life,SL
+12891,Stanley Black & Decker,SWK
+12901,Starbucks,SBUX
+12911,State Street,STT
+12921,Statoil,EQNR
+12931,Steel Dynamics,STLD
+12941,Steinhoff N.V.,SN
+12951,Stellantis,STLA
+12961,Steris,STE
+12971,STMicroelectronics,STM
+12981,Straumann Holding,STMN
+12991,Stryker Corporation,SYK
+13001,Subaru,7270
+13011,Suez Environnement,SEV
+13021,SUMCO,3436
+13031,Sumitomo,8053
+13041,Sumitomo Chemical,4005
+13051,Sumitomo Dainippon Pharma,4506
+13061,Sumitomo Electric Industries,5802
+13071,Sumitomo Heavy Industries,6302
+13081,Sumitomo Metal Mining,5713
+13091,Sumitomo Mitsui Financial,8316
+13101,Sumitomo Mitsui Trust,8309
+13111,Sumitomo Osaka Cement,5232
+13121,Sumitomo Realty & Development,8830
+13131,Sun Communities,SUI
+13141,Sun Hung Kai Properties,0016
+13151,Sun Life Financial,SLF
+13161,Suncor Energy,SU
+13171,Sunny Optical,2382
+13181,Super Micro Computer,SMCI
+13191,Suzuki Motor,7269
+13201,Svenska Cellulosa,SCA-B
+13211,Svenska Enskilda Banken,SEB-A
+13221,Svenska Handelsbanken,SHB-A
+13231,Swatch Bearer,UHR
+13241,Swedbank,SWED-A
+13251,Swedish Match,SWMA
+13261,Swiss Life Holding,SLHN
+13271,Swiss Prime Site,SPSN
+13281,Swiss Re,SREN
+13291,Swiss Reinsurance Company,SREN
+13301,Swisscom,SCMN
+13311,Symrise,SY1
+13321,Synchrony Financial,SYF
+13331,Syngenta,SYT
+13341,Synopsys,SNPS
+13351,Sysco,SYY
+13361,T-Mobile US,TMUS
+13371,T. Rowe Price,TROW
+13381,T&D,8795
+13391,Taekwang Industrial,003240
+13401,Taihan Cable & Solution,001440
+13411,Taiheiyo Cement,5233
+13421,Taisei,1801
+13431,Taiyo Yuden,6976
+13441,Takara,2531
+13451,Takashimaya,8233
+13461,Take-Two Interactive,TTWO
+13471,Takeda Pharmaceutical,4502
+13481,Tapestry,TPR
+13491,Targa Resources,TRGP
+13501,Target Corporation,TGT
+13511,Taylor Wimpey,TW
+13521,TBEA,600089
+13531,TC Energy Corporation,TRP
+13541,TCC Steel,002710
+13551,TDK Corporation,6762
+13561,TE Connectivity,TEL
+13571,Technip,TE
+13581,Techtronic Industries,0669
+13591,Teck Resources,TECK.B
+13601,Teijin,3401
+13611,Telecom Italia,TIT
+13621,Teledyne Technologies,TDY
+13631,Telefonica,TEF
+13641,Telenor,TEL
+13651,Teliasonera,TELIA
+13661,Tencent Holdings,0700
+13671,Teradyne,TER
+13681,Terna,TRN
+13691,Terumo,4543
+13701,Tesco,TSCO
+13711,Tesla,TSLA
+13721,Teva Pharma Ind ADR,TEVA
+13731,Texas Instruments,TXN
+13741,Texas Pacific Land,TPL
+13751,Textron,TXT
+13761,Thales,HO
+13771,The Chiba Bank,8331
+13781,The Cigna Group,CI
+13791,The Coca-Cola Company,KO
+13801,The Cooper Companies,COO
+13811,The Hartford,HIG
+13821,The Hershey Company,HSY
+13831,The Interpublic Group of Companies,IPG
+13841,The J.M. Smucker Company,SJM
+13851,The Japan Steel Works,5631
+13861,The Mosaic Company,MOS
+13871,The Sage Group,SGE
+13881,The Southern Company,SO
+13891,The Travelers Companies,TRV
+13901,The Walt Disney Company,DIS
+13911,The Yokohama Rubber,5101
+13921,Thermo Fisher Scientific,TMO
+13931,Thomson Reuters,TRI
+13941,Thyssenkrupp,TKA
+13951,Tingyi,0322
+13961,TJX Companies,TJX
+13971,TKG Huchems,069260
+13981,TKO Holdings,TKO
+13991,Toast,TOST
+14001,Tobu Railway,9001
+14011,Toho,9602
+14021,Tokai Carbon,5301
+14031,Tokio Marine,8766
+14041,Tokuyama,4043
+14051,Tokyo Electric Power Company,9501
+14061,Tokyo Electron,8035
+14071,Tokyo Gas,9531
+14081,Tokyo Tatemono,8804
+14091,Tokyu,9005
+14101,Tokyu Land,3289
+14111,Tongwei Company,600438
+14121,Toppan Printing,7911
+14131,Toray Industries,3402
+14141,Toronto-Dominion Bank,TD
+14151,Tosoh,4042
+14161,Total,FP
+14171,TotalEnergies,TTE
+14181,Toto,5332
+14191,Tourmaline Oil,TOU
+14201,Toyota Industries,6201
+14211,Toyota Motor,7203
+14221,Toyota Tsusho,8015
+14231,Tractor Supply,TSCO
+14241,The Trade Desk,TTD
+14251,Tradeweb Markets,TW
+14261,Trane Technologies,TT
+14271,TransDigm Group,TDG
+14281,TransUnion,TRU
+14291,Transurban,TCL
+14301,Travis Perkins,TPK
+14311,Trend Micro,4704
+14321,Trimble,TRMB
+14331,Trina Solar,688599
+14341,Trip.com,TCOM
+14351,Truist Financial,TFC
+14361,TUI Group,TUI1
+14371,Twilio,TWLO
+14381,Tyler Technologies,TYL
+14391,Tyson Foods,TSN
+14401,U.S. Bancorp,USB
+14411,Ube Industries,4208
+14421,Uber,UBER
+14431,UBS,UBSG
+14441,UCB Group,UCB
+14451,UDR,UDR
+14461,Ulta Beauty,ULTA
+14471,Unibail-Rodamco,URW
+14481,UniCredit,UCG
+14491,Unilever,UNA
+14501,Union Pacific Corporation,UNP
+14511,United Airlines Holdings,UAL
+14521,United Internet,UTDI
+14531,United Overseas Bank,U11
+14541,United Parcel Service,UPS
+14551,United Rentals,URI
+14561,United Utilities,UU
+14571,UnitedHealth Group,UNH
+14581,Universal Health Services,UHS
+14591,Universal Music,UMG
+14601,UPM-Kymmene,UPM
+14611,US Bancorp,USB
+14621,Valeo,FR
+14631,Valero Energy,VLO
+14641,Veeva Systems,VEEV
+14651,Ventas,VTR
+14661,Veolia Environnement,VIE
+14671,Veralto,VLTO
+14681,Verisign,VRSN
+14691,Verisk Analytics,VRSK
+14701,Verizon Communications,VZ
+14711,Vertex Pharmaceuticals,VRTX
+14721,Vertiv Holdings,VRT
+14731,Vestas Wind Systems,VWS
+14741,Viatris,VTRS
+14751,Vici Properties,VICI
+14761,Vinci,DG
+14771,Visa,V
+14781,Vistra Corp.,VST
+14791,Vivendi,VIV
+14801,Vodafone,VOD
+14811,Volkswagen Pref,VOW3
+14821,Volkswagen Vorzug,VOW
+14831,Volvo,VOLV-B
+14841,Vonovia,VNA
+14851,Vulcan Materials Company,VMC
+14861,W. R. Berkley Corporation,WRB
+14871,W. W. Grainger,GWW
+14881,Wabtec,WAB
+14891,Walgreens Boots Alliance,WBA
+14901,Walmart,WMT
+14911,Wanhua Chemical,600309
+14921,Warner Bros. Discovery,WBD
+14931,Wartsila,WRT1V
+14941,Waste Connections,WCN
+14951,Waste Management,WM
+14961,Waters Corporation,WAT
+14971,Watsco,WSO
+14981,WEC Energy,WEC
+14991,Wells Fargo,WFC
+15001,Welltower,WELL
+15011,Wesfarmers,WES
+15021,West Japan Railway,9021
+15031,West Pharmaceutical Services,WST
+15041,Western Digital,WDC
+15051,Westpac Banking,WBC
+15061,Weyerhaeuser,WY
+15071,WH Group,0288
+15081,Wharf Real Estate Investment Company,1997
+15091,Wheaton Precious Metals,WPM
+15101,Whitbread,WTB
+15111,Will Semiconductor,603501
+15121,Williams Companies,WMB
+15131,Williams-Sonoma,WSM
+15141,Willis Towers Watson,WTW
+15151,Wolseley,WOSG
+15161,Wolters Kluwer,WLN
+15171,Woodside Energy,WDS
+15181,Woolworths,WOW
+15191,Woori Financial,316140
+15201,Workday,WDAY
+15211,WP Carey,WPC
+15221,WPP,WPP
+15231,WSP Global,WSP
+15241,WuXi AppTec,603259
+15251,WuXi Biologics,2269
+15261,Wynn Resorts,WYNN
+15271,Xcel Energy,XEL
+15281,Xero,XRO
+15291,Xiaomi,1810
+15301,Xinyi Glass,0868
+15311,Xinyi Solar,0968
+15321,Xylem,XYL
+15331,Yamaha,7951
+15341,Yamaha Motor,7272
+15351,Yamato,9064
+15361,Yara,YAR
+15371,Yaskawa Electric,6506
+15381,Yili,600887
+15391,Yokogawa Electric,6841
+15401,Youlchon Chemical,008730
+15411,Youngone Holdings,009190
+15421,Yuhan,000100
+15431,Yum! Brands,YUM
+15441,Zebra Technologies,ZBRA
+15451,Zhangzhou Pientzehuang Pharmaceutical,600436
+15461,Zhejiang Huayou Cobalt,603799
+15471,Zhongsheng,0881
+15481,Zijin Mining,2899
+15491,Zimmer Biomet,ZBH
+15501,Zoetis,ZTS
+15511,Zoom Communications,ZM
+15521,Zscaler,ZS
+15531,Zurich 15541,ZURN

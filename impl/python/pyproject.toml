@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nxr-mitch"
+version = "0.2.0"
+description = "MITCH binary protocol codec for Python"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+
+[project.urls]
+Repository = "https://github.com/nxrates/mitch"

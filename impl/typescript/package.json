@@ -1,0 +1,13 @@
+{
+  "name": "@nxrates/mitch",
+  "version": "0.2.0",
+  "description": "MITCH binary protocol codec for TypeScript",
+  "main": "mitch.ts",
+  "types": "mitch.ts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nxrates/mitch.git",
+    "directory": "impl/typescript"
+  }
+}

@@ -1,0 +1,17 @@
+mitch_id,name,aliases
+0,Spot,SPOT
+1,Future,FUT
+2,Forward,FWD
+3,Swap,SWAP
+4,Perpetual Swap,PERP
+5,Contract For Difference,CFD
+6,Call Option,CALL
+7,Put Option,PUT
+8,Digital Option,DIGI
+9,Barrier Option,BAR
+10,Warrant,WAR
+11,Prediction Contract,PRED
+12,Fund or Trust,FUND
+13,Structured Product,STRUCT
+14,*Reserved*,
+15,*Reserved*,

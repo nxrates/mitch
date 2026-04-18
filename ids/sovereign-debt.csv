@@ -1,0 +1,184 @@
+id,name,aliases
+00001,Argentina 10-year Argentine Government Bond,ARGB10|ARGENTINA10Y
+00101,Australia 1-year Government Bond,ACGB1|AU1Y|AUS1Y
+00201,Australia 2-year Government Bond,AU2Y|AUS2Y
+00301,Australia 3-month Treasury Note,BBSW3M|AUD3M|AUS3M
+00401,Australia 3-year Government Bond,AU3Y|AUS3Y
+00501,Australia 4-year Government Bond,ACGB4|AU4Y|AUS4Y
+00601,Australia 5-year Government Bond,AU5Y|AUS5Y
+00701,Australia 10-year Government Bond,ACGB10|YT|AU10Y|AUS10Y
+00801,Australia 10-year Treasury Indexed Bond,ACGBI10|ACGB_IL|AUS10Y_IL
+00901,Australia 15-year Government Bond,ACGB15|AU15Y|AUS15Y
+01001,Australia 20-year Government Bond,AU20Y|AUS20Y
+01101,Austria 2-year Austria Government Bond,GVAT2|AT2Y
+01201,Austria 5-year Austria Government Bond,GVAT5|AT5Y
+01301,Austria 10-year Austria Government Bond,GVAT10|AUSTRIA10Y
+01401,Belgium 2-year Belgium Government Bond,GBEL2|BE2Y|BEL2Y
+01501,Belgium 5-year Belgium Government Bond,GBEL5|BE5Y|BEL5Y
+01601,Belgium 10-year Belgium Government Bond,GBEL10|BELGIUM10Y|BE20Y|BEL10Y
+01701,Brazil 1-year Letras do Tesouro Nacional,BRLTN|BR1Y
+01801,Brazil 2-year NTN-B (inflation-linked),NTNB2|BR2Y_IL|BR2Y
+01901,Brazil 3-year LTN (fixed-rate zero coupon),LTN3Y|LTN|BR3Y
+02001,Brazil 5-year NTN-B,NTNB5|BR5Y_IL|BR5Y
+02101,Brazil 10-year Nota do Tesouro Nacional,BR10Y|BR10Y_IL|BR10Y
+02201,Brazil 10-year NTN-B,NTNB10|BR10Y_IL|BR10Y
+02301,Canada 2-year Government of Canada Bond,CGB2|CA2Y|CAN2Y
+02401,Canada 3-month Treasury Bill,CDOR3M|CAN3M|CAN3M
+02501,Canada 3-year Government of Canada Bond,CGB3|CA3Y|CAN3Y
+02601,Canada 5-year Government Bond,CGB5|BAX|CA5Y|CAN5Y
+02701,Canada 7-year Government of Canada Bond,CGB7|CA7Y|CAN7Y
+02801,Canada 10-year Government Bond,CGB10|CGF|CA10Y|CAN10Y
+02901,Canada 20-year Government Bond,CA20Y|CAN20Y
+03001,Canada 30-year Real Return Bond (inflation-linked),CRRB30|CRR|CA30Y|CAN30Y
+03101,Canada - Alberta 10-year Provincial Bond,ALBERTA10Y|AB10Y|AB10Y
+03201,Canada - British Columbia 10-year Provincial Bond,BC10Y|BRITISH_COLUMBIA_10Y
+03301,Canada - Ontario 10-year Provincial Bond,ONTARIO10Y|ON10Y
+03401,Canada - Quebec 10-year Provincial Bond,QUEBEC10Y|QC10Y
+03501,Chile 10-year Chilean Government Bond,CHGB10|CHILE10Y
+03601,China 1-year Government Bond,CGB1|CN1Y|CHINA1Y
+03701,China 3-year Government Bond,CGB3|CN3Y|CHINA3Y
+03801,China 5-year Government Bond,CGB5|CN5Y|CHINA5Y
+03901,China 7-year Government Bond,CGB7|CN7Y|CHINA7Y
+04001,China 10-year Government Bond,CGB10|CHINA10Y|CN10Y|CHINA10Y
+04101,Colombia 10-year Colombian Government Bond,COGB10|COLOMBIA10Y
+04201,Czech Republic 10-year Czech Government Bond,CZGB10|CZECH10Y
+04301,Denmark 10-year Danish Government Bond,GDEN10|DENMARK10Y|DEN10Y
+04401,European Union 10-year EU Bond,EU10Y
+04501,Finland 10-year Finnish Government Bond,GFIN10|FINLAND10Y|FIN10Y
+04601,France BTF (3-month Treasury bill),EUFR3M|BTF|FR3M
+04701,France 2-year OAT,FRTR2|FR2Y|OAT2Y|FR2Y
+04801,France 3-year OAT,FRTR3|FR3Y|OAT3Y|FR3Y
+04901,France BTAN (5-year medium-term note),BTAN|FRTR5|FR5Y|FR5Y
+05001,France 7-year OAT,FRTR7|FR7Y|OAT7Y|FR7Y
+05101,France OAT (10-year Treasury bond),FOAT|OAT|FRTR10|FR10Y|FR10Y
+05201,France 15-year OAT,FRTR15|FR15Y|OAT15Y|FR15Y
+05301,France OAT 20-year,FR20Y
+05401,France OAT 30-year,FR30Y
+05501,France OAT 50-year Ultra-long bond,FRTR50|OAT72
+05601,France OAT€i (10-year Euro-HICP linker),OATi|FREI10|FRI10Y
+05701,Germany 3-month Bubill,BUBILL3M|DE3M
+05801,Germany Bubill (6-month Treasury discount),BUBILL|EUR001M
+05901,Germany Schatz (2-year federal note),FGBS|SCHATZ|GDBR2|DE2Y
+06001,Germany Bobl (5-year federal note),FGBM|BOBL|GDBR5|DE5Y
+06101,Germany 7-year Bund,GDBR7|DE7Y
+06201,Germany Bund (10-year federal bond),FGBL|BUND|GDBR10|DE10Y|FBTP
+06301,Germany 15-year Bund,GDBR15|DE15Y
+06401,Germany 30-year Bund,FGBX|BUXL|GDBR30|DE30Y
+06501,Germany 5-year Inflation-Linked Bund,GTII5|BDEI5|DEI5Y
+06601,Germany 10-year Inflation-Linked Bund,GTII10|BDEI10|DEI10Y
+06701,Hong Kong 10-year Hong Kong Government Bond,HKGB10|HK10Y
+06801,Hungary 10-year Hungarian Government Bond,HUGB10|HUNGARY10Y
+06901,India 5-year Government Security,GSEC5|IN5Y
+07001,India 7-year Government Security (G-Sec),GSEC7
+07101,India 10-year Government Security (G-Sec),GSEC10|INDIA10Y|IN10Y
+07201,India 15-year Government Security,GSEC15|IN15Y
+07301,Indonesia 5-year Indonesian Government Bond,INDONESIA5Y|IDGB5|ID5Y
+07401,Indonesia 10-year Indonesian Government Bond,INDONESIA10Y|IDGB10|ID10Y
+07501,International Monetary Fund IMF Note,IMF
+07601,Israel 10-year Israeli Government Bond,ILGB10|ISRAEL10Y
+07701,Italy 3-month BOT,BOT3M|ITGB3M|IT3M
+07801,Italy 2-year BTP,GBTPGR2|IT2Y|BTP2Y|IT2Y
+07901,Italy 3-year BTP,IT3Y
+08001,Italy 5-year CCTeu (Floating-Rate Note),CCT5Y|ITGB5|IT5Y|CCT
+08101,Italy 6-year BTP Italia (Inflation-linked retail),BTPI6Y|BTPI|IT6Y
+08201,Italy 7-year BTP,GBTPGR7|IT7Y|BTP7Y
+08301,Italy 7-year BTP Valore (Step-up retail),BTPV7Y|BTPV
+08401,Italy 10-year BTP,FBTP10|BTP10|GBTPGR10|IT10Y
+08501,Italy 15-year Green BTP,BTPG15|BTPG|IT15Y
+08601,Italy 20-year BTP,GBTPGR20|IT20Y|BTP20Y
+08701,Italy 30-year BTP,IT30Y
+08801,Italy 50-year BTP (Ultra-long),GBTPGR50|BTP72|IT50Y
+08901,Italy BOT (12-month Treasury bill),BOT12M|ITGB12M|BOT|IT12M
+09001,Japan 3-month Treasury Bill,JGBS3M|JP3M
+09101,Japan Treasury Discount Bill (6-month bill),JGBS|JPY6M
+09201,Japan 1-year JGB,GJGB1|JP1Y|JGB1Y
+09301,Japan 2-year Fixed-Rate JGB,JGBM2|GJGB2|JP2Y
+09401,Japan 5-year JGB,GJGB5|JP5Y|JGB5Y
+09501,Japan 10-year Fixed-Rate JGB,JGBF10|GJGB10|JP10Y|JGBF
+09601,Japan 10-year Inflation-Indexed JGB,JGBI10|JPEI10
+09701,Japan 15-year JGB,GJGB15|JP15Y|JGB15Y
+09801,Japan 20-year JGB,JGB20|GJGB20|JP20Y|JGBX
+09901,Japan 30-year JGB,JGB30|GJGB30|JP30Y|JGBZ
+10001,Japan 40-year JGB,GJGB40|JP40Y|JGB40Y
+10101,Japan JGB Floating-Rate Bond,JGBFR
+10201,Malaysia 10-year Malaysian Government Bond,MALAYSIA10Y|MGBD10
+10301,Mexico CETE (28-day Treasury bill),CETE
+10401,Mexico 3-year Bonos,BONOS3|MX3Y
+10501,Mexico 5-year Bonos de Desarrollo,MX5Y
+10601,Mexico 7-year Bonos,BONOS7|MX7Y
+10701,Mexico 10-year Bonos de Desarrollo,MX10Y
+10801,Mexico 10-year UDIBONOS (inflation-linked),UDIBONOS10|MX10Y_IL
+10901,Mexico 20-year Bonos,BONOS20|MX20Y
+11001,Netherlands 2-year Dutch State Bond,NETHER2|NL2Y
+11101,Netherlands 3-month Treasury Bill,NL3M|NETHER3M
+11201,Netherlands 5-year Dutch State Bond,NETHER5|NL5Y
+11301,Netherlands 10-year Dutch State Bond (DSL),NETHER10|GDBR10|NL10Y
+11401,Netherlands 30-year Dutch State Bond,NETHER30|DSL30|NL30Y
+11501,New Zealand 5-year New Zealand Government Bond,NZGB5|NZ5Y
+11601,New Zealand 10-year New Zealand Government Bond,NZGB10|NZ10Y
+11701,Norway 10-year Norwegian Government Bond,GNOR10|NORWAY10Y|NOR10Y
+11801,Peru 10-year Peruvian Government Bond,PEGB10|PERU10Y
+11901,Philippines 10-year Philippine Government Bond,PHILIPPINES10Y|PGBD10
+12001,Poland 10-year Polish Government Bond,POGB10|POLAND10Y|PL10Y
+12101,Romania 10-year Romanian Government Bond,ROGB10|ROMANIA10Y|RO10Y
+12201,Russia 10-year Russian Government Bond (OFZ),RUGB10|OFZ|RUGB|RUB10Y
+12301,Saudi Arabia 10-year Government Bond,SAGB10_SA|SAUDI10Y|SA10Y
+12401,Singapore 2-year Government Bond,SINGAPORE2Y|SGBD2|SG2Y
+12501,Singapore 10-year Government Bond,SINGAPORE10Y|SGBD10|SG10Y
+12601,South Africa 10-year Government Bond,SAGB10|SA10Y|ZA10Y
+12701,South Africa 20-year Government Bond,SAGB20|ZA20Y
+12801,South Korea 3-year Korea Treasury Bond,KTB3|KOR3Y|KR3Y
+12901,South Korea 10-year Korea Treasury Bond,KTB10|KOR10Y|KR10Y
+13001,Spain Letra del Tesoro (6-month bill),LETRA6M|SPGB3M|ES6M
+13101,Spain 3-year Spanish Government Bond,ES3Y|ES3Y
+13201,Spain 5-year Bono (Government bond),SPGB5|BONO|ES5Y
+13301,Spain 10-year Bonos (Government bond),SPGB10|BONOS|ES10Y
+13401,Spain 15-year Inflation-Linked Bonos,SPGBEI15|SPGB_IL|ES15Y
+13501,Spain 30-year Obligación,SPGB30|OBLIGACION|ES30Y
+13601,Supranational African Development Bank 3-year USD Global Benchmark,AFDB|AfDB|AFDB3Y
+13701,Supranational Asian Development Bank 5-year USD Global Benchmark,ADB|AsDB|ADB5Y
+13801,Supranational European Investment Bank 10-year EUR Climate Bond,EIB|EIB_CAB|EUR10Y
+13901,Supranational World Bank (IBRD) 7-year USD Sustainable Bond,IBRD|WB|WB7Y
+14001,Sweden 3-month Treasury Bill,SEK3M|SWEDEN3M|SE3M
+14101,Sweden 10-year Government Bond,GSWE10|SWEDEN10Y|SE10Y
+14201,Sweden Swedish Green Bond,SGVB|SWE_GREEN
+14301,Switzerland 2-year Swiss Government Bond,GSWISS2|CH2Y
+14401,Switzerland 5-year Swiss Government Bond,GSWISS5|CH5Y
+14501,Switzerland 10-year Swiss Government Bond,GSWISS10|CH10Y
+14601,Switzerland Swiss Confederation Bond 1-3y,CSBGC3|SBI_1_3
+14701,Switzerland Swiss Confederation Bond 3-7y,CSBGC7|SBI_3_7
+14801,Switzerland Swiss Confederation Bond 7-15y,CSBGC15|SBI_7_15|CSBGC0
+14901,Taiwan 10-year Taiwan Government Bond,TGBD10|TAIWAN10Y|TW10Y
+15001,Thailand 10-year Thai Government Bond,THAILAND10Y|TGBD10|TH10Y
+15101,Turkey 2-year Turkish Government Bond,TURKEY2Y|TGBD2|TR2Y
+15201,Turkey 10-year Turkish Government Bond,TURKEY10Y|TGBD10|TR10Y
+15301,United Kingdom Treasury Bill (6-month bill),SONIA|UKTB6M|GB6M
+15401,United Kingdom 2-year Gilt,GUKG2|UK2Y|GILT2Y|GB2Y
+15501,United Kingdom 3-year Gilt,GUKG3|UK3Y|GILT3Y|GB3Y
+15601,United Kingdom 5-year Gilt,G5Y|GILT5|GUKG5|GB5Y
+15701,United Kingdom 5-year Index-Linked Gilt,UKIL5Y|GB5Y_IL
+15801,United Kingdom 7-year Gilt,GUKG7|UK7Y|GILT7Y|GB7Y
+15901,United Kingdom 10-year Gilt,G10Y|GILT10|GUKG10|GB10Y
+16001,United Kingdom 10-year Index-Linked Gilt,UKIL10|GB10Y_IL
+16101,United Kingdom 15-year Gilt,GUKG15|UK15Y|GILT15Y|GB15Y
+16201,United Kingdom 20-year Gilt,UK20Y|GB20Y
+16301,United Kingdom 30-year Gilt,G30Y|GILT30|GUKG30|GB30Y
+16401,United Kingdom 50-year Gilt,GUKG50|UK50Y|GILT50Y|GB50Y
+16501,United States 4-week Treasury Bill,DGS1MO|TB4W|IRX_TB4W|US4W
+16601,United States 3-month Treasury Bill,IRX|TB3M|DGS3MO|US3M
+16701,United States 6-month Treasury Bill,TB6M|DGS6MO|IRX6M|US6M
+16801,United States 52-week Treasury Bill,TB52W|DGS52W|US52W
+16901,United States 1-year Treasury Bill,DGS1|TB1Y|ZBIL1|US1Y
+17001,United States 2-year Treasury Note,ZT|TU|DGS2|TN2Y|US2Y
+17101,United States 2-year TIPS,TIP2Y|DFII2Y|US2Y_IL
+17201,United States 3-year Treasury Note,T3Y|DGS3Y|US3Y
+17301,United States 5-year Treasury Note,ZF|FV|DGS5|FVX|US5Y
+17401,United States 5-year TIPS,TIP5Y|DFII5|US5Y_IL
+17501,United States 7-year Treasury Note,T7Y|US7Y
+17601,United States 10-year Treasury Note,ZN|TY|DGS10|TNX|US10Y
+17701,United States 10-year TIPS,TIP10Y|DFII|SCHP|TIPS|US10Y_IL
+17801,United States 20-year Treasury Bond,DGS20|ZB20|USB20|TYX20|US20Y
+17901,United States 20-year TIPS,TIP20Y|DFII20Y|US20Y_IL
+18001,United States 30-year Treasury Bond,ZB|USB30|DGS30|TYX30|US30Y
+18101,United States 30-year TIPS,TIP30Y|US30Y_IL
+18201,United States Treasury Floating Rate Note,FRN|USFRN

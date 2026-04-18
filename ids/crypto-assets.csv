@@ -1,0 +1,195 @@
+id,name,aliases
+00001,0x Protocol,ZRX
+00101,1inch Network,1INCH
+00201,AAVE GHO,GHO
+00301,AAVE,AAVE
+00401,Aerodrome Exchange,AERO
+00501,Agora USD,AUSD
+00601,Alchemix USD,alUSD
+00701,Anzen USD,USDZ
+00801,Aptos,APT
+00901,Arbitrum,ARB
+01001,Arweave,AR
+01101,Avalanche,AVAX
+01201,Avalon USD,USDa
+01301,Avant USD,avUSD
+01401,Axelar,AXL
+01501,Babylon,BABY
+01601,Balancer Exchange,BAL
+01701,Bedrock Staked Unified BTC,brBTC
+01801,Bedrock Unified BTC,uniBTC
+01901,Binance Coin,BNB
+02001,Binance ETH,BETH
+02101,Binance Staked SOL,bnSOL
+02201,Binance USD,BUSD
+02301,Bitcoin Avalanche,BTC.e
+02401,Bitcoin BEP2,BTCB
+02501,Bitcoin Cash,BCH
+02601,Bitcoin SV,BSV
+02701,Bitcoin,BTC|XBT
+02801,Bitfinex LEO,LEO
+02901,Bitget Token,BGB
+03001,BitMart Token,BMX
+03101,Bitrue Coin,BTR
+03201,BounceBit BTC,BBTC
+03301,BTSE Token,BTSE
+03401,Camelot Exchange,GRAIL
+03501,Cardano,ADA
+03601,Cetus,CETUS
+03701,Chainlink,LINK
+03801,Circle USYC,USYC
+03901,Coinbase BTC,cbBTC
+04001,Coinbase Staked ETH,cbETH
+04101,Compounding OpenEden USD,CUSDO
+04201,Cosmos,ATOM
+04301,Cow Protocol,COW
+04401,Crypto.com Cronos,CRO
+04501,Curve DAO,CRV
+04601,Curve USD,crvUSD
+04701,Cygnus clBTC,
+04801,DAI Stablecoin,DAI
+04901,Dash,DASH
+05001,DeepBook,DEEP
+05101,Dogecoin,DOGE
+05201,Electronic USD,eUSD
+05301,Elixir Decentralized USD,deUSD
+05401,Ethena Delta-Neutral USD,USDe
+05501,Ethena Treasury USD,USDtb
+05601,Ethena,ENA
+05701,Ethereum Plus,ETH+
+05801,Ethereum,ETH
+05901,EtherFi Staked BTC,eBTC
+06001,EtherFi Wrapped Staked eETH,weETH
+06101,EtherFi,ETHFI
+06201,Euler,EUL
+06301,f(x) Protocol USD,fxUSD
+06401,Falcon USD,USDF
+06501,Filecoin,FIL
+06601,First Digital USD,FDUSD
+06701,Flare,FLR
+06801,FLUID
+06901,Frax Dollar,frxUSD
+07001,Frax ETH,frxETH
+07101,Gate Token,GT
+07201,Gemini Dollar,GUSD
+07301,Gyroscope GYD,GYD
+07401,Hedera,HBAR
+07501,HTX DAO,HTX
+07601,Hyperliquid,HYPE
+07701,Inverse Finance DOLA,DOLA
+07801,Jito Staked SOL,JitoSOL
+07901,Jito,JTO
+08001,Joe,JOE
+08101,Jupiter Staked SOL,JupSOL
+08201,Jupiter,JUP
+08301,Kelp DAO Restaked ETH,rsETH
+08401,Kelp Gain ETH,agETH
+08501,KuCoin Shares,KCS
+08601,Kusama,KSM
+08701,Level USD,lvlUSD
+08801,Liberty Financial USD,USD1
+08901,Lido Wrapped Staked ETH,wstETH
+09001,Lido,LDO
+09101,Lift USD,USDL
+09201,Liquid Collective Staked ETH,LsETH
+09301,Liquity USD,LUSD
+09401,Lista DAO Staked BNB,slisBNB
+09501,Lista DAO USD,lisUSD
+09601,Litecoin,LTC
+09701,Lombard Staked BTC,LBTC
+09801,Lorenzo Staked BTC,stBTC
+09901,Magic Internet Money,MIM
+10001,Mantle Restaked ETH,cmETH
+10101,Mantle Staked ETH,mETH
+10201,Mantle,MNT
+10301,Maple Finance,SYRUP
+10401,Marinade Staked SOL,mSOL
+10501,MEXC Token,MX
+10601,Monero,XMR
+10701,Morpho,MORPHO
+10801,Mountain Protocol USD,USDM
+10901,NEAR,NEAR
+11001,Neutrino USD,USDN
+11101,Nexo,NEXO
+11201,Nexus Mutual,NXM
+11301,Noble USD,USDN
+11401,OKX Token,OKB
+11501,Ondo Treasury Fund,OUSG
+11601,Ondo US Dollar Yield,USDY
+11701,OpenEden USD,USDO
+11801,Optimism,OP
+11901,Orca Exchange,ORCA
+12001,Origin Dollar,OUSD
+12101,Overnight USD,USD+
+12201,PancakeSwap,CAKE
+12301,Pax Dollar,USDP
+12401,PayPal USD,PYUSD
+12501,Pendle,PENDLE
+12601,Plume Network,PLUME
+12701,Polkadot,DOT
+12801,Polygon,MATIC
+12901,Polygon,POL
+13001,Pyth Network,PYTH
+13101,QuickSwap,QUICK
+13201,Raydium Exchange,RAY
+13301,Renzo Restaked ETH,ezETH
+13401,Reserve Dollar,RSV
+13501,Reserve Rights,RSR
+13601,Resolv Delta Neutral USD,USR
+13701,Resolv Liquidity Pool,RLP
+13801,Ripple USD,RLUSD
+13901,Rocket Pool Staked ETH,rETH
+14001,Rocket Pool,RPL
+14101,Rootstock Bitcoin,rBTC
+14201,Savings DAI,sDAI
+14301,Sei,SEI
+14401,Siacoin,SC
+14501,Sky Protocol,SKY
+14601,Sky USDS,USDS
+14701,Solana,SOL
+14801,Solv Staked BTC,solvBTC
+14901,Sonic,S
+15001,Stables Labs Staked USDX,USDX
+15101,Stables Labs USDX,USDX
+15201,Staked Anzen USDZ,sUSDZ
+15301,Staked Avalon USDa,sUSDa
+15401,Staked Avant avUSD,savUSD
+15501,Staked Curve USD,scrvUSD
+15601,Staked Elixir USD,sdeUSD
+15701,Staked Ethereum,XETH
+15801,Staked Frax Dollar,sfrxUSD
+15901,Staked Frax ETH,sfrxETH
+16001,Staked Inverse Finance DOLA,sDOLA
+16101,Staked Level USD,slvlUSD
+16201,Staked Sky USD,SUSDS
+16301,Staked USDe,sUSDe
+16401,Staked Usual USD,USD0++
+16501,StakeWise Staked ETH,osETH
+16601,Stargate Finance,STG
+16701,Story,IP
+16801,Superstate Treasury Fund,USTB
+16901,sUSD Synthetix,sUSD
+17001,Sushi,SUSHI
+17101,Swell Restaked ETH,rswETH
+17201,Swell Staked ETH,swETH
+17301,Syrup USD,syrupUSD
+17401,TerraUSD Classic,USTC
+17501,Tether USD0,USDT0
+17601,Tether,USDT
+17701,Thena Exchange,THE
+17801,THORChain,RUNE
+17901,Threshold Network BTC,tBTC
+18001,TON Chain,TON
+18101,Tron,TRX
+18201,TrueFi USD,TUSD
+18301,UMA DAO,UMA
+18401,Uniswap,UNI
+18501,USD Coin,USDC
+18601,USDD Stablecoin,USDD
+18701,Usual Dollar USD0,USD0
+18801,Vaulta,A
+18901,WhiteBit Token,WBT
+19001,WorldCoin,WLD
+19101,Wormhole,W
+19201,Wrapped BTC,WBTC
+19301,XT.com Token,XT
