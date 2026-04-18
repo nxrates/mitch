@@ -1,0 +1,16 @@
+id,name,aliases
+0,Equities,EQ
+1,Corporate Bonds,CB
+2,Sovereign Debt,SD
+3,Forex,FX
+4,Commodities,CM
+5,Real Estate,RE
+6,Crypto Assets,CR
+7,Private Markets,PM
+8,Collectibles,CL
+9,Infrastructure,IN
+10,Indices & Index Products,IP
+11,Structured Products,SP
+12,Cash & Equivalents,CE
+13,Loans & Receivables,LR
+14,*Reserved*,

@@ -1,0 +1,68 @@
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore Java compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore TypeScript compiled files
+*.js
+*.d.ts
+node_modules/
+
+# Ignore C compiled files
+*.o
+*.out
+*.a
+*.so
+*.exe
+
+# Ignore C++ compiled files
+*.o
+*.out
+*.a
+*.so
+*.exe
+
+# Ignore Rust and Cargo build artifacts
+/target
+**/target
+/build
+**/build
+*.rlib
+*.lock
+Cargo.lock
+Cargo.toml.orig
+.cargo/
+.cargo-vcs/
+*.rs.bk
+*.rs.swp
+
+# Ignore Rust coverage and test output
+htmlcov/
+coverage/
+*.profraw
+*.profdata
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore JetBrains/IntelliJ IDEA project files
+.idea/
+*.iml
+
+# Ignore Claude AI files
+.claude/
+
+# Ignore Cursor editor files
+.cursor/
+
+# Ignore Go build files
+*.exe
+*.test
+*.out
+/vendor/
