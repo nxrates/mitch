@@ -151,8 +151,7 @@ impl Index {
     /// Inverse of the encoding described on [`Self::ci`]:
     ///   `ci_ubp = (ci / 16)^2`, `ci_price = mid * ci_ubp / 1e8`.
     pub fn ci_price(&self) -> f64 {
-        const CI_SCALE: f64 = 16.0;
-        let x = self.ci as f64 / CI_SCALE;
+        let x = self.ci as f64 / crate::common::CI_SCALE;
         let ci_ubp = x * x;
         self.mid() * ci_ubp / 1e8
     }

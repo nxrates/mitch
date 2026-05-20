@@ -6,6 +6,19 @@
 use core::fmt;
 
 // =============================================================================
+// SHARED ENCODING CONSTANTS
+// =============================================================================
+
+/// Sqrt-compression scale factor for the u16 CI wire encoding.
+///
+/// `encoded = round(sqrt(ci_ubp) * CI_SCALE)`; `ci_ubp = (encoded / CI_SCALE)^2`.
+/// With `CI_SCALE = 16.0` the u16 covers `ci_ubp` up to ~16.77e6 (≈16.77% of mid)
+/// before saturation, vastly exceeding the prior 65535 ubp (0.065% of mid)
+/// linear limit. Used by `Index::ci`, `Bar::avg_ci_ubp`, and the SDK
+/// `bar_builder` / `tdwap` modules — all must agree.
+pub const CI_SCALE: f64 = 16.0;
+
+// =============================================================================
 // MESSAGE TYPE CONSTANTS
 // =============================================================================
 
