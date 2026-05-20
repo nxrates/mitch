@@ -22,7 +22,7 @@
 //! 36     | confidence | 1    | u8    | Active provider count
 //! 37     | accepted   | 1    | u8    | Accepted providers
 //! 38     | rejected   | 1    | u8    | Rejected providers
-//! 39     | _pad       | 1    | [u8;1]| Reserved padding
+//! 39     | flags      | 1    | u8    | Bitfield (reserved, currently zero)
 //! ```
 
 use crate::body::MitchBody;
@@ -75,8 +75,8 @@ pub struct Index {
     pub accepted: u8,
     /// Rejected providers (1 byte)
     pub rejected: u8,
-    /// Reserved padding (1 byte)
-    pub _pad: [u8; 1],
+    /// Flags bitfield (1 byte, currently reserved and zero).
+    pub flags: u8,
 }
 
 // Compile-time size assertion
@@ -107,7 +107,7 @@ impl Index {
             confidence,
             accepted,
             rejected,
-            _pad: [0; 1],
+            flags: 0,
         }
     }
 
@@ -179,13 +179,39 @@ impl Index {
         message_sizes::INDEX
     }
 
-    /// Validate message data integrity
+    /// Validate message data integrity.
+    ///
+    /// Reject sites:
+    /// - Zero ticker, non-positive or non-finite bid/ask, crossed quote.
+    /// - `confidence > accepted` (active count must not exceed accepted count).
+    /// - `spread_bps > MAX_SPREAD_BPS` (20% cap: thin enough to reject corrupted
+    ///   feeds, wide enough to admit the widest illiquid pairs).
     pub fn validate(&self) -> Result<(), MitchError> {
-        if self.ticker == 0 { return Err(MitchError::InvalidFieldValue("Ticker cannot be zero".into())); }
-        if self.bid <= 0.0 { return Err(MitchError::InvalidFieldValue("Bid price must be positive".into())); }
-        if self.ask <= 0.0 { return Err(MitchError::InvalidFieldValue("Ask price must be positive".into())); }
-        if self.ask < self.bid { return Err(MitchError::InvalidFieldValue("Ask must be >= bid".into())); }
-        if self.accepted == 0 && self.confidence > 0 { return Err(MitchError::InvalidFieldValue("Cannot have confidence without accepted providers".into())); }
+        // Copy out of the packed struct so we can do float math without
+        // triggering unaligned-reference lints.
+        let bid = self.bid;
+        let ask = self.ask;
+        let ticker = self.ticker;
+        let accepted = self.accepted;
+        let confidence = self.confidence;
+
+        if ticker == 0 { return Err(MitchError::InvalidFieldValue("Ticker cannot be zero".into())); }
+        if !bid.is_finite() { return Err(MitchError::InvalidFieldValue("Bid must be finite".into())); }
+        if !ask.is_finite() { return Err(MitchError::InvalidFieldValue("Ask must be finite".into())); }
+        if bid <= 0.0 { return Err(MitchError::InvalidFieldValue("Bid price must be positive".into())); }
+        if ask <= 0.0 { return Err(MitchError::InvalidFieldValue("Ask price must be positive".into())); }
+        if ask < bid { return Err(MitchError::InvalidFieldValue("Ask must be >= bid".into())); }
+        if accepted == 0 && confidence > 0 { return Err(MitchError::InvalidFieldValue("Cannot have confidence without accepted providers".into())); }
+        if confidence > accepted { return Err(MitchError::InvalidFieldValue("confidence cannot exceed accepted".into())); }
+
+        const MAX_SPREAD_BPS: f64 = 2000.0;
+        let mid = (bid + ask) / 2.0;
+        if mid > 0.0 {
+            let spread_bps = (ask - bid) / mid * 10_000.0;
+            if spread_bps > MAX_SPREAD_BPS {
+                return Err(MitchError::InvalidFieldValue("spread exceeds 2000 bps cap".into()));
+            }
+        }
         Ok(())
     }
 }

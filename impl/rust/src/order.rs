@@ -10,7 +10,21 @@ use crate::common::{
 };
 use crate::timestamp::{encode_u48, decode_u48};
 
-/// Order lifecycle event (32 bytes)
+/// Order lifecycle event (32 bytes).
+///
+/// ## Wire layout (little-endian)
+///
+/// ```text
+/// Offset | Field         | Size | Type    | Description
+/// -------|---------------|------|---------|--------------------------------------
+/// 0      | ticker        | 8    | u64 LE  | Ticker identifier
+/// 8      | order_id      | 4    | u32 LE  | Order identifier
+/// 12     | price         | 8    | f64 LE  | Order price
+/// 20     | qty           | 4    | u32 LE  | Order quantity
+/// 24     | type_and_side | 1    | u8      | [3:0] order type, [7:4] side
+/// 25     | expiry        | 6    | u48 LE  | Expiry mts (16 us ticks; 0 = GTC)
+/// 31     | _pad          | 1    | [u8; 1] | Alignment to 32B boundary
+/// ```
 #[repr(C, packed)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "bytemuck", derive(bytemuck::Pod, bytemuck::Zeroable))]
@@ -21,7 +35,7 @@ pub struct Order {
     pub qty: u32,
     pub type_and_side: u8,
     pub expiry: [u8; 6],
-    pub _padding: u8,
+    pub _pad: [u8; 1],
 }
 
 impl Order {
@@ -42,7 +56,7 @@ impl Order {
             qty,
             type_and_side: combine_type_and_side(order_type, side),
             expiry: encode_u48(expiry_ms),
-            _padding: 0,
+            _pad: [0; 1],
         };
         order.validate()?;
         Ok(order)

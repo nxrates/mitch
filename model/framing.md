@@ -4,13 +4,16 @@
 
 ## Frame Layout
 
-Every MITCH message on the wire or on disk is a **frame**: `[MitchHeader 8B][Body x count]`. The header carries message type, timestamp, and batch count. Body types never embed their own timestamps.
+Every MITCH message on the wire or on disk is a **frame**: `[MitchHeader 16B][Body x count]`. The header carries message type, provider ID, timestamp, batch count, flags, sequence, and reserved padding. Body types never embed their own timestamps.
 
 ```text
-[  MitchHeader 8B  ][ Body 0 ][ Body 1 ]...[ Body N-1 ]
-|-- type u8 --------|
-|-- timestamp u48 --|
-|-- count u8 -------|
+[  MitchHeader 16B ][ Body 0 ][ Body 1 ]...[ Body N-1 ]
+|-- type_provider u16 --|  (low 4b = msg code, bits 4..16 = provider_id)
+|-- timestamp u48 ------|
+|-- count u8 -----------|
+|-- flags u8 -----------|
+|-- sequence u16 -------|
+|-- _reserved [u8; 4] --|
 ```
 
 ### Wire (Streaming)
@@ -39,41 +42,52 @@ Single-instruction shift-based codec. See `mitch::timestamp` module.
 
 ## Concrete Frame Types
 
-### TradeFrame (32 bytes)
+### TradeFrame (40 bytes)
 
-`[MitchHeader 8B][Trade 24B]`
-
-| Field  | Offset | Size | Description              |
-|--------|--------|------|--------------------------|
-| Header | 0      | 8    | MitchHeader (type = `t`) |
-| Body   | 8      | 24   | Trade                    |
-
-### TickFrame (40 bytes)
-
-`[MitchHeader 8B][Tick 32B]`
+`[MitchHeader 16B][Trade 24B]`
 
 | Field  | Offset | Size | Description              |
 |--------|--------|------|--------------------------|
-| Header | 0      | 8    | MitchHeader (type = `s`) |
-| Body   | 8      | 32   | Tick                     |
+| Header | 0      | 16   | MitchHeader (type = `t`) |
+| Body   | 16     | 24   | Trade                    |
 
-### IndexFrame (48 bytes)
+### TickFrame (48 bytes)
 
-`[MitchHeader 8B][Index 40B]`
-
-| Field  | Offset | Size | Description              |
-|--------|--------|------|--------------------------|
-| Header | 0      | 8    | MitchHeader (type = `i`) |
-| Body   | 8      | 40   | Index                    |
-
-### BarFrame (136 bytes)
-
-`[MitchHeader 8B][Bar 128B]`
+`[MitchHeader 16B][Tick 32B]`
 
 | Field  | Offset | Size | Description              |
 |--------|--------|------|--------------------------|
-| Header | 0      | 8    | MitchHeader (type = `k`) |
-| Body   | 8      | 128  | Bar                      |
+| Header | 0      | 16   | MitchHeader (type = `s`) |
+| Body   | 16     | 32   | Tick                     |
+
+### IndexFrame (56 bytes)
+
+`[MitchHeader 16B][Index 40B]`
+
+| Field  | Offset | Size | Description              |
+|--------|--------|------|--------------------------|
+| Header | 0      | 16   | MitchHeader (type = `i`) |
+| Body   | 16     | 40   | Index                    |
+
+### BarFrame (112 bytes)
+
+`[MitchHeader 16B][Bar 96B]`
+
+| Field  | Offset | Size | Description              |
+|--------|--------|------|--------------------------|
+| Header | 0      | 16   | MitchHeader (type = `k`) |
+| Body   | 16     | 96   | Bar                      |
+
+### HeartbeatFrame (32 bytes)
+
+`[MitchHeader 16B][Heartbeat 16B]`
+
+| Field  | Offset | Size | Description              |
+|--------|--------|------|--------------------------|
+| Header | 0      | 16   | MitchHeader (type = `h`) |
+| Body   | 16     | 16   | Heartbeat                |
+
+Body: `ticker u64` (0 = feed-wide, else per-symbol), `msg_count u32` (data frames emitted since the last heartbeat, wraps at `u32::MAX`), `_pad [u8; 4]`. Consumers diff successive `msg_count` values to quantify gaps between beats; the header `sequence` field tracks gaps between the heartbeats themselves.
 
 ## File Format
 
@@ -81,7 +95,7 @@ Binary frame files are flat arrays of fixed-size frame records with no file-leve
 
 ```text
 [TickFrame 0][TickFrame 1][TickFrame 2]...
-|--- 40B ---|--- 40B ---|--- 40B ---|
+|--- 48B ---|--- 48B ---|--- 48B ---|
 ```
 
 Supports zero-copy access via `mmap` + `bytemuck::cast_slice::<u8, TickFrame>`.
@@ -95,7 +109,7 @@ let ticks = timestamp::from_epoch_ms(1_744_364_200_000);
 let tick = Tick::new_unchecked(ticker_id, 100.0, 100.05, 500, 600);
 let frame = TickFrame::new(ticks, tick);
 
-let ts_ms = timestamp::to_epoch_ms(frame.timestamp());
+let epoch_ms = timestamp::to_epoch_ms(frame.timestamp());
 let mid = frame.mid_price();
 
 // Zero-copy file I/O (bytemuck)

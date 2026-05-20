@@ -12,7 +12,7 @@
  *   Index      40 bytes
  *   Bin         8 bytes
  *   OrderBook 2072 bytes
- *   Bar       128 bytes
+ *   Bar        96 bytes
  *
  * Features:
  * - Trade, Order, Tick, OrderBook, and Index message types
@@ -187,14 +187,14 @@ export const MESSAGE_SIZES = {
   INDEX:           40,
   BIN:              8,
   ORDER_BOOK:    2072,
-  BAR:            128,
+  BAR:             96,
   // Legacy keys
   ORDER_BOOK_HEADER: 32,
   ORDER_BOOK_VOLUME:  4,
 } as const;
 
 export const SIZE_HEADER = 16;
-export const SIZE_BAR = 128;
+export const SIZE_BAR = 96;
 
 // =============================================================================
 // KNOWN MARKET PROVIDER IDs

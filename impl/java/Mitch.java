@@ -11,7 +11,7 @@
  *   Order     32 bytes
  *   Index     40 bytes
  *   Bin        8 bytes
- *   Bar      128 bytes
+ *   Bar       96 bytes
  *   OrderBook  2072 bytes
  *
  * Usage:
@@ -49,7 +49,7 @@ public final class Mitch {
     /** Wire size of a Bin in bytes. */
     public static final int SIZE_BIN        =    8;
     /** Wire size of a Bar body in bytes. */
-    public static final int SIZE_BAR        =  128;
+    public static final int SIZE_BAR        =   96;
     /** Wire size of an OrderBook body in bytes. */
     public static final int SIZE_ORDER_BOOK = 2072;
 

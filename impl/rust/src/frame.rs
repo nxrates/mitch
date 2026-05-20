@@ -1,11 +1,13 @@
-//! MITCH frame types - `[MitchHeader 16B][Body]` composition.
+//! MITCH frame types: `[MitchHeader 16B][Body N B]` composition.
 //!
 //! A frame is the canonical on-wire and on-disk representation of a MITCH
-//! message with a single body entry (`count = 1`). The timestamp lives in the
-//! header, never embedded in the body.
+//! message carrying a single body entry (`count = 1`). The timestamp lives in
+//! the header, never embedded in the body.
 //!
-//! All frame types are `#[repr(C, packed)]`, `Pod`, and `Zeroable` for
-//! zero-copy file I/O via `bytemuck::cast_slice`.
+//! A single generic `Frame<B>` wrapper covers every body type; concrete on-wire
+//! variants are exposed as type aliases (`TickFrame`, `TradeFrame`, `BarFrame`).
+//! All frames are `#[repr(C, packed)]`, `Pod`, and `Zeroable` for zero-copy
+//! file I/O via `bytemuck::cast_slice`.
 //!
 //! # Timestamp encoding
 //!
@@ -14,53 +16,71 @@
 //!
 //! Convert with `mitch::timestamp::{from_epoch_ms, from_epoch_ns, to_epoch_ms, ...}`.
 
-use crate::common::{message_type, message_sizes, MitchError};
+use crate::bar::Bar;
+use crate::body::MitchBody;
+use crate::common::{message_sizes, message_type, MitchError};
 use crate::header::MitchHeader;
+use crate::heartbeat::Heartbeat;
 use crate::tick::Tick;
+use crate::trade::Trade;
 
 // =============================================================================
-// TICK FRAME (48 bytes)
+// FRAME BODY TRAIT
 // =============================================================================
 
-/// Tick frame: `[MitchHeader 16B][Tick 32B]` = 48 bytes.
+/// A MITCH body type that can be carried in a [`Frame<B>`].
 ///
-/// The timestamp lives in the header, not embedded in the tick body.
+/// # Safety
 ///
-/// ```text
-/// Offset | Field  | Size | Description
-/// -------|--------|------|---------------------------
-/// 0      | header | 16   | MitchHeader (type='s')
-/// 16     | body   | 32   | Tick
-/// ```
-///
-/// # File format
-///
-/// Flat array of 48-byte records. Count = `file_size / 48`.
-/// Supports zero-copy mmap via `bytemuck::cast_slice::<u8, TickFrame>`.
-#[repr(C, packed)]
-#[derive(Debug, Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "bytemuck", derive(bytemuck::Pod, bytemuck::Zeroable))]
-pub struct TickFrame {
-    /// 16-byte MITCH header (type = 's', 16µs ticks since 2010, count = 1)
-    pub header: MitchHeader,
-    /// 32-byte tick body
-    pub body: Tick,
+/// Implementers must be `#[repr(C, packed)]`, `Copy`, and `MSG_TYPE` must match
+/// the on-wire discriminator the body encodes. The generic frame wrapper relies
+/// on both invariants when `transmute`-casting to/from bytes.
+pub unsafe trait FrameBody: MitchBody {
+    /// MITCH message-type byte stamped into the header.
+    const MSG_TYPE: u8;
 }
 
-/// Size of a TickFrame in bytes.
-pub const TICK_FRAME_SIZE: usize = message_sizes::HEADER + message_sizes::TICK;
+unsafe impl FrameBody for Tick {
+    const MSG_TYPE: u8 = message_type::TICK;
+}
+unsafe impl FrameBody for Trade {
+    const MSG_TYPE: u8 = message_type::TRADE;
+}
+unsafe impl FrameBody for Bar {
+    const MSG_TYPE: u8 = message_type::BAR;
+}
+unsafe impl FrameBody for Heartbeat {
+    const MSG_TYPE: u8 = message_type::HEARTBEAT;
+}
 
-impl TickFrame {
-    /// Create a new TickFrame.
-    ///
-    /// # Arguments
-    /// * `provider_id` - data source provider ID (0-4095)
-    /// * `ticks` - 16us ticks since 2010-01-01 (u48). Use `mitch::timestamp::from_epoch_*`.
-    /// * `body` - tick data
+// =============================================================================
+// GENERIC FRAME
+// =============================================================================
+
+/// Header + body composition for any [`FrameBody`].
+///
+/// Layout: `[MitchHeader 16B][B]`. Size = `16 + B::SIZE`.
+#[repr(C, packed)]
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Frame<B: FrameBody> {
+    /// 16-byte MITCH header (type = `B::MSG_TYPE`, count = 1).
+    pub header: MitchHeader,
+    /// Fixed-size body.
+    pub body: B,
+}
+
+#[cfg(feature = "bytemuck")]
+unsafe impl<B: FrameBody + bytemuck::Pod> bytemuck::Pod for Frame<B> {}
+#[cfg(feature = "bytemuck")]
+unsafe impl<B: FrameBody + bytemuck::Zeroable> bytemuck::Zeroable for Frame<B> {}
+
+impl<B: FrameBody> Frame<B> {
+    /// Build a frame. `ticks` is a u48 value in 16µs units since 2010-01-01
+    /// (see [`crate::timestamp::from_epoch_ms`]).
     #[inline]
-    pub fn new(provider_id: u16, ticks: u64, body: Tick) -> Self {
+    pub fn new(provider_id: u16, ticks: u64, body: B) -> Self {
         Self {
-            header: MitchHeader::new(message_type::TICK, provider_id, ticks, 1),
+            header: MitchHeader::new(B::MSG_TYPE, provider_id, ticks, 1),
             body,
         }
     }
@@ -71,7 +91,7 @@ impl TickFrame {
         self.header.get_timestamp()
     }
 
-    /// Timestamp as Unix epoch milliseconds (convenience).
+    /// Timestamp as Unix epoch milliseconds.
     #[inline]
     pub fn timestamp_ms(&self) -> i64 {
         crate::timestamp::to_epoch_ms(self.header.get_timestamp())
@@ -83,7 +103,82 @@ impl TickFrame {
         self.header.provider_id()
     }
 
-    /// Get the tick body (copy - packed struct cannot yield references).
+    /// Struct size in bytes.
+    #[inline]
+    pub const fn size() -> usize {
+        message_sizes::HEADER + B::SIZE
+    }
+
+    /// Unpack from bytes with validation.
+    pub fn unpack(bytes: &[u8]) -> Result<Self, MitchError> {
+        let expected = message_sizes::HEADER + B::SIZE;
+        if bytes.len() < expected {
+            return Err(MitchError::BufferTooSmall {
+                expected,
+                actual: bytes.len(),
+            });
+        }
+        let frame: Self = unsafe { (bytes.as_ptr() as *const Self).read_unaligned() };
+        let mt = frame.header.message_type();
+        if mt != B::MSG_TYPE {
+            return Err(MitchError::InvalidMessageType(mt));
+        }
+        Ok(frame)
+    }
+
+    /// Unpack without validation (maximum performance).
+    ///
+    /// # Safety
+    /// Caller must ensure `bytes.len() >= 16 + B::SIZE` and data is a valid frame.
+    #[inline]
+    pub unsafe fn unpack_unchecked(bytes: &[u8]) -> Self {
+        (bytes.as_ptr() as *const Self).read_unaligned()
+    }
+}
+
+// =============================================================================
+// CONCRETE FRAME ALIASES + SIZE CONSTANTS
+// =============================================================================
+
+/// Tick frame: `[MitchHeader 16B][Tick 32B]` = 48 bytes.
+pub type TickFrame = Frame<Tick>;
+/// Trade frame: `[MitchHeader 16B][Trade 24B]` = 40 bytes.
+pub type TradeFrame = Frame<Trade>;
+/// Bar frame: `[MitchHeader 16B][Bar 96B]` = 112 bytes.
+pub type BarFrame = Frame<Bar>;
+/// Heartbeat frame: `[MitchHeader 16B][Heartbeat 16B]` = 32 bytes.
+pub type HeartbeatFrame = Frame<Heartbeat>;
+
+/// Size of a [`TickFrame`] in bytes.
+pub const TICK_FRAME_SIZE: usize = message_sizes::HEADER + message_sizes::TICK;
+/// Size of a [`TradeFrame`] in bytes.
+pub const TRADE_FRAME_SIZE: usize = message_sizes::HEADER + message_sizes::TRADE;
+/// Size of a [`BarFrame`] in bytes.
+pub const BAR_FRAME_SIZE: usize = message_sizes::HEADER + message_sizes::BAR;
+/// Size of a [`HeartbeatFrame`] in bytes.
+pub const HEARTBEAT_FRAME_SIZE: usize = message_sizes::HEADER + message_sizes::HEARTBEAT;
+
+const _: () = assert!(core::mem::size_of::<TickFrame>() == TICK_FRAME_SIZE);
+const _: () = assert!(core::mem::size_of::<TradeFrame>() == TRADE_FRAME_SIZE);
+const _: () = assert!(core::mem::size_of::<BarFrame>() == BAR_FRAME_SIZE);
+const _: () = assert!(core::mem::size_of::<HeartbeatFrame>() == HEARTBEAT_FRAME_SIZE);
+
+// =============================================================================
+// BODY-SPECIFIC INHERENT IMPLS
+// =============================================================================
+
+// `pack()` returns an owned fixed-size byte array. We cannot express
+// `[u8; 16 + B::SIZE]` on stable Rust, so each alias gets a tiny inherent
+// impl. This is the only duplication, unavoidable until generic_const_exprs
+// stabilises.
+
+impl Frame<Tick> {
+    /// Pack to bytes (zero-copy transmute).
+    pub fn pack(&self) -> [u8; TICK_FRAME_SIZE] {
+        unsafe { core::mem::transmute(*self) }
+    }
+
+    /// Tick body copy (packed struct cannot yield references).
     #[inline]
     pub fn tick(&self) -> Tick {
         self.body
@@ -112,40 +207,38 @@ impl TickFrame {
     pub fn volume_imbalance(&self) -> f64 {
         self.body.volume_imbalance()
     }
+}
 
-    /// Pack to bytes (zero-copy transmute).
-    pub fn pack(&self) -> [u8; TICK_FRAME_SIZE] {
+impl Frame<Trade> {
+    pub fn pack(&self) -> [u8; TRADE_FRAME_SIZE] {
         unsafe { core::mem::transmute(*self) }
     }
 
-    /// Unpack from bytes with validation.
-    pub fn unpack(bytes: &[u8]) -> Result<Self, MitchError> {
-        if bytes.len() < TICK_FRAME_SIZE {
-            return Err(MitchError::BufferTooSmall {
-                expected: TICK_FRAME_SIZE,
-                actual: bytes.len(),
-            });
-        }
-        let frame: Self = unsafe { (bytes.as_ptr() as *const Self).read_unaligned() };
-        let mt = frame.header.message_type();
-        if mt != message_type::TICK {
-            return Err(MitchError::InvalidMessageType(mt));
-        }
-        Ok(frame)
-    }
-
-    /// Unpack without validation (maximum performance).
-    ///
-    /// # Safety
-    /// Caller must ensure `bytes.len() >= 48` and data is a valid TickFrame.
     #[inline]
-    pub unsafe fn unpack_unchecked(bytes: &[u8]) -> Self {
-        (bytes.as_ptr() as *const Self).read_unaligned()
+    pub fn trade(&self) -> Trade {
+        self.body
+    }
+}
+
+impl Frame<Bar> {
+    pub fn pack(&self) -> [u8; BAR_FRAME_SIZE] {
+        unsafe { core::mem::transmute(*self) }
     }
 
-    /// Struct size.
-    pub const fn size() -> usize {
-        TICK_FRAME_SIZE
+    #[inline]
+    pub fn bar(&self) -> Bar {
+        self.body
+    }
+}
+
+impl Frame<Heartbeat> {
+    pub fn pack(&self) -> [u8; HEARTBEAT_FRAME_SIZE] {
+        unsafe { core::mem::transmute(*self) }
+    }
+
+    #[inline]
+    pub fn heartbeat(&self) -> Heartbeat {
+        self.body
     }
 }
 
@@ -156,19 +249,26 @@ impl TickFrame {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::common::OrderSide;
+    use crate::timestamp;
 
     #[test]
-    fn tick_frame_size() {
+    fn frame_sizes() {
         assert_eq!(core::mem::size_of::<TickFrame>(), 48);
+        assert_eq!(core::mem::size_of::<TradeFrame>(), 40);
+        assert_eq!(core::mem::size_of::<BarFrame>(), 144);
+        assert_eq!(core::mem::size_of::<HeartbeatFrame>(), 32);
         assert_eq!(TICK_FRAME_SIZE, 48);
+        assert_eq!(TRADE_FRAME_SIZE, 40);
+        assert_eq!(BAR_FRAME_SIZE, 144);
+        assert_eq!(HEARTBEAT_FRAME_SIZE, 32);
     }
 
     #[test]
     fn tick_frame_round_trip() {
-        use crate::timestamp;
         let ticks = timestamp::from_epoch_ms(1_744_364_200_000);
         let tick = Tick::new_unchecked(1, 100.0, 100.05, 500, 600);
-        let frame = TickFrame::new(101, ticks, tick); // provider_id = 101 (Binance)
+        let frame = TickFrame::new(101, ticks, tick);
         let packed = frame.pack();
         let unpacked = TickFrame::unpack(&packed).unwrap();
         assert_eq!(frame, unpacked);
@@ -176,8 +276,57 @@ mod tests {
     }
 
     #[test]
+    fn trade_frame_round_trip() {
+        let ticks = timestamp::from_epoch_ms(1_744_364_200_000);
+        let trade = Trade::new(0x1234, 99.5, 1000, 42, OrderSide::Buy).unwrap();
+        let frame = TradeFrame::new(101, ticks, trade);
+        let packed = frame.pack();
+        let unpacked = TradeFrame::unpack(&packed).unwrap();
+        assert_eq!(frame, unpacked);
+        assert_eq!(unpacked.provider_id(), 101);
+    }
+
+    #[test]
+    fn bar_frame_round_trip() {
+        let open_mts = timestamp::from_epoch_ms(1_744_372_800_000);
+        let close_mts = timestamp::from_epoch_ms(1_744_372_860_000);
+        let bar = Bar::new_ohlcv(open_mts, close_mts, 100.0, 105.0, 99.0, 103.0, 1000, 1200, 50);
+        let frame = BarFrame::new(101, open_mts, bar);
+        let packed = frame.pack();
+        let unpacked = BarFrame::unpack(&packed).unwrap();
+        assert_eq!(frame, unpacked);
+    }
+
+    #[test]
+    fn heartbeat_frame_round_trip() {
+        let ticks = timestamp::from_epoch_ms(1_744_364_200_000);
+        let beat = Heartbeat::ticker(0x1234_5678_9ABC_DEF0, 4242);
+        let frame = HeartbeatFrame::new(101, ticks, beat);
+        let packed = frame.pack();
+        let unpacked = HeartbeatFrame::unpack(&packed).unwrap();
+        assert_eq!(frame, unpacked);
+        assert_eq!(unpacked.provider_id(), 101);
+        let body = unpacked.heartbeat();
+        let msg_count = body.msg_count;
+        let ticker = body.ticker;
+        assert_eq!(msg_count, 4242);
+        assert_eq!(ticker, 0x1234_5678_9ABC_DEF0);
+    }
+
+    #[test]
+    fn heartbeat_frame_feed_wide() {
+        let ticks = timestamp::from_epoch_ms(1_744_364_200_000);
+        let beat = Heartbeat::feed(0);
+        let frame = HeartbeatFrame::new(0, ticks, beat);
+        let packed = frame.pack();
+        let unpacked = HeartbeatFrame::unpack(&packed).unwrap();
+        assert_eq!(frame, unpacked);
+        let ticker = unpacked.heartbeat().ticker;
+        assert_eq!(ticker, 0);
+    }
+
+    #[test]
     fn tick_frame_timestamp() {
-        use crate::timestamp;
         let epoch_ms: i64 = 1_744_364_200_000;
         let ticks = timestamp::from_epoch_ms(epoch_ms);
         let tick = Tick::new_unchecked(1, 100.0, 100.05, 0, 0);
@@ -199,7 +348,7 @@ mod tests {
     #[test]
     fn tick_frame_provider_id() {
         let tick = Tick::new_unchecked(1, 100.0, 100.05, 0, 0);
-        let frame = TickFrame::new(1301, 0, tick); // max current provider (XT)
+        let frame = TickFrame::new(1301, 0, tick);
         assert_eq!(frame.provider_id(), 1301);
     }
 
@@ -208,8 +357,7 @@ mod tests {
         let tick = Tick::new_unchecked(1, 100.0, 100.05, 0, 0);
         let frame = TickFrame::new(0, 0, tick);
         let mut packed = frame.pack();
-        // Corrupt the message type code (low nibble of byte 0)
-        packed[0] = (packed[0] & 0xF0) | 0x0F; // invalid code 15
+        packed[0] = (packed[0] & 0xF0) | 0x0F;
         assert!(TickFrame::unpack(&packed).is_err());
     }
 
@@ -217,6 +365,14 @@ mod tests {
     fn tick_frame_buffer_too_small() {
         let bytes = [0u8; 47];
         assert!(TickFrame::unpack(&bytes).is_err());
+    }
+
+    #[test]
+    fn trade_frame_rejects_wrong_type() {
+        let tick = Tick::new_unchecked(1, 100.0, 100.05, 0, 0);
+        let tick_frame = TickFrame::new(0, 0, tick);
+        let bytes = tick_frame.pack();
+        assert!(TradeFrame::unpack(&bytes[..TRADE_FRAME_SIZE]).is_err());
     }
 
     #[cfg(feature = "bytemuck")]
@@ -229,10 +385,23 @@ mod tests {
             TickFrame::new(101, 300, tick),
         ];
         let bytes: &[u8] = bytemuck::cast_slice(&frames);
-        assert_eq!(bytes.len(), 144); // 3 × 48
+        assert_eq!(bytes.len(), 144);
         let back: &[TickFrame] = bytemuck::cast_slice(bytes);
         assert_eq!(back.len(), 3);
         assert_eq!(back[0], frames[0]);
         assert_eq!(back[2], frames[2]);
+    }
+
+    #[cfg(feature = "bytemuck")]
+    #[test]
+    fn bar_frame_bytemuck_cast() {
+        let mts = timestamp::from_epoch_ms(1_700_000_000_000);
+        let bar = Bar::new_ohlcv(mts, mts + 1, 100.0, 105.0, 99.0, 103.0, 0, 0, 0);
+        let frames: Vec<BarFrame> = (0..5).map(|i| BarFrame::new(101, mts + i, bar)).collect();
+        let bytes: &[u8] = bytemuck::cast_slice(&frames);
+        assert_eq!(bytes.len(), 5 * BAR_FRAME_SIZE);
+        let back: &[BarFrame] = bytemuck::cast_slice(bytes);
+        assert_eq!(back.len(), 5);
+        assert_eq!(back[4], frames[4]);
     }
 }

@@ -16,9 +16,9 @@
 | confidence | 36     | 1    | `u8`    | Active provider count               |
 | accepted   | 37     | 1    | `u8`    | Accepted providers                  |
 | rejected   | 38     | 1    | `u8`    | Rejected providers                  |
-| _pad       | 39     | 1    | `[u8;1]`| Reserved (zero)                     |
+| flags      | 39     | 1    | `u8`    | Bitfield (reserved, currently zero) |
 
-**Framed size**: 48B (8B MitchHeader + 40B body). See [framing.md](./framing.md).
+**Framed size**: 56B (16B MitchHeader + 40B body). See [framing.md](./framing.md).
 
 ## Derived Metrics
 
