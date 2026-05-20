@@ -33,7 +33,7 @@ to_epoch_ns}`.
 |------------------|--------|------|------------|--------------------------------------------------------|
 | Realized Var     | 64     | 4    | `f32`      | Σ (log(mid_t / mid_{t-1}))² (canonical HF estimator)   |
 | Bipower Var      | 68     | 4    | `f32`      | (π/2) · Σ \|r_t\|·\|r_{t-1}\| (jump-robust)            |
-| Drift            | 72     | 4    | `f32`      | OLS slope × duration / close (dimensionless)           |
+| Drift            | 72     | 4    | `f32`      | OLS slope × duration / close (dimensionless, t in seconds) |
 | Vol Imbalance    | 76     | 4    | `f32`      | Σ sign(r_t) × (vbid+vask)_t / total_vol (signed OFI)   |
 | Avg Spread bps   | 80     | 4    | `f32`      | mean((ask - bid) / mid) × 1e4                          |
 | Max Abs Return   | 84     | 4    | `f32`      | max \|log(mid_t/mid_{t-1})\| (tail / jump)             |
@@ -57,6 +57,14 @@ Fixed-size price bricks. The OHLC fields encode the brick and its wick. Stored `
 
 - **Bullish** (close > open): `high == close` (no upper wick), `low` = wick
 - **Bearish** (close < open): `low == close` (no lower wick), `high` = wick
+
+### Dollar-Imbalance Bar (DIB)
+
+Information-driven bar (Lopez de Prado 2018). A new bar is emitted when cumulative signed dollar volume crosses a target threshold. Stored `kind = 2`. Time bounds are arbitrary; `open_ts`/`close_ts` reflect the actual ingestion window.
+
+### Tick-Imbalance Bar (TIB)
+
+Same construction as DIB but on signed tick count rather than dollar volume. Stored `kind = 3`.
 
 ## File Format
 

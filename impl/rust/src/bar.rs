@@ -85,7 +85,8 @@ pub struct Bar {
     /// Bipower variance: (π/2) · Σ |r_t|·|r_{t-1}|. Jump-robust. Pair with
     /// `realized_var` to isolate jumps: `jump ≈ max(realized_var - bipower_var, 0)`.
     pub bipower_var: f32,
-    /// OLS slope × duration / close (normalized, dimensionless).
+    /// OLS slope × duration_seconds / close. Slope from `mid = a + b·t` with t
+    /// in seconds; normalised, dimensionless. See `sdk/rust/src/bar_builder.rs::flush`.
     pub drift: f32,
     /// Signed order-flow imbalance: Σ sign(r_t) · (vbid+vask)_t / total_vol.
     pub vol_imbalance: f32,
