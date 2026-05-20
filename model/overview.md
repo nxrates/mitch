@@ -10,10 +10,10 @@
 | Order | `o` | 32B | [order.md](./order.md) |
 | Tick | `s` | 32B | [tick.md](./tick.md) |
 | Index | `i` | 40B | [index.md](./index.md) |
-| Bar | `k` | 128B | [bar.md](./bar.md) |
+| Bar | `k` | 96B | [bar.md](./bar.md) |
 | OrderBook | `b` | 2072B | [order-book.md](./order-book.md) |
 
-All messages are framed as `[MitchHeader 8B][Body]`. See [framing.md](./framing.md).
+All messages are framed as `[MitchHeader 16B][Body]`. See [framing.md](./framing.md).
 
 ## Core Components
 
@@ -41,8 +41,8 @@ All multi-byte fields are **Little-Endian**. Floating points follow IEEE 754.
 ## Performance & Implementation
 
 - **Zero-copy**: `#[repr(C, packed)]` structs with `unsafe { transmute() }` for byte-aligned casting
-- **Memory alignment**: Trade/Order/Tick 32B, Index 40B, Bar 128B, OrderBook 2072B
-- **Batching**: up to 255 bodies per 8B header (see [messaging](../messaging.md))
+- **Memory alignment**: Trade/Order/Tick 32B, Index 40B, Bar 96B, OrderBook 2072B
+- **Batching**: up to 255 bodies per 16B header (see [messaging](../messaging.md))
 - **Architecture**: Little-Endian (x86_64, ARM64, RISC-V)
 - **Confidence metrics**: 0-100 quality score (95-100: <10ms latency, <2% rejections)
 

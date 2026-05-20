@@ -10,7 +10,7 @@
 //!   Order     32 bytes
 //!   Index     40 bytes
 //!   Bin        8 bytes
-//!   Bar      128 bytes
+//!   Bar       96 bytes
 //!   OrderBook 2072 bytes
 
 const std = @import("std");
@@ -104,7 +104,7 @@ pub const size_trade      = 24;
 pub const size_order      = 32;
 pub const size_index      = 40;
 pub const size_bin        = 8;
-pub const size_bar        = 128;
+pub const size_bar        = 96;
 pub const size_order_book = 2072;
 
 /// Message type constant for Bar.

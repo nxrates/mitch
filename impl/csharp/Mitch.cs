@@ -12,7 +12,7 @@
  *   Order     32 bytes
  *   Index     40 bytes
  *   Bin        8 bytes
- *   Bar      128 bytes
+ *   Bar       96 bytes
  *   OrderBook  2072 bytes
  */
 
@@ -159,7 +159,7 @@ public static class MitchSize
     public const int Order     =   32;
     public const int Index     =   40;
     public const int Bin       =    8;
-    public const int Bar       =  128;
+    public const int Bar       =   96;
     public const int OrderBook = 2072;
 }
 

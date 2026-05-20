@@ -20,23 +20,26 @@
 
 | Component | Description |
 |-----------|-------------|
-| **[Messaging](./messaging.md)** | Unified 8-byte header, batching, Channel IDs |
+| **[Messaging](./messaging.md)** | Unified 16-byte header, batching, Channel IDs |
 | **[Ticker IDs](./model/ticker.md)** | 8-byte encoding for any financial instrument |
 | **[Assets](./model/asset.md)** | Standardized asset classification system |
 | **[Message Types](./model/overview.md#message-types)** | Trade, Order, Tick, Bar, Index, OrderBook |
 
 ## Message Sizes
 
-8-byte header + body:
+16-byte header + body (single-entry frame):
 
 | Type | Code | Body | Frame |
 |------|------|------|-------|
-| Trade | `t` | 24B | 32B |
-| Order | `o` | 32B | 40B |
-| Tick | `s` | 32B | 40B |
-| Index | `i` | 40B | 48B |
-| Bar | `k` | 128B | 136B |
-| OrderBook | `b` | 2072B | 2080B |
+| Trade | `t` | 24B | 40B |
+| Order | `o` | 32B | 48B |
+| Tick | `s` | 32B | 48B |
+| Index | `i` | 40B | 56B |
+| Bar | `k` | 96B | 112B |
+| Heartbeat | `h` | 16B | 32B |
+| OrderBook | `b` | 2072B | 2088B |
+
+Multi-entry batches: total = 16 + (count × body_size). See [messaging.md](./messaging.md).
 
 ## Implementation Languages
 

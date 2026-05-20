@@ -52,8 +52,10 @@ pub mod order;
 pub mod order_book;
 /// Tick message implementation (32 bytes)
 pub mod tick;
-/// Bar - enriched OHLCV bar, kline or renko (128 bytes)
+/// Bar - enriched OHLCV bar, kline or renko (96 bytes)
 pub mod bar;
+/// Heartbeat message implementation (16 bytes)
+pub mod heartbeat;
 /// Frame types - MitchHeader + body composition for wire/file I/O
 pub mod frame;
 /// u48 timestamp encoding: 16µs ticks since 2010-01-01
@@ -74,6 +76,7 @@ pub use crate::trade::*;
 pub use crate::order::*;
 pub use crate::tick::*;
 pub use crate::bar::*;
+pub use crate::heartbeat::*;
 pub use crate::frame::*;
 pub use crate::index::*;
 pub use crate::order_book::*;
@@ -128,6 +131,7 @@ pub fn calculate_message_size(message_type: u8, count: u8) -> Result<usize, Mitc
         message_type::INDEX => message_sizes::INDEX,
         message_type::ORDER_BOOK => message_sizes::ORDER_BOOK,
         message_type::BAR => message_sizes::BAR,
+        message_type::HEARTBEAT => message_sizes::HEARTBEAT,
         _ => return Err(MitchError::InvalidMessageType(message_type)),
     };
 

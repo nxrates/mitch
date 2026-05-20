@@ -17,6 +17,7 @@ lazy_static = { version = "1.4", optional = true }
 libc = { version = "0.2", optional = true }
 chrono = "0.4"
 bytemuck = { version = "1.0", features = ["derive", "min_const_generics"], optional = true }
+serde = { version = "1", features = ["derive"], optional = true }
 
 [dev-dependencies]
 tokio-test = "0.4"
@@ -39,6 +40,7 @@ std = []
 no_std = []
 ffi = ["lazy_static", "libc"]
 bytemuck = ["dep:bytemuck"]
+serde = ["dep:serde"]
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3", features = ["winuser", "consoleapi", "processthreadsapi"], optional = true }

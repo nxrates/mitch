@@ -13,7 +13,7 @@
  *   Index       40 bytes
  *   Bin          8 bytes
  *   OrderBook 2072 bytes
- *   Bar        128 bytes
+ *   Bar         96 bytes
  */
 
 #pragma once
@@ -757,4 +757,4 @@ static inline uint8_t mitch_channel_msg_type(uint32_t channel_id)
 #define MITCH_SIZE_INDEX      40
 #define MITCH_SIZE_BIN         8
 #define MITCH_SIZE_ORDER_BOOK 2072
-#define MITCH_SIZE_BAR        128
+#define MITCH_SIZE_BAR         96

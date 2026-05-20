@@ -12,7 +12,7 @@
 //	Index       40 bytes
 //	Bin          8 bytes
 //	OrderBook 2072 bytes
-//	Bar        128 bytes
+//	Bar         96 bytes
 package mitch
 
 import (
@@ -33,7 +33,7 @@ const (
 	SizeIndex     = 40
 	SizeBin       = 8
 	SizeOrderBook = 2072
-	SizeBar       = 128
+	SizeBar       = 96
 )
 
 // ============================================================

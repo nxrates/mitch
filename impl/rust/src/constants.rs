@@ -2411,15 +2411,17 @@ impl Resolver {
         let normalized_query = Self::normalize(query);
 
         data.iter().find(|entry| {
-            // Check name match
-            if entry.name == normalized_query {
+            // Normalize entry.name the same way we normalize the query so that
+            // registry names with punctuation (e.g. "crypto.com", "gate.io") match
+            // both punctuated and alphanumeric query forms.
+            if Self::normalize(entry.name) == normalized_query {
                 return true;
             }
 
-            // Check aliases match
+            // Check aliases match (also normalized)
             if !entry.aliases.is_empty() {
                 for alias in entry.aliases.split('|') {
-                    if alias == normalized_query {
+                    if Self::normalize(alias) == normalized_query {
                         return true;
                     }
                 }

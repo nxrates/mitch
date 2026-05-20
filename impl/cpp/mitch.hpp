@@ -13,7 +13,7 @@
  *   Index       40 bytes
  *   Bin          8 bytes
  *   OrderBook 2072 bytes
- *   Bar        128 bytes
+ *   Bar         96 bytes
  */
 
 #pragma once
@@ -135,7 +135,7 @@ inline constexpr std::size_t kOrderSize     =   32;
 inline constexpr std::size_t kIndexSize     =   40;
 inline constexpr std::size_t kBinSize       =    8;
 inline constexpr std::size_t kOrderBookSize = 2072;
-inline constexpr std::size_t kBarSize       =  128;
+inline constexpr std::size_t kBarSize       =   96;
 
 /* ============================================================
  * INTERNAL: portable little-endian read/write helpers

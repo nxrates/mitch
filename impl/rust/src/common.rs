@@ -23,6 +23,8 @@ pub mod message_type {
     pub const ORDER_BOOK: u8 = b'b';   // 98
     /// Bar / kline ('k')
     pub const BAR: u8 = b'k';         // 107
+    /// Heartbeat message ('h')
+    pub const HEARTBEAT: u8 = b'h';   // 104
 }
 
 /// Message size constants in bytes
@@ -45,8 +47,10 @@ pub mod message_sizes {
     pub const ORDER_BOOK: usize = 2072;
     /// Bin size
     pub const BIN: usize = 8;
-    /// Bar body size (2 cache lines)
-    pub const BAR: usize = 128;
+    /// Bar body size (64B OHLCV + 32B microstructure)
+    pub const BAR: usize = 96;
+    /// Heartbeat body size
+    pub const HEARTBEAT: usize = 16;
 }
 
 // =============================================================================
@@ -55,6 +59,7 @@ pub mod message_sizes {
 
 /// Order side enumeration (buy/sell)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[repr(u8)]
 pub enum OrderSide {
     /// Buy side (0)
@@ -186,6 +191,7 @@ pub fn message_type_char(msg_type: u8) -> Option<char> {
         message_type::INDEX => Some('i'),
         message_type::ORDER_BOOK => Some('b'),
         message_type::BAR => Some('k'),
+        message_type::HEARTBEAT => Some('h'),
         _ => None,
     }
 }
@@ -210,6 +216,7 @@ pub mod message_type_code {
     pub const INDEX: u8 = 4;
     pub const ORDER_BOOK: u8 = 5;
     pub const BAR: u8 = 6;
+    pub const HEARTBEAT: u8 = 7;
 }
 
 /// Map ASCII message type to 4-bit wire code. Returns 0 on invalid input.
@@ -222,6 +229,7 @@ pub fn msg_type_to_code(ascii: u8) -> u8 {
         message_type::INDEX => message_type_code::INDEX,
         message_type::ORDER_BOOK => message_type_code::ORDER_BOOK,
         message_type::BAR => message_type_code::BAR,
+        message_type::HEARTBEAT => message_type_code::HEARTBEAT,
         _ => 0,
     }
 }
@@ -236,6 +244,7 @@ pub fn code_to_msg_type(code: u8) -> u8 {
         message_type_code::INDEX => message_type::INDEX,
         message_type_code::ORDER_BOOK => message_type::ORDER_BOOK,
         message_type_code::BAR => message_type::BAR,
+        message_type_code::HEARTBEAT => message_type::HEARTBEAT,
         _ => 0,
     }
 }
@@ -243,7 +252,7 @@ pub fn code_to_msg_type(code: u8) -> u8 {
 /// Validate a 4-bit wire code is a known message type.
 #[inline]
 pub fn validate_message_type_code(code: u8) -> Result<(), MitchError> {
-    if code >= 1 && code <= 6 {
+    if code >= 1 && code <= 7 {
         Ok(())
     } else {
         Err(MitchError::InvalidMessageType(code))

@@ -44,6 +44,9 @@
 #define MITCH_MSG_TYPE_ORDER        'o'
 #define MITCH_MSG_TYPE_TICKER       's'
 #define MITCH_MSG_TYPE_ORDER_BOOK   'b'
+#define MITCH_MSG_TYPE_INDEX        'i'
+#define MITCH_MSG_TYPE_BAR          'k'
+#define MITCH_MSG_TYPE_HEARTBEAT    'h'
 
 // --- Side Constants ---
 #define MITCH_SIDE_BUY              0
@@ -138,7 +141,17 @@ struct Index {
     uchar confidence;        // u8: data quality
     uchar accepted;          // u8: number of sources accepted
     uchar rejected;          // u8: number of sources rejected
-    uchar _padding;          // 1 byte padding to 40 bytes
+    uchar _pad;              // 1 byte padding to 40 bytes
+};
+
+// --- Heartbeat struct (16 bytes) ---
+// ticker_id = 0 marks a feed-wide heartbeat; nonzero is per-symbol.
+// msg_count is the number of data frames emitted since the last heartbeat
+// and wraps at u32::MAX. _pad reserves 4 bytes for a future flags field.
+struct Heartbeat {
+    ulong ticker_id;         // u64: ticker (0 = feed-wide)
+    uint msg_count;          // u32: data frames since last heartbeat
+    uchar _pad[4];           // 4 bytes padding to 16 bytes
 };
 
 //+------------------------------------------------------------------+

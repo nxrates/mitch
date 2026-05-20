@@ -12,7 +12,7 @@
 //! 0      | ticker            | u64       | 8    | Ticker identifier
 //! 8      | mid_price         | f64       | 8    | Calculated mid price
 //! 16     | bin_aggregator    | u8        | 1    | Aggregation function used
-//! 17     | _padding          | [u8; 7]   | 7    | Padding for alignment
+//! 17     | _pad              | [u8; 7]   | 7    | Padding for alignment
 //! 24     | bids              | [Bin; 128]| 1024 | Bid levels (aggregated)
 //! 1048   | asks              | [Bin; 128]| 1024 | Ask levels (aggregated)
 //! ```
@@ -20,14 +20,21 @@
 use crate::body::MitchBody;
 use crate::common::{message_sizes, MitchError, BinAggregator};
 
-/// Bin structure for aggregated price levels (8 bytes)
+/// Aggregated price-level bin (8 bytes).
+///
+/// ## Wire layout (little-endian)
+///
+/// ```text
+/// Offset | Field       | Size | Type   | Description
+/// -------|-------------|------|--------|------------------------------------
+/// 0      | order_count | 4    | u32 LE | Number of orders at this level
+/// 4      | volume      | 4    | u32 LE | Aggregated volume at this level
+/// ```
 #[repr(C, packed)]
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
 #[cfg_attr(feature = "bytemuck", derive(bytemuck::Pod, bytemuck::Zeroable))]
 pub struct Bin {
-    /// Number of orders (4 bytes)
     pub order_count: u32,
-    /// Total volume (4 bytes)
     pub volume: u32,
 }
 
@@ -55,7 +62,7 @@ pub struct OrderBook {
     /// Bin aggregator ID (1 byte)
     pub bin_aggregator: u8,
     /// Padding (7 bytes)
-    pub _padding: [u8; 7],
+    pub _pad: [u8; 7],
     /// Bid bins (1024 bytes)
     pub bids: [Bin; 128],
     /// Ask bins (1024 bytes)
@@ -82,7 +89,7 @@ impl OrderBook {
             ticker,
             mid_price,
             bin_aggregator,
-            _padding: [0; 7],
+            _pad: [0; 7],
             bids,
             asks,
         }

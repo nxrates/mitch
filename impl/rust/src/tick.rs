@@ -6,9 +6,19 @@
 use crate::body::MitchBody;
 use crate::common::{message_sizes, MitchError};
 
-/// Size of a serialized Tick in bytes.
-
-/// Tick/quote snapshot (32 bytes)
+/// Tick / quote snapshot (32 bytes).
+///
+/// ## Wire layout (little-endian)
+///
+/// ```text
+/// Offset | Field   | Size | Type   | Description
+/// -------|---------|------|--------|------------------------------------------
+/// 0      | ticker  | 8    | u64 LE | Ticker identifier
+/// 8      | bid     | 8    | f64 LE | Best bid price
+/// 16     | ask     | 8    | f64 LE | Best ask price
+/// 24     | vbid    | 4    | u32 LE | Aggregated bid volume
+/// 28     | vask    | 4    | u32 LE | Aggregated ask volume
+/// ```
 #[repr(C, packed)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "bytemuck", derive(bytemuck::Pod, bytemuck::Zeroable))]

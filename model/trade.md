@@ -12,7 +12,7 @@
 | trade_id | 20     | 3    | `[u8;3]`  | Unique trade ID (u24 LE)          |
 | side     | 23     | 1    | `u8`      | `0`: Buy, `1`: Sell               |
 
-**Framed size**: 32B (8B MitchHeader + 24B body). See [framing.md](./framing.md).
+**Framed size**: 40B (16B MitchHeader + 24B body). See [framing.md](./framing.md).
 
 ## Field Notes
 

@@ -1,4 +1,4 @@
-//! Bar - canonical enriched bar format (128 bytes, 2 cache lines).
+//! Bar - canonical enriched bar format (96 bytes: 64B OHLCV + 32B microstructure).
 //!
 //! Supports both time-based (kline) and price-based (renko) bars.
 //! - **Kline**: `open_ts`/`close_ts` define the time bucket (u48 ticks since 2010).
@@ -18,9 +18,9 @@ use crate::timestamp;
 /// Size of a serialized Bar in bytes.
 pub const BAR_SIZE: usize = message_sizes::BAR;
 
-/// Enriched bar record (128 bytes = 2 cache lines).
+/// Enriched bar record (96 bytes).
 ///
-/// ## Cache line 1 - Core OHLCV + timing (64B)
+/// ## Cache line 1 - Core OHLCV + timing (64B, fully cache-aligned)
 /// ```text
 /// Offset | Field      | Size | Type     | Description
 /// -------|------------|------|----------|-------------------------------
@@ -30,25 +30,33 @@ pub const BAR_SIZE: usize = message_sizes::BAR;
 /// 20     | high       | 8    | f64      | High price
 /// 28     | low        | 8    | f64      | Low price
 /// 36     | close      | 8    | f64      | Close price
-/// 44     | vbid       | 4    | u32      | Cumulative bid volume
-/// 48     | vask       | 4    | u32      | Cumulative ask volume
-/// 52     | tick_count | 4    | u32      | Ticks in bar
+/// 44     | vbid       | 4    | u32      | Cumulative bid volume (inherited from Index.vbid units)
+/// 48     | vask       | 4    | u32      | Cumulative ask volume (inherited from Index.vask units)
+/// 52     | tick_count | 4    | u32      | Ticks in bar (counts Index messages ingested)
 /// 56     | _pad       | 8    | [u8; 8]  | Padding to 64B
 /// ```
 ///
-/// ## Cache line 2 - Microstructure features (64B)
+/// ## Microstructure section (32B)
 /// ```text
-/// Offset | Field          | Size | Type  | Description
-/// -------|----------------|------|-------|-------------------------------
-/// 64     | dispersion     | 4    | f32   | σ/μ Welford coefficient of variation
-/// 68     | drift          | 4    | f32   | Normalized OLS slope (slope/mean)
-/// 72     | vwap_dev       | 4    | f32   | (close − quoteVWAP) / close
-/// 76     | price_impact   | 4    | f32   | ΔPrice / vol_imbalance × 1e6
-/// 80     | vol_imbalance  | 4    | f32   | (vask − vbid) / (vask + vbid)
-/// 84     | tick_efficiency | 4   | f32   | |ΔPrice| / (price × tick_count)
-/// 88     | log_volume     | 4    | f32   | ln(total_vol + 1)
-/// 92     | _reserved      | 36   | [u8; 36] | Reserved (zero)
+/// Offset | Field          | Size | Type     | Description
+/// -------|----------------|------|----------|---------------------------------------------
+/// 64     | realized_var   | 4    | f32      | Σ (log(mid_t / mid_{t-1}))² (HF canonical)
+/// 68     | bipower_var    | 4    | f32      | (π/2) · Σ |r_t|·|r_{t-1}| (jump-robust)
+/// 72     | drift          | 4    | f32      | OLS slope · duration / close
+/// 76     | vol_imbalance  | 4    | f32      | Σ sign(r_t) · (vbid+vask)_t / total_vol (OFI)
+/// 80     | avg_spread_bps | 4    | f32      | mean((ask - bid) / mid) × 1e4
+/// 84     | max_abs_return | 4    | f32      | max |log(mid_t/mid_{t-1})| (tail/jump)
+/// 88     | avg_ci_ubp     | 2    | u16      | mean Index.ci_ubp sqrt-encoded (CI_SCALE=16)
+/// 90     | reject_rate    | 2    | u16      | rejected / (accepted + rejected) × 65535
+/// 92     | kind           | 1    | u8       | Bar construction kind (see [`BarKind`])
+/// 93     | _reserved      | 3    | [u8; 3]  | Reserved (zero)
 /// ```
+///
+/// Note: Total 96B spans 1.5 cache lines. Sequential mmap scan (hot path for ML)
+/// is unaffected by the hardware prefetcher; random access pays at most one extra
+/// cache line per bar. Bipower variance (Barndorff-Nielsen & Shephard 2004) pairs
+/// with realized_var to decompose total variation into continuous + jump components:
+/// `jump_var ≈ max(realized_var - bipower_var, 0)`.
 #[repr(C, packed)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "bytemuck", derive(bytemuck::Pod, bytemuck::Zeroable))]
@@ -62,36 +70,67 @@ pub struct Bar {
     pub high: f64,
     pub low: f64,
     pub close: f64,
-    /// Cumulative bid volume in bar.
+    /// Cumulative bid volume in bar (same units as Index.vbid).
     pub vbid: u32,
-    /// Cumulative ask volume in bar.
+    /// Cumulative ask volume in bar (same units as Index.vask).
     pub vask: u32,
-    /// Number of ticks in bar.
+    /// Number of ingested messages in bar (Index-level ticks, not raw broker ticks).
     pub tick_count: u32,
     /// Padding to align cache line 1 to 64 bytes.
     pub _pad: [u8; 8],
 
-    // ── Cache line 2: microstructure features (64B) ─────────────────
-    /// σ/μ - Welford coefficient of variation.
-    pub dispersion: f32,
-    /// Normalized OLS slope (slope / mean, no multiplication by n).
+    // ── Microstructure section (32B) ─────────────────────────────
+    /// Realized variance: Σ(log(mid_t / mid_{t-1}))². Canonical HF vol estimator.
+    pub realized_var: f32,
+    /// Bipower variance: (π/2) · Σ |r_t|·|r_{t-1}|. Jump-robust. Pair with
+    /// `realized_var` to isolate jumps: `jump ≈ max(realized_var - bipower_var, 0)`.
+    pub bipower_var: f32,
+    /// OLS slope × duration / close (normalized, dimensionless).
     pub drift: f32,
-    /// (close − quoteVWAP) / close.
-    pub vwap_dev: f32,
-    /// ΔPrice / vol_imbalance × 1e6 (formerly kyle_lambda).
-    pub price_impact: f32,
-    /// (vask − vbid) / (vask + vbid) (formerly ofi).
+    /// Signed order-flow imbalance: Σ sign(r_t) · (vbid+vask)_t / total_vol.
     pub vol_imbalance: f32,
-    /// |ΔPrice| / (price × tick_count).
-    pub tick_efficiency: f32,
-    /// ln(total_vol + 1).
-    pub log_volume: f32,
+    /// Mean ((ask - bid) / mid) × 1e4 over all ingested messages.
+    pub avg_spread_bps: f32,
+    /// Largest absolute log return in the bar (tail / single-tick jump indicator).
+    pub max_abs_return: f32,
+    /// Sqrt-compressed mean Index CI (u16). See `Index::ci` encoding.
+    pub avg_ci_ubp: u16,
+    /// Fraction of rejected providers × 65535 (0 when unavailable).
+    pub reject_rate: u16,
+    /// Bar construction kind: 0=kline, 1=renko, 2=dib, 3=tib. See [`BarKind`].
+    pub kind: u8,
     /// Reserved for future use (zero-filled).
-    pub _reserved: [u8; 36],
+    pub _reserved: [u8; 3],
+}
+
+/// Bar construction kind. Encoded as u8 in [`Bar::kind`].
+#[repr(u8)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BarKind {
+    /// Time-bucketed candle (kline).
+    Kline = 0,
+    /// Price-movement Renko brick.
+    Renko = 1,
+    /// Dollar-imbalance bar (Lopez de Prado).
+    Dib = 2,
+    /// Tick-imbalance bar (Lopez de Prado).
+    Tib = 3,
+}
+
+impl BarKind {
+    #[inline]
+    pub const fn from_u8(v: u8) -> Self {
+        match v {
+            1 => Self::Renko,
+            2 => Self::Dib,
+            3 => Self::Tib,
+            _ => Self::Kline,
+        }
+    }
 }
 
 // Compile-time size assertion.
-const _: () = assert!(core::mem::size_of::<Bar>() == 128);
+const _: () = assert!(core::mem::size_of::<Bar>() == 96);
 
 impl Bar {
     /// Create a minimal bar (zeroed enrichment fields).
@@ -120,15 +159,36 @@ impl Bar {
             vask,
             tick_count,
             _pad: [0; 8],
-            dispersion: 0.0,
+            realized_var: 0.0,
+            bipower_var: 0.0,
             drift: 0.0,
-            vwap_dev: 0.0,
-            price_impact: 0.0,
             vol_imbalance: 0.0,
-            tick_efficiency: 0.0,
-            log_volume: 0.0,
-            _reserved: [0; 36],
+            avg_spread_bps: 0.0,
+            max_abs_return: 0.0,
+            avg_ci_ubp: 0,
+            reject_rate: 0,
+            kind: 0,
+            _reserved: [0; 3],
         }
+    }
+
+    /// Approximate jump variance: `max(realized_var - bipower_var, 0)`.
+    /// See Barndorff-Nielsen & Shephard (2004). Consumers may rescale or winsorize.
+    #[inline]
+    pub fn jump_var(&self) -> f32 {
+        (self.realized_var - self.bipower_var).max(0.0)
+    }
+
+    /// Bar construction kind.
+    #[inline]
+    pub const fn bar_kind(&self) -> BarKind {
+        BarKind::from_u8(self.kind)
+    }
+
+    /// Total volume (vbid + vask) as f64.
+    #[inline]
+    pub fn volume(&self) -> f64 {
+        self.vbid as f64 + self.vask as f64
     }
 
     // ── Timestamp accessors ─────────────────────────────────────────
@@ -155,6 +215,13 @@ impl Bar {
     #[inline]
     pub fn close_time_ms(&self) -> i64 {
         timestamp::to_epoch_ms(self.close_mts())
+    }
+
+    /// Bar timestamp in milliseconds. Alias for `close_time_ms()` (bars are
+    /// canonically addressed by their close time).
+    #[inline]
+    pub fn ts_ms(&self) -> i64 {
+        self.close_time_ms()
     }
 
     /// Set open timestamp from an mts value.
@@ -289,15 +356,15 @@ mod tests {
     }
 
     #[test]
-    fn size_is_128() {
-        assert_eq!(core::mem::size_of::<Bar>(), 128);
+    fn size_is_96() {
+        assert_eq!(core::mem::size_of::<Bar>(), 96);
     }
 
     #[test]
     fn round_trip() {
         let bar = test_bar();
         let packed = bar.pack();
-        assert_eq!(packed.len(), 128);
+        assert_eq!(packed.len(), 96);
         let unpacked = Bar::unpack(&packed).unwrap();
         assert_eq!(bar, unpacked);
     }
@@ -396,7 +463,7 @@ mod tests {
             })
             .collect();
         let packed = pack_batch(&bars);
-        assert_eq!(packed.len(), 20 * 128);
+        assert_eq!(packed.len(), 20 * 96);
         let unpacked: Vec<Bar> = unpack_all(&packed).unwrap();
         assert_eq!(bars, unpacked);
     }
