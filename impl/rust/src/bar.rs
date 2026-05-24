@@ -192,6 +192,46 @@ impl Bar {
         self.vbid as f64 + self.vask as f64
     }
 
+    /// Average confidence interval, decoded from the on-disk sqrt-compressed
+    /// u16 to its native micro-basis-points-of-mid value.
+    ///
+    /// Wire/disk encoding (see `avg_ci_ubp` field doc on
+    /// [`crate::index::Index::ci`]):
+    ///   `encoded = round( sqrt(ci_ubp) * CI_SCALE )` with `CI_SCALE = 16.0`
+    ///   `ci_ubp = (encoded / CI_SCALE) ^ 2`
+    ///
+    /// Returns the confidence interval in micro basis points of mid
+    /// (`1 ubp = 1e-8 × mid`). To get the CI in price units multiply by
+    /// `mid_price / 1e8`. Range: roughly `[0, 16.77e6]` ubp before u16
+    /// saturation (~16.77 % of mid).
+    ///
+    /// MUST be used by any downstream consumer that wants the linear-scale CI
+    /// — reading `avg_ci_ubp` directly gives the sqrt-compressed wire form
+    /// which is NOT a linear CI value.
+    #[inline]
+    pub fn avg_ci_ubp_decoded(&self) -> f64 {
+        // Read the packed u16 out before float math (no unaligned ref).
+        let enc = self.avg_ci_ubp;
+        let x = enc as f64 / crate::common::CI_SCALE;
+        x * x
+    }
+
+    /// Decoded average CI converted to absolute price units against `mid_price`.
+    /// `ci_price = ci_ubp * mid / 1e8` (1 ubp = 1e-8 × mid).
+    #[inline]
+    pub fn avg_ci_price(&self) -> f64 {
+        let mid = self.mid_price();
+        self.avg_ci_ubp_decoded() * mid / 1e8
+    }
+
+    /// Decoded reject rate as f64 in [0.0, 1.0].
+    /// Wire form: `u16 = round(rate * 65535)`.
+    #[inline]
+    pub fn reject_rate_f(&self) -> f64 {
+        let rr = self.reject_rate;
+        rr as f64 / u16::MAX as f64
+    }
+
     // ── Timestamp accessors ─────────────────────────────────────────
 
     /// Read open timestamp as decoded mts value.

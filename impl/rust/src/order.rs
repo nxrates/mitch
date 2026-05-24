@@ -21,8 +21,8 @@ use crate::timestamp::{encode_u48, decode_u48};
 /// 8      | order_id      | 4    | u32 LE  | Order identifier
 /// 12     | price         | 8    | f64 LE  | Order price
 /// 20     | qty           | 4    | u32 LE  | Order quantity
-/// 24     | type_and_side | 1    | u8      | [3:0] order type, [7:4] side
-/// 25     | expiry        | 6    | u48 LE  | Expiry mts (16 us ticks; 0 = GTC)
+/// 24     | type_and_side | 1    | u8      | [0]=side (1b), [7:1]=order type (7b)
+/// 25     | expiry        | 6    | u48 LE  | Expiry ms (Unix epoch milliseconds; 0 = GTC)
 /// 31     | _pad          | 1    | [u8; 1] | Alignment to 32B boundary
 /// ```
 #[repr(C, packed)]
