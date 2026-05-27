@@ -100,8 +100,13 @@ pub struct Bar {
     pub reject_rate: u16,
     /// Bar construction kind: 0=kline, 1=renko, 2=dib, 3=tib. See [`BarKind`].
     pub kind: u8,
+    /// Per-bar flags. Bit 2 = `FLAG_RENKO_SYNTHETIC_BRICK` (see
+    /// `nxr_sdk::shard`). Other bits reserved (zero-filled by writers,
+    /// must be tolerated by readers). Phase 58.L.0, 2026-05-27 — promoted
+    /// from `_reserved[0]` to a named field; wire size unchanged.
+    pub flags: u8,
     /// Reserved for future use (zero-filled).
-    pub _reserved: [u8; 3],
+    pub _reserved: [u8; 2],
 }
 
 /// Bar construction kind. Encoded as u8 in [`Bar::kind`].
@@ -169,7 +174,8 @@ impl Bar {
             avg_ci_ubp: 0,
             reject_rate: 0,
             kind: 0,
-            _reserved: [0; 3],
+            flags: 0,
+            _reserved: [0; 2],
         }
     }
 
