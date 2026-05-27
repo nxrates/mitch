@@ -366,6 +366,9 @@ pub static CRYPTO_ASSETS_DATA: &[DataEntry] = &[
     entry!(19101, "wormhole", "w"),
     entry!(19201, "wrapped btc", "wbtc"),
     entry!(19301, "xt.com token", "xt"),
+    entry!(19401, "xrp", ""),
+    entry!(19501, "zcash", "zec"),
+    entry!(19601, "global dollar", "usdg"),
 ];
 
 /// equities data: (id, name_lowercase, aliases_lowercase)
@@ -2411,17 +2414,15 @@ impl Resolver {
         let normalized_query = Self::normalize(query);
 
         data.iter().find(|entry| {
-            // Normalize entry.name the same way we normalize the query so that
-            // registry names with punctuation (e.g. "crypto.com", "gate.io") match
-            // both punctuated and alphanumeric query forms.
-            if Self::normalize(entry.name) == normalized_query {
+            // Check name match
+            if entry.name == normalized_query {
                 return true;
             }
 
-            // Check aliases match (also normalized)
+            // Check aliases match
             if !entry.aliases.is_empty() {
                 for alias in entry.aliases.split('|') {
-                    if Self::normalize(alias) == normalized_query {
+                    if alias == normalized_query {
                         return true;
                     }
                 }
@@ -2442,6 +2443,56 @@ impl Resolver {
     }
 }
 
+/// Find commodities by name or alias
+pub fn resolve_commodities(query: &str) -> Option<&'static DataEntry> {
+    Resolver::find_by_name(COMMODITIES_DATA, query)
+}
+
+/// Find commodities by ID
+pub fn commodities_by_id(id: u64) -> Option<&'static DataEntry> {
+    Resolver::find_by_id(COMMODITIES_DATA, id)
+}
+
+/// Find crypto assets by name or alias
+pub fn resolve_crypto_assets(query: &str) -> Option<&'static DataEntry> {
+    Resolver::find_by_name(CRYPTO_ASSETS_DATA, query)
+}
+
+/// Find crypto assets by ID
+pub fn crypto_assets_by_id(id: u64) -> Option<&'static DataEntry> {
+    Resolver::find_by_id(CRYPTO_ASSETS_DATA, id)
+}
+
+/// Find equities by name or alias
+pub fn resolve_equities(query: &str) -> Option<&'static DataEntry> {
+    Resolver::find_by_name(EQUITIES_DATA, query)
+}
+
+/// Find equities by ID
+pub fn equities_by_id(id: u64) -> Option<&'static DataEntry> {
+    Resolver::find_by_id(EQUITIES_DATA, id)
+}
+
+/// Find forex by name or alias
+pub fn resolve_forex(query: &str) -> Option<&'static DataEntry> {
+    Resolver::find_by_name(FOREX_DATA, query)
+}
+
+/// Find forex by ID
+pub fn forex_by_id(id: u64) -> Option<&'static DataEntry> {
+    Resolver::find_by_id(FOREX_DATA, id)
+}
+
+/// Find indices by name or alias
+pub fn resolve_indices(query: &str) -> Option<&'static DataEntry> {
+    Resolver::find_by_name(INDICES_DATA, query)
+}
+
+/// Find indices by ID
+pub fn indices_by_id(id: u64) -> Option<&'static DataEntry> {
+    Resolver::find_by_id(INDICES_DATA, id)
+}
+
 /// Find market providers by name or alias
 pub fn resolve_market_providers(query: &str) -> Option<&'static DataEntry> {
     Resolver::find_by_name(MARKET_PROVIDERS_DATA, query)
@@ -2450,6 +2501,16 @@ pub fn resolve_market_providers(query: &str) -> Option<&'static DataEntry> {
 /// Find market providers by ID
 pub fn market_providers_by_id(id: u64) -> Option<&'static DataEntry> {
     Resolver::find_by_id(MARKET_PROVIDERS_DATA, id)
+}
+
+/// Find sovereign debt by name or alias
+pub fn resolve_sovereign_debt(query: &str) -> Option<&'static DataEntry> {
+    Resolver::find_by_name(SOVEREIGN_DEBT_DATA, query)
+}
+
+/// Find sovereign debt by ID
+pub fn sovereign_debt_by_id(id: u64) -> Option<&'static DataEntry> {
+    Resolver::find_by_id(SOVEREIGN_DEBT_DATA, id)
 }
 
 pub static BINS: LazyLock<HashMap<BinAggregator, [f64; 128]>> = LazyLock::new(|| {
