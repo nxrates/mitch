@@ -22,8 +22,20 @@
 //! 36     | confidence | 1    | u8    | Active provider count
 //! 37     | accepted   | 1    | u8    | Accepted providers
 //! 38     | rejected   | 1    | u8    | Rejected providers
-//! 39     | flags      | 1    | u8    | Bitfield (reserved, currently zero)
+//! 39     | flags      | 1    | u8    | Bitfield:
+//!                                       bit 0: FLAG_HEARTBEAT_SENTINEL
+//!                                              (liveness-only, no real quote
+//!                                               change; emitted by the live
+//!                                               writer every 60s while quiet)
+//!                                       bit 1: FLAG_HISTORICAL_BACKFILL
+//!                                              (record produced by offline
+//!                                               backfill / migrate / merge,
+//!                                               not by the live aggregator)
+//!                                       bits 2-7: reserved (must be 0)
 //! ```
+//! Canonical bit constants live in `nxr_sdk::shard` (FLAG_HEARTBEAT_SENTINEL,
+//! FLAG_HISTORICAL_BACKFILL) so they stay in lock-step with the writer that
+//! sets them.
 
 use crate::body::MitchBody;
 use crate::common::{message_sizes, MitchError};
@@ -75,7 +87,10 @@ pub struct Index {
     pub accepted: u8,
     /// Rejected providers (1 byte)
     pub rejected: u8,
-    /// Flags bitfield (1 byte, currently reserved and zero).
+    /// Flags bitfield (1 byte). See module-level docs for bit assignments;
+    /// canonical constants in `nxr_sdk::shard` (`FLAG_HEARTBEAT_SENTINEL` =
+    /// `0b0000_0001`, `FLAG_HISTORICAL_BACKFILL` = `0b0000_0010`). Bits 2-7
+    /// are reserved and must be written as 0.
     pub flags: u8,
 }
 
