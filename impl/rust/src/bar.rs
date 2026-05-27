@@ -49,7 +49,8 @@ pub const BAR_SIZE: usize = message_sizes::BAR;
 /// 88     | avg_ci_ubp     | 2    | u16      | mean Index.ci_ubp sqrt-encoded (CI_SCALE=16)
 /// 90     | reject_rate    | 2    | u16      | rejected / (accepted + rejected) × 65535
 /// 92     | kind           | 1    | u8       | Bar construction kind (see [`BarKind`])
-/// 93     | _reserved      | 3    | [u8; 3]  | Reserved (zero)
+/// 93     | flags          | 1    | u8       | Per-bar flags (e.g. `FLAG_RENKO_SYNTHETIC_BRICK`)
+/// 94     | _reserved      | 2    | [u8; 2]  | Reserved (zero)
 /// ```
 ///
 /// Note: Total 96B spans 1.5 cache lines. Sequential mmap scan (hot path for ML)
