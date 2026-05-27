@@ -103,8 +103,7 @@ pub struct Bar {
     pub kind: u8,
     /// Per-bar flags. Bit 2 = `FLAG_RENKO_SYNTHETIC_BRICK` (see
     /// `nxr_sdk::shard`). Other bits reserved (zero-filled by writers,
-    /// must be tolerated by readers). Phase 58.L.0, 2026-05-27 — promoted
-    /// from `_reserved[0]` to a named field; wire size unchanged.
+    /// must be tolerated by readers).
     pub flags: u8,
     /// Reserved for future use (zero-filled).
     pub _reserved: [u8; 2],
