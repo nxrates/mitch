@@ -38,8 +38,10 @@ pub mod channel;
 pub mod body;
 /// Common types, enums, and constants used across all message types
 pub mod common;
-/// Generated constants from CSV files.
-pub mod constants;
+/// Generated constants from CSV files (emitted by build.rs into OUT_DIR).
+pub mod constants {
+    include!(concat!(env!("OUT_DIR"), "/constants.rs"));
+}
 /// MITCH unified message header (16 bytes)
 pub mod header;
 /// Index message implementation (40 bytes)

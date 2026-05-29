@@ -1,0 +1,2 @@
+# build.rs emits constants.rs into OUT_DIR; never commit a stale copy in src/.
+src/constants.rs
