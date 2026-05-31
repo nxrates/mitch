@@ -20,7 +20,7 @@ All asset data files follow a consistent three-column structure:
 ## Classification Standard Identifiers
 - `instrument-types.csv`: Master list of instrument types and their MITCH IDs
 - `asset-classes.csv`: Master list of asset classes and their MITCH IDs
-- `market-providers.csv`: Exchanges, brokers, and market data providers
+- `market-providers.csv`: Exchanges, providers, and market data providers
 
 ## Asset Classes
 - `forex.csv`: Fiat currencies with MITCH IDs and ISO codes/aliases

@@ -75,7 +75,7 @@ pub struct Bar {
     pub vbid: u32,
     /// Cumulative ask volume in bar (same units as Index.vask).
     pub vask: u32,
-    /// Number of ingested messages in bar (Index-level ticks, not raw broker ticks).
+    /// Number of ingested messages in bar (Index-level ticks, not raw provider ticks).
     pub tick_count: u32,
     /// Padding to align cache line 1 to 64 bytes.
     pub _pad: [u8; 8],
