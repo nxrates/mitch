@@ -19,7 +19,7 @@ This crate implements the MITCH binary protocol for ultra-low latency market dat
 - **Cross-platform**: Consistent Little-Endian encoding
 - **No dependencies**: Core has zero external dependencies
 - **Memory safe**: Rust safety, optimized hot paths
-- **Market provider resolution**: Fuzzy string matching for exchange/broker names
+- **Market provider resolution**: Fuzzy string matching for exchange/provider names
 - **Dynamic library output**: Automated building of `.so`, `.dll`, and `.dylib` for all supported targets
 - **FFI-ready**: C-compatible interface
 

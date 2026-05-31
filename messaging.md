@@ -113,7 +113,7 @@ MITCH is transport-agnostic. The binary framing works identically over any byte 
 | Transport | Use Case | Latency | Notes |
 |-----------|----------|---------|-------|
 | **UDP Multicast** (239.0.42.1:40006) | Cross-host LAN (nxr -> btr-runtime) | ~5-10us | 56B `IndexFrame` (16B header + 40B Index) |
-| **TCP** (port 9500) | FX broker MITCH frames | ~100us | Length-prefixed, batched ticks |
+| **TCP** (port 9500) | FX provider MITCH frames | ~100us | Length-prefixed, batched ticks |
 | **WebSocket** (port 40004) | Browser clients, monitoring | ~1ms | JSON-serialized snapshots |
 
 ### UDP Multicast
@@ -130,9 +130,9 @@ while let Ok(idx) = rx.recv().await {
 }
 ```
 
-### TCP MITCH Frames (FX Brokers)
+### TCP MITCH Frames (FX Providers)
 
-FX prime brokers connect to port 9500 and stream **pure canonical MITCH
+FX prime providers connect to port 9500 and stream **pure canonical MITCH
 frames** — no length prefix, no NXR-specific envelope. Each frame is
 `[MitchHeader 16B][Body × count]`; the receiver reads 16 bytes, decodes the
 header, and then reads `count × body_size` more.
@@ -140,7 +140,7 @@ header, and then reads `count × body_size` more.
 - Ticks: `type_provider` low 4 bits = `3` (`TICK`), body = 32B `mitch::Tick`.
 - Heartbeats: `type_provider` low 4 bits = `7` (`HEARTBEAT`), body = 16B
   `mitch::Heartbeat` (total frame = 32B `mitch::HeartbeatFrame`).
-- `broker_id` lives in the high 12 bits of `type_provider` as the MITCH
+- `provider_id` lives in the high 12 bits of `type_provider` as the MITCH
   `provider_id` (0-4095).
 - Batches larger than 255 ticks are split across multiple frames that share
   the same `mts` and use consecutive `sequence` values.
