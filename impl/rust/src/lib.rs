@@ -125,19 +125,21 @@ pub const BUILD_INFO: &str = concat!(
 /// ```
 pub fn calculate_message_size(message_type: u8, count: u8) -> Result<usize, MitchError> {
     validate_message_type(message_type)?;
-
-    let single_body_size = match message_type {
-        message_type::TRADE => message_sizes::TRADE,
-        message_type::ORDER => message_sizes::ORDER,
-        message_type::TICK => message_sizes::TICK,
-        message_type::INDEX => message_sizes::INDEX,
-        message_type::ORDER_BOOK => message_sizes::ORDER_BOOK,
-        message_type::BAR => message_sizes::BAR,
-        message_type::HEARTBEAT => message_sizes::HEARTBEAT,
-        _ => return Err(MitchError::InvalidMessageType(message_type)),
+    // Dedup wave-3 F4 (2026-06-01): 7-arm match → 256-byte LUT. Zero on
+    // invalid index — validate_message_type rejected non-types above, so
+    // a zero here is a bug, not a runtime error.
+    const BODY_SIZE: [usize; 256] = {
+        let mut t = [0usize; 256];
+        t[message_type::TRADE      as usize] = message_sizes::TRADE;
+        t[message_type::ORDER      as usize] = message_sizes::ORDER;
+        t[message_type::TICK       as usize] = message_sizes::TICK;
+        t[message_type::INDEX      as usize] = message_sizes::INDEX;
+        t[message_type::ORDER_BOOK as usize] = message_sizes::ORDER_BOOK;
+        t[message_type::BAR        as usize] = message_sizes::BAR;
+        t[message_type::HEARTBEAT  as usize] = message_sizes::HEARTBEAT;
+        t
     };
-
-    Ok(message_sizes::HEADER + (count as usize * single_body_size))
+    Ok(message_sizes::HEADER + (count as usize * BODY_SIZE[message_type as usize]))
 }
 
 /// Validate that a buffer contains a valid MITCH message
