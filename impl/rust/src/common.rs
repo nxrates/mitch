@@ -232,34 +232,42 @@ pub mod message_type_code {
     pub const HEARTBEAT: u8 = 7;
 }
 
+/// ASCII (`b't'`, `b'o'`, ...) → 4-bit wire code lookup. Zero for any
+/// non-matching byte. Replaces 7-arm match (dedup wave-3 F4, 2026-06-01).
+const ASCII_TO_CODE: [u8; 256] = {
+    let mut t = [0u8; 256];
+    t[message_type::TRADE      as usize] = message_type_code::TRADE;
+    t[message_type::ORDER      as usize] = message_type_code::ORDER;
+    t[message_type::TICK       as usize] = message_type_code::TICK;
+    t[message_type::INDEX      as usize] = message_type_code::INDEX;
+    t[message_type::ORDER_BOOK as usize] = message_type_code::ORDER_BOOK;
+    t[message_type::BAR        as usize] = message_type_code::BAR;
+    t[message_type::HEARTBEAT  as usize] = message_type_code::HEARTBEAT;
+    t
+};
+
+/// Wire code (1..=7) → ASCII byte lookup. Zero for any out-of-range code.
+const CODE_TO_ASCII: [u8; 8] = [
+    0,
+    message_type::TRADE,
+    message_type::ORDER,
+    message_type::TICK,
+    message_type::INDEX,
+    message_type::ORDER_BOOK,
+    message_type::BAR,
+    message_type::HEARTBEAT,
+];
+
 /// Map ASCII message type to 4-bit wire code. Returns 0 on invalid input.
 #[inline]
 pub fn msg_type_to_code(ascii: u8) -> u8 {
-    match ascii {
-        message_type::TRADE => message_type_code::TRADE,
-        message_type::ORDER => message_type_code::ORDER,
-        message_type::TICK => message_type_code::TICK,
-        message_type::INDEX => message_type_code::INDEX,
-        message_type::ORDER_BOOK => message_type_code::ORDER_BOOK,
-        message_type::BAR => message_type_code::BAR,
-        message_type::HEARTBEAT => message_type_code::HEARTBEAT,
-        _ => 0,
-    }
+    ASCII_TO_CODE[ascii as usize]
 }
 
 /// Map 4-bit wire code back to ASCII message type. Returns 0 on invalid input.
 #[inline]
 pub fn code_to_msg_type(code: u8) -> u8 {
-    match code {
-        message_type_code::TRADE => message_type::TRADE,
-        message_type_code::ORDER => message_type::ORDER,
-        message_type_code::TICK => message_type::TICK,
-        message_type_code::INDEX => message_type::INDEX,
-        message_type_code::ORDER_BOOK => message_type::ORDER_BOOK,
-        message_type_code::BAR => message_type::BAR,
-        message_type_code::HEARTBEAT => message_type::HEARTBEAT,
-        _ => 0,
-    }
+    *CODE_TO_ASCII.get(code as usize).unwrap_or(&0)
 }
 
 /// Validate a 4-bit wire code is a known message type.
