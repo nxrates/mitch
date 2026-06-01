@@ -256,11 +256,13 @@ mod tests {
     fn frame_sizes() {
         assert_eq!(core::mem::size_of::<TickFrame>(), 48);
         assert_eq!(core::mem::size_of::<TradeFrame>(), 40);
-        assert_eq!(core::mem::size_of::<BarFrame>(), 144);
+        // BarFrame = 16B header + 96B Bar body = 112 (Bar shrank 128→96B
+        // in commit f941ba2; this literal was stale at 144).
+        assert_eq!(core::mem::size_of::<BarFrame>(), 112);
         assert_eq!(core::mem::size_of::<HeartbeatFrame>(), 32);
         assert_eq!(TICK_FRAME_SIZE, 48);
         assert_eq!(TRADE_FRAME_SIZE, 40);
-        assert_eq!(BAR_FRAME_SIZE, 144);
+        assert_eq!(BAR_FRAME_SIZE, 112);
         assert_eq!(HEARTBEAT_FRAME_SIZE, 32);
     }
 
