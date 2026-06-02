@@ -218,8 +218,7 @@ impl Bar {
     pub fn avg_ci_ubp_decoded(&self) -> f64 {
         // Read the packed u16 out before float math (no unaligned ref).
         let enc = self.avg_ci_ubp;
-        let x = enc as f64 / crate::common::CI_SCALE;
-        x * x
+        crate::common::ci_decode(enc)
     }
 
     /// Decoded average CI converted to absolute price units against `mid_price`.
