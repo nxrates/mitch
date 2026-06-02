@@ -18,6 +18,25 @@ use core::fmt;
 /// `bar_builder` / `tdwap` modules — all must agree.
 pub const CI_SCALE: f64 = 16.0;
 
+/// Decode a u16 CI wire value back to micro basis points of mid.
+/// Inverse of [`ci_encode`]: `ci_ubp = (enc / CI_SCALE)^2`.
+#[inline]
+pub fn ci_decode(enc: u16) -> f64 {
+    let x = enc as f64 / CI_SCALE;
+    x * x
+}
+
+/// Encode a confidence interval (micro basis points of mid) into the u16 wire form.
+/// `encoded = round(sqrt(ci_ubp) * CI_SCALE)`, clamped to `[0, u16::MAX]`;
+/// non-finite or non-positive inputs encode to 0.
+#[inline]
+pub fn ci_encode(val: f64) -> u16 {
+    if !val.is_finite() || val <= 0.0 {
+        return 0;
+    }
+    (val.sqrt() * CI_SCALE).round().clamp(0.0, u16::MAX as f64) as u16
+}
+
 // =============================================================================
 // MESSAGE TYPE CONSTANTS
 // =============================================================================
