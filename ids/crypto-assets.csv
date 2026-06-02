@@ -109,7 +109,7 @@ id,name,aliases
 10701,Morpho,MORPHO
 10801,Mountain Protocol USD,USDM
 10901,NEAR,NEAR
-11001,Neutrino USD,USDN
+11001,Neutrino USD,
 11101,Nexo,NEXO
 11201,Nexus Mutual,NXM
 11301,Noble USD,USDN
@@ -128,7 +128,7 @@ id,name,aliases
 12601,Plume Network,PLUME
 12701,Polkadot,DOT
 12801,Polygon,MATIC
-12901,Polygon,POL
+12901,Polygon Ecosystem Token,POL
 13001,Pyth Network,PYTH
 13101,QuickSwap,QUICK
 13201,Raydium Exchange,RAY
@@ -149,7 +149,7 @@ id,name,aliases
 14701,Solana,SOL
 14801,Solv Staked BTC,solvBTC
 14901,Sonic,S
-15001,Stables Labs Staked USDX,USDX
+15001,Stables Labs Staked USDX,sUSDX
 15101,Stables Labs USDX,USDX
 15201,Staked Anzen USDZ,sUSDZ
 15301,Staked Avalon USDa,sUSDa

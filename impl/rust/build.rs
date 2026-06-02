@@ -242,8 +242,15 @@ fn emit_enum(out: &mut String, name: &str, rows: &[Vec<String>]) {
 
 /// Emit `pub static <STEM>_DATA: &[DataEntry] = &[...]` for a data CSV.
 /// CSV layout: `id, name, aliases` (aliases is `|`-separated).
-/// Name → lowercased verbatim. Aliases → each lowercased + alphanumeric-only,
-/// deduped against the lowercased name, rejoined with `|`.
+/// Name → lowercased verbatim. Aliases → each lowercased + alphanumeric (plus
+/// the ticker-significant sigils `+` and `-`), deduped against the lowercased
+/// name, rejoined with `|`.
+///
+/// `+`/`-` are preserved (RCA ROOT1c, 2026-06-01): stripping them collapsed
+/// alias "ETH+" → "eth", colliding with bare ETH's alias and making ETH/USDT
+/// mis-resolve to "Ethereum Plus" (5701). The SDK resolver's
+/// `normalize_asset_name` mirrors this keep-set, and `AssetResolver::load_class`
+/// panics on any normalized-name collision across distinct class_ids.
 fn emit_data_array(out: &mut String, path: &Path) {
     let stem = path.file_stem().unwrap().to_string_lossy().into_owned();
     let const_name = format!("{}_DATA", stem.replace('-', "_").to_uppercase());
@@ -273,7 +280,7 @@ fn emit_data_array(out: &mut String, path: &Path) {
                 let clean: String = a
                     .to_lowercase()
                     .chars()
-                    .filter(|c| c.is_ascii_alphanumeric())
+                    .filter(|c| c.is_ascii_alphanumeric() || *c == '+' || *c == '-')
                     .collect();
                 if !clean.is_empty() && clean != name_lower && !alias_parts.contains(&clean) {
                     alias_parts.push(clean);
