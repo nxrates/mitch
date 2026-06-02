@@ -44,9 +44,9 @@ id,name,aliases
 00341,Coinbase,
 00351,CoinEx,
 00361,Coinstore,
-00371,CoinW,
+00371,CoinW,coinw
 00381,COMEX,
-00391,Crypto.com,
+00391,Crypto.com,cryptocom
 00401,Curve,
 00411,Deepcoin,
 00421,Degiro,
@@ -65,7 +65,7 @@ id,name,aliases
 00531,FxPro,
 00541,FXView,
 00551,GammaSwap,
-00561,Gate.io,
+00561,Gate.io,gateio
 00571,Gemini,
 00581,Global Prime,
 00582,GMX,
@@ -76,7 +76,7 @@ id,name,aliases
 00611,HFM,
 00621,Hong Kong Stock Exchange,
 00631,Hotcoin,
-00641,HTX,
+00641,HTX,htx
 00642,Hyperliquid,
 00651,IC Markets,
 00661,ICE,
@@ -145,4 +145,4 @@ id,name,aliases
 01272,WOO,
 01281,WhiteBIT,
 01291,XM Market,
-01301,XT.COM
+01301,XT.COM,xtcom
