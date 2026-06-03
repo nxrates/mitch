@@ -18,7 +18,7 @@ id,name,aliases
 01601,Balancer Exchange,BAL
 01701,Bedrock Staked Unified BTC,brBTC
 01801,Bedrock Unified BTC,uniBTC
-01901,Binance Coin,BNB
+01901,Binance Coin,BNB|WBNB
 02001,Binance ETH,BETH
 02101,Binance Staked SOL,bnSOL
 02201,Binance USD,BUSD
@@ -26,7 +26,7 @@ id,name,aliases
 02401,Bitcoin BEP2,BTCB
 02501,Bitcoin Cash,BCH
 02601,Bitcoin SV,BSV
-02701,Bitcoin,BTC|XBT
+02701,Bitcoin,BTC|XBT|XXBT
 02801,Bitfinex LEO,LEO
 02901,Bitget Token,BGB
 03001,BitMart Token,BMX
@@ -47,7 +47,6 @@ id,name,aliases
 04501,Curve DAO,CRV
 04601,Curve USD,crvUSD
 04701,Cygnus clBTC,
-04801,DAI Stablecoin,DAI
 04901,Dash,DASH
 05001,DeepBook,DEEP
 05101,Dogecoin,DOGE
@@ -57,7 +56,7 @@ id,name,aliases
 05501,Ethena Treasury USD,USDtb
 05601,Ethena,ENA
 05701,Ethereum Plus,ETH+
-05801,Ethereum,ETH
+05801,Ethereum,ETH|WETH|XETH
 05901,EtherFi Staked BTC,eBTC
 06001,EtherFi Wrapped Staked eETH,weETH
 06101,EtherFi,ETHFI
@@ -127,8 +126,7 @@ id,name,aliases
 12501,Pendle,PENDLE
 12601,Plume Network,PLUME
 12701,Polkadot,DOT
-12801,Polygon,MATIC
-12901,Polygon Ecosystem Token,POL
+12901,Polygon Ecosystem Token,POL|MATIC
 13001,Pyth Network,PYTH
 13101,QuickSwap,QUICK
 13201,Raydium Exchange,RAY
@@ -145,8 +143,8 @@ id,name,aliases
 14301,Sei,SEI
 14401,Siacoin,SC
 14501,Sky Protocol,SKY
-14601,Sky USDS,USDS
-14701,Solana,SOL
+14601,Sky USDS,USDS|DAI
+14701,Solana,SOL|WSOL
 14801,Solv Staked BTC,solvBTC
 14901,Sonic,S
 15001,Stables Labs Staked USDX,sUSDX
@@ -156,7 +154,6 @@ id,name,aliases
 15401,Staked Avant avUSD,savUSD
 15501,Staked Curve USD,scrvUSD
 15601,Staked Elixir USD,sdeUSD
-15701,Staked Ethereum,XETH
 15801,Staked Frax Dollar,sfrxUSD
 15901,Staked Frax ETH,sfrxETH
 16001,Staked Inverse Finance DOLA,sDOLA
@@ -174,8 +171,7 @@ id,name,aliases
 17201,Swell Staked ETH,swETH
 17301,Syrup USD,syrupUSD
 17401,TerraUSD Classic,USTC
-17501,Tether USD0,USDT0
-17601,Tether,USDT
+17601,Tether,USDT|USDT0
 17701,Thena Exchange,THE
 17801,THORChain,RUNE
 17901,Threshold Network BTC,tBTC
