@@ -19,7 +19,10 @@
 //! 28     | vask       | 4    | u32   | Aggregated ask volume
 //! 32     | ci         | 2    | u16   | Confidence interval in UBP
 //! 34     | tick_count | 2    | u16   | Raw ticks in aggregation window
-//! 36     | confidence | 1    | u8    | Active provider count
+//! 36     | confidence | 1    | u8    | Aggregate freshness, Q0.8: f = byte/255
+//!        |            |      |       | (∈[0,1]) when FLAG_CONF_FRESHNESS (index
+//!        |            |      |       | flag bit 3) is set; legacy active-provider
+//!        |            |      |       | count when that flag is clear.
 //! 37     | accepted   | 1    | u8    | Accepted providers
 //! 38     | rejected   | 1    | u8    | Rejected providers
 //! 39     | flags      | 1    | u8    | Bitfield:
@@ -31,11 +34,18 @@
 //!                                              (record produced by offline
 //!                                               backfill / migrate / merge,
 //!                                               not by the live aggregator)
-//!                                       bits 2-7: reserved (must be 0)
+//!                                       bit 3: FLAG_CONF_FRESHNESS
+//!                                              (the `confidence` byte is Q0.8
+//!                                               freshness f=byte/255, not the
+//!                                               legacy active-provider count;
+//!                                               set by the TDWAP writer)
+//!                                       bits 2,4-7: reserved for INDEX records
+//!                                              (bit 2 is FLAG_RENKO_SYNTHETIC_-
+//!                                               BRICK in the *Bar* flag space)
 //! ```
 //! Canonical bit constants live in `nxr_sdk::shard` (FLAG_HEARTBEAT_SENTINEL,
-//! FLAG_HISTORICAL_BACKFILL) so they stay in lock-step with the writer that
-//! sets them.
+//! FLAG_HISTORICAL_BACKFILL, FLAG_CONF_FRESHNESS) so they stay in lock-step with
+//! the writer that sets them.
 
 use crate::body::MitchBody;
 use crate::common::{message_sizes, MitchError};
@@ -81,7 +91,11 @@ pub struct Index {
     pub ci: u16,
     /// Raw ticks in aggregation window (2 bytes)
     pub tick_count: u16,
-    /// Active provider count (1 byte)
+    /// Aggregate freshness, Q0.8 fixed-point (1 byte): `f = byte / 255 ∈ [0,1]`
+    /// when the record's `FLAG_CONF_FRESHNESS` (index flag bit 3) is set —
+    /// ~1 when all providers are fresh, falling as components decay. When that
+    /// flag is clear this is the legacy integer active-provider count.
+    /// See [`conf_to_u8`] / [`conf_from_u8`] for the Q0.8 (de)coders.
     pub confidence: u8,
     /// Accepted providers (1 byte)
     pub accepted: u8,
@@ -96,6 +110,22 @@ pub struct Index {
 
 // Compile-time size assertion
 const _: () = assert!(core::mem::size_of::<Index>() == 40, "Index must be exactly 40 bytes");
+
+/// Q0.8 fixed-point scale for the `Index::confidence` freshness byte: a freshness
+/// `f ∈ [0,1]` is stored as `round(f · 255)` and recovered as `byte / 255`.
+pub const MITCH_CONF_SCALE: f64 = 255.0;
+
+/// Encode a freshness float `f ∈ [0,1]` to the Q0.8 wire byte (`round(f·255)`).
+#[inline]
+pub fn conf_to_u8(f: f64) -> u8 {
+    (f.clamp(0.0, 1.0) * MITCH_CONF_SCALE).round() as u8
+}
+
+/// Decode a Q0.8 wire byte back to a freshness float `∈ [0,1]` (`byte / 255`).
+#[inline]
+pub fn conf_from_u8(b: u8) -> f64 {
+    b as f64 / MITCH_CONF_SCALE
+}
 
 impl Index {
     /// Create a new Index message.
@@ -196,17 +226,20 @@ impl Index {
     ///
     /// Reject sites:
     /// - Zero ticker, non-positive or non-finite bid/ask, crossed quote.
-    /// - `confidence > accepted` (active count must not exceed accepted count).
     /// - `spread_bps > MAX_SPREAD_BPS` (20% cap: thin enough to reject corrupted
     ///   feeds, wide enough to admit the widest illiquid pairs).
+    ///
+    /// NOTE: `confidence` is now an INDEPENDENT Q0.8 freshness byte (see
+    /// `FLAG_CONF_FRESHNESS`), so the old `confidence <= accepted` and
+    /// `accepted==0 && confidence>0` cross-constraints have been removed — a
+    /// fully-stale single-provider record can legitimately have low freshness
+    /// with `accepted > 0`, and freshness no longer counts providers.
     pub fn validate(&self) -> Result<(), MitchError> {
         // Copy out of the packed struct so we can do float math without
         // triggering unaligned-reference lints.
         let bid = self.bid;
         let ask = self.ask;
         let ticker = self.ticker;
-        let accepted = self.accepted;
-        let confidence = self.confidence;
 
         if ticker == 0 { return Err(MitchError::InvalidFieldValue("Ticker cannot be zero".into())); }
         if !bid.is_finite() { return Err(MitchError::InvalidFieldValue("Bid must be finite".into())); }
@@ -214,8 +247,6 @@ impl Index {
         if bid <= 0.0 { return Err(MitchError::InvalidFieldValue("Bid price must be positive".into())); }
         if ask <= 0.0 { return Err(MitchError::InvalidFieldValue("Ask price must be positive".into())); }
         if ask < bid { return Err(MitchError::InvalidFieldValue("Ask must be >= bid".into())); }
-        if accepted == 0 && confidence > 0 { return Err(MitchError::InvalidFieldValue("Cannot have confidence without accepted providers".into())); }
-        if confidence > accepted { return Err(MitchError::InvalidFieldValue("confidence cannot exceed accepted".into())); }
 
         const MAX_SPREAD_BPS: f64 = 2000.0;
         let mid = (bid + ask) / 2.0;
