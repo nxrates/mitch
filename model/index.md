@@ -13,10 +13,10 @@
 | vask       | 28     | 4    | `u32`   | Aggregated ask volume               |
 | ci         | 32     | 2    | `u16`   | Confidence interval (micro bps)     |
 | tick_count | 34     | 2    | `u16`   | Raw ticks aggregated                |
-| confidence | 36     | 1    | `u8`    | Active provider count               |
+| confidence | 36     | 1    | `u8`    | Q0.8 freshness `f=byte/255` (FLAG_CONF_FRESHNESS) / legacy active count |
 | accepted   | 37     | 1    | `u8`    | Accepted providers                  |
 | rejected   | 38     | 1    | `u8`    | Rejected providers                  |
-| flags      | 39     | 1    | `u8`    | Bitfield (reserved, currently zero) |
+| flags      | 39     | 1    | `u8`    | Bitfield: bit0 heartbeat, bit1 backfill, bit3 conf-freshness |
 
 **Framed size**: 56B (16B MitchHeader + 40B body). See [framing.md](./framing.md).
 
@@ -43,7 +43,7 @@ where `ci_ubp` is in micro basis points of mid (1 ubp = 1e-8 x mid). The compres
 
 - `ask >= bid > 0`
 - `ticker != 0`
-- `accepted >= confidence` (confidence = active subset of accepted)
+- `confidence` is INDEPENDENT of `accepted`: when `FLAG_CONF_FRESHNESS` (flags bit 3) is set, `confidence` is Q0.8 freshness (`f = byte/255 ∈ [0,1]`), NOT a provider count, so the old `accepted >= confidence` cross-constraint no longer applies.
 
 ## Validation
 
