@@ -71,6 +71,7 @@ id,name,aliases
 00691,Amgen,AMGN
 00701,Amorepacific,090430
 00711,Amphenol,APH
+00716,Amundi ETF Govies 0-6 Months Euro IG,C3M
 00721,ANA Group,9202
 00731,Analog Devices,ADI
 00741,Anglo American,AAL
@@ -274,6 +275,7 @@ id,name,aliases
 02721,Cincinnati Financial,CINF
 02731,Cincinnati Finl,CINF
 02741,Cintas,CTAS
+02746,Circle Internet Group,CRCL
 02751,Cisco,CSCO
 02761,Cisco Systems,CSCO
 02771,CITIC,0267
@@ -715,6 +717,7 @@ id,name,aliases
 07131,IQVIA Holdings,IQV
 07141,Iron Mountain,IRM
 07151,Isetan Mitsukoshi,3099
+07156,iShares MSCI South Korea ETF,EWY
 07161,ISU Specialty Chemical,078930
 07171,Isuzu Motors,7202
 07181,Itochu,8001
@@ -1187,6 +1190,7 @@ id,name,aliases
 11851,Samsung SDS,018260
 11861,Samsung Securities,016360
 11871,Samyang Foods,003230
+11876,SanDisk,SNDK
 11881,Sandoz,SDZ
 11891,Sands China,1928
 11901,Sandvik,SAND

@@ -44,15 +44,24 @@ pub enum AssetClass {
 
 ### Key Asset Examples
 
+Asset IDs are declared in the static tables under `ids/*.csv` — the CSVs are
+the single source of truth (docs examples below are snapshots; regenerate on
+drift). Aliases live in the pipe-separated `aliases` column of those same
+files: CAT-1 truly-fungible symbols fold into the canonical row's aliases
+(e.g. `12901,Polygon Ecosystem Token,POL|MATIC`), while distinct-risk assets
+keep their own rows (e.g. DAI `04801` is deliberately NOT an alias of Sky
+USDS `14601` since 2026-07-08 - the two publish distinct USD pegs).
+
 | Asset Class | ID | Symbol | Description |
 |-------------|----|---------|-----------| 
-| Forex (0x3) | 111 | EUR | Euro |
-| Forex (0x3) | 461 | USD | US Dollar |
+| Forex (0x3) | 1301 | EUR | Euro |
+| Forex (0x3) | 5001 | USD | US Dollar |
 | Equities (0x0) | 831 | AAPL | Apple Inc. |
 | CryptoAssets (0x6) | 2701 | BTC | Bitcoin |
 | CryptoAssets (0x6) | 17601 | USDT | Tether |
-| Commodities (0x4) | 161 | GOLD | Gold |
-| Indices (0xA) | 671 | SPX | S&P 500 Index |
+| CryptoAssets (0x6) | 4801 | DAI | Dai (un-aliased from USDS 2026-07-08) |
+| Commodities (0x4) | 161 | XAU | Gold |
+| Indices (0xA) | 6301 | SPX | S&P 500 Index |
 
 ### Asset Encoding/Decoding
 
@@ -149,21 +158,21 @@ pub fn extract_ticker_components(ticker_id: u64) -> (u8, u8, u16, u8, u16, u32) 
 #### EUR/USD Spot Forex
 ```
 Instrument Type: 0x0 (Spot)
-Base Asset:      0x3 (Forex) + 111 (EUR) = 0x3006F
-Quote Asset:     0x3 (Forex) + 461 (USD) = 0x301CD  
+Base Asset:      0x3 (Forex) + 1301 (EUR) = 0x30515
+Quote Asset:     0x3 (Forex) + 5001 (USD) = 0x31389
 Sub-Type:        0x00000
 
-Result: 0x03006F301CD00000 (216295034546290688 decimal)
+Result: 0x0305153138900000 (217603458143879168 decimal)
 ```
 
 #### AAPL Stock (USD denominated)
 ```
 Instrument Type: 0x0 (Spot)
 Base Asset:      0x0 (Equity) + 831 (AAPL) = 0x0033F
-Quote Asset:     0x3 (Forex) + 461 (USD) = 0x301CD
+Quote Asset:     0x3 (Forex) + 5001 (USD) = 0x31389
 Sub-Type:        0x00000
 
-Result: 0x00033F301CD00000 (230056771460096 decimal)
+Result: 0x00033F3138900000 (913905565040640 decimal)
 ```
 
 #### BTC/USDT Perpetual Swap

@@ -7,7 +7,7 @@ id,name,aliases
 00501,Bulgarian Lev,BGN
 00601,Canadian Dollar,CAD
 00701,Chilean Peso,CLP
-00801,Chinese Renminbi,CNY
+00801,Chinese Renminbi,CNY|CNH
 00901,Colombian Peso,COP
 01001,Czech Koruna,CZK
 01101,Danish Krone,DKK

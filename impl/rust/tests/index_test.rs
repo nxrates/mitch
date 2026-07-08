@@ -69,10 +69,11 @@ mod tests {
         assert!(index.validate().is_err());
         index.ask = get_default_index().ask;
 
-        // Logical inconsistency: confidence without accepted providers
+        // confidence is Q0.8 freshness since 1afd1bb (relaxed validate):
+        // accepted=0 + confidence>0 is legal (freshness stamp, not provider count).
         index.accepted = 0;
         index.confidence = 1;
-        assert!(index.validate().is_err());
+        assert!(index.validate().is_ok());
     }
 
     #[test]
