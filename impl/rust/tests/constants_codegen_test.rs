@@ -10,8 +10,8 @@ mod codegen_lengths {
 
     #[test]
     fn data_array_lengths() {
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 197, "CRYPTO_ASSETS_DATA");
-        assert_eq!(MARKET_PROVIDERS_DATA.len(), 147, "MARKET_PROVIDERS_DATA");
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 200, "CRYPTO_ASSETS_DATA");
+        assert_eq!(MARKET_PROVIDERS_DATA.len(), 148, "MARKET_PROVIDERS_DATA");
         assert_eq!(EQUITIES_DATA.len(), 1554, "EQUITIES_DATA");
         assert_eq!(FOREX_DATA.len(), 52, "FOREX_DATA");
         assert_eq!(COMMODITIES_DATA.len(), 54, "COMMODITIES_DATA");

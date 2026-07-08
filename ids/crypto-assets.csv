@@ -47,6 +47,7 @@ id,name,aliases
 04501,Curve DAO,CRV
 04601,Curve USD,crvUSD
 04701,Cygnus clBTC,
+04801,Dai,DAI
 04901,Dash,DASH
 05001,DeepBook,DEEP
 05101,Dogecoin,DOGE
@@ -143,7 +144,7 @@ id,name,aliases
 14301,Sei,SEI
 14401,Siacoin,SC
 14501,Sky Protocol,SKY
-14601,Sky USDS,USDS|DAI
+14601,Sky USDS,USDS
 14701,Solana,SOL|WSOL
 14801,Solv Staked BTC,solvBTC
 14901,Sonic,S
