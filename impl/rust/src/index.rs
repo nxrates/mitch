@@ -51,6 +51,13 @@ use crate::body::MitchBody;
 use crate::common::{message_sizes, MitchError};
 use core::fmt;
 
+/// Absolute price sanity ceiling shared by every carry-forward / gap-fill /
+/// synth-multiply site downstream of `Index::validate` — no instrument we
+/// quote prices in the billions, so this catches finite-but-astronomical
+/// garbage that `is_finite()` alone admits (see `validate()` doc + incident
+/// 2026-07-10).
+pub const MAX_PRICE: f64 = 1.0e9;
+
 /// Index message structure (40 bytes)
 ///
 /// Unified aggregated market data. `mid` is derived: `(bid + ask) / 2`.
@@ -226,6 +233,14 @@ impl Index {
     ///
     /// Reject sites:
     /// - Zero ticker, non-positive or non-finite bid/ask, crossed quote.
+    /// - `bid/ask > MAX_PRICE` (1e9 cap: no real instrument we quote prices in
+    ///   the billions; catches finite-but-astronomical garbage — e.g. a torn
+    ///   read or fail-open outlier-gate admit during a peer-thin restart — that
+    ///   `is_finite()` alone lets through. Incident 2026-07-10: one such tick
+    ///   admitted for USDC/USDT during an OOM crash-loop got carried forward as
+    ///   `last_close` bar after bar (self-reinforcing, no upper-bound check
+    ///   anywhere downstream) and cascaded into ZEC/USDC, XAUT/USDC synth
+    ///   crosses. This is the earliest choke point — reject here first.
     /// - `spread_bps > MAX_SPREAD_BPS` (20% cap: thin enough to reject corrupted
     ///   feeds, wide enough to admit the widest illiquid pairs).
     ///
@@ -247,6 +262,9 @@ impl Index {
         if bid <= 0.0 { return Err(MitchError::InvalidFieldValue("Bid price must be positive".into())); }
         if ask <= 0.0 { return Err(MitchError::InvalidFieldValue("Ask price must be positive".into())); }
         if ask < bid { return Err(MitchError::InvalidFieldValue("Ask must be >= bid".into())); }
+        if bid > MAX_PRICE || ask > MAX_PRICE {
+            return Err(MitchError::InvalidFieldValue("price exceeds 1e9 sanity cap".into()));
+        }
 
         const MAX_SPREAD_BPS: f64 = 2000.0;
         let mid = (bid + ask) / 2.0;
@@ -257,6 +275,31 @@ impl Index {
             }
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn validate_rejects_price_above_max() {
+        // 2026-07-10 incident regression: a finite-but-astronomical price must
+        // be rejected at the earliest gate, not just non-finite ones.
+        let bad = Index::new(1, MAX_PRICE * 2.0, MAX_PRICE * 2.0, 0, 0, 0, 0, 255, 1, 0);
+        assert!(bad.validate().is_err());
+    }
+
+    #[test]
+    fn validate_accepts_price_at_max() {
+        let ok = Index::new(1, MAX_PRICE, MAX_PRICE, 0, 0, 0, 0, 255, 1, 0);
+        assert!(ok.validate().is_ok());
+    }
+
+    #[test]
+    fn validate_accepts_normal_price() {
+        let ok = Index::new(1, 1.0006, 1.0008, 0, 0, 0, 0, 255, 1, 0);
+        assert!(ok.validate().is_ok());
     }
 }
 
