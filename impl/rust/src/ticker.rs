@@ -1,7 +1,8 @@
 //! MITCH Ticker ID encoding and asset type definitions.
 //!
 //! This module defines the wire-format types and encoding/decoding for ticker IDs.
-//! Resolution logic (fuzzy matching, symbol parsing) lives in nxr-sdk.
+//! Resolution logic (fuzzy matching, symbol parsing) is a consumer-side
+//! concern; the normative rules live in `model/ticker.md`.
 
 use crate::common::{MitchError, AssetClass, InstrumentType};
 use core::fmt;

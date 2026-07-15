@@ -1,7 +1,8 @@
 /**
  * MITCH Protocol TypeScript Implementation
  *
- * Data structures and pack/unpack for the MITCH (Moded ITCH) binary protocol.
+ * Data structures and pack/unpack for the MITCH (Moded Individual Trade
+ * Clearing and Handling) binary protocol.
  * Optimized for ultra-low latency financial market data transmission.
  *
  * Binary layout reference (all little-endian):
@@ -373,7 +374,8 @@ export function orderSideFromByte(typeAndSide: number): OrderSide {
  *   [36]     confidence : u8
  *   [37]     accepted   : u8
  *   [38]     rejected   : u8
- *   [39]     padding    : u8
+ *   [39]     flags      : u8  (bit 0: heartbeat sentinel, bit 1: backfill,
+ *                              bit 3: conf-freshness; see model/index.md)
  */
 export interface Index {
   tickerId:   bigint;  // u64
@@ -386,7 +388,7 @@ export interface Index {
   confidence: number;  // u8
   accepted:   number;  // u8
   rejected:   number;  // u8
-  // 1 byte padding
+  flags:      number;  // u8 (bit 0: heartbeat sentinel, bit 1: backfill, bit 3: conf-freshness)
 }
 
 /**
@@ -777,7 +779,7 @@ export function packIndex(idx: Index): Uint8Array {
   dv.setUint8    (36, idx.confidence);
   dv.setUint8    (37, idx.accepted);
   dv.setUint8    (38, idx.rejected);
-  // [39] = 0 (padding)
+  dv.setUint8    (39, idx.flags);
   return buf;
 }
 
@@ -801,6 +803,7 @@ export function unpackIndex(src: Uint8Array): Index {
     confidence: dv.getUint8    (36),
     accepted:   dv.getUint8    (37),
     rejected:   dv.getUint8    (38),
+    flags:      dv.getUint8    (39),
   };
 }
 

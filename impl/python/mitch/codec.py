@@ -13,8 +13,11 @@ _TICK_US: int = 16
 
 
 def from_epoch_us(epoch_us: int) -> int:
-    """Convert Unix epoch microseconds to MITCH u48 timestamp."""
-    return (epoch_us - EPOCH_2010_US) // _TICK_US
+    """Convert Unix epoch microseconds to MITCH u48 timestamp.
+
+    Pre-2010 inputs saturate to tick 0 (spec: messaging.md).
+    """
+    return max(epoch_us - EPOCH_2010_US, 0) // _TICK_US
 
 
 def to_epoch_us(ts: int) -> int:
@@ -232,6 +235,7 @@ class Index:
     confidence: int   # u8
     accepted: int     # u8
     rejected: int     # u8
+    flags: int = 0    # u8 (bit 0: heartbeat sentinel, bit 1: backfill, bit 3: conf-freshness)
 
     def pack(self) -> bytes:
         return struct.pack(
@@ -240,18 +244,19 @@ class Index:
             self.vbid, self.vask,
             self.ci, self.tick_count,
             self.confidence, self.accepted, self.rejected,
-            0,  # _pad
+            self.flags,
         )
 
     @classmethod
     def unpack(cls, data: bytes) -> Self:
         (
             ticker, bid, ask, vbid, vask,
-            ci, tick_count, confidence, accepted, rejected, _pad,
+            ci, tick_count, confidence, accepted, rejected, flags,
         ) = struct.unpack_from(_INDEX_FMT, data)
         return cls(
             ticker=ticker, bid=bid, ask=ask,
             vbid=vbid, vask=vask,
             ci=ci, tick_count=tick_count,
             confidence=confidence, accepted=accepted, rejected=rejected,
+            flags=flags,
         )

@@ -1,5 +1,5 @@
 <div align="center">
-  <img border-radius="25px" max-height="250px" src="./banner.png" />
+  <img style="border-radius: 25px; max-height: 250px;" src="./banner.png" />
   <h1>MITCH</h1>
   <p>
     <strong>Market data, faster than light</strong>
@@ -7,8 +7,8 @@
   <p>
     <a href="./model/overview.md"><img alt="Docs" src="https://img.shields.io/badge/Docs-212121?style=flat-square&logo=readthedocs&logoColor=white" width="auto"/></a>
     <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/license-MIT-000000?style=flat-square&logo=open-source-initiative&logoColor=white&labelColor=4c9c3d" width="auto"/></a>
-    <a href="https://t.me/BTRSupply"><img alt="Telegram" src="https://img.shields.io/badge/Telegram-24b3e3?style=flat-square&logo=telegram&logoColor=white" width="auto"/></a>
-    <a href="https://twitter.com/BTRSupply"><img alt="X (Twitter)" src="https://img.shields.io/badge/@BTRSupply-000000?style=flat-square&logo=x&logoColor=white" width="auto"/></a>
+    <a href="https://nxrates.com"><img alt="Website" src="https://img.shields.io/badge/nxrates.com-24b3e3?style=flat-square&logo=googlechrome&logoColor=white" width="auto"/></a>
+    <a href="https://github.com/nxrates"><img alt="GitHub" src="https://img.shields.io/badge/nxrates-000000?style=flat-square&logo=github&logoColor=white" width="auto"/></a>
     </p>
 </div>
 
@@ -24,6 +24,8 @@
 | **[Messaging](./messaging.md)** | 16-byte header, type codes, batching, timestamps, Channel IDs |
 | **[Framing](./model/framing.md)** | Frame composition, file format |
 | **[Ticker & Asset IDs](./model/ticker.md)** | 8-byte instrument encoding, asset classification |
+| **[ID Registries](./ids/overview.md)** | Asset, provider, and instrument-type CSV registries (`ids/`) |
+| **[Bin Specs](./bins/)** | Order-book bin layout CSVs consumed by the Rust build (`bins/`) |
 
 Message sizes and per-type field layouts: see [messaging.md](./messaging.md#message-type-codes) and [model/](./model/overview.md#message-types).
 
@@ -33,9 +35,9 @@ Message sizes and per-type field layouts: see [messaging.md](./messaging.md#mess
 |----------|------|--------|
 | **Rust** | `impl/rust/` | Reference implementation |
 | **TypeScript** | `impl/typescript/mitch.ts` | Bun, Node, Deno |
-| **MQL4** | `impl/mql4/mitch.mq4` | MetaTrader 4 |
+| **Python** | `impl/python/` | CPython >= 3.11 |
 
-Additional ports (C, C++, C#, Go, Java, Python, Zig) live under `impl/`; the Rust crate is the executable specification.
+Additional ports (C, C++, C#, Go, Java, Zig) live under `impl/`; the Rust crate is the executable specification.
 
 ## Quick Example (Rust)
 
@@ -61,10 +63,9 @@ MIT License - see [LICENSE](./LICENSE)
 
 ## References
 
-- [Original NASDAQ ITCH Protocol](./itch/v5-specs.pdf) ([summary](./itch/README.md))
+- [NASDAQ ITCH Protocol summary](./itch/README.md) (official spec on [nasdaqtrader.com](https://www.nasdaqtrader.com/Trader.aspx?id=Totalview2))
 - [Model Specifications](./model/)
-- [Implementation Examples](./impl/examples/)
 
 ---
 
-**BTR Supply** | https://btr.supply
+**NX Rates** | https://nxrates.com

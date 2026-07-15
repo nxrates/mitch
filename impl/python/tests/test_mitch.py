@@ -93,6 +93,7 @@ class TestIndex:
             vbid=1000, vask=2000,
             ci=500, tick_count=12,
             confidence=99, accepted=10, rejected=2,
+            flags=0b0000_1011,  # heartbeat sentinel + backfill + conf-freshness
         )
         data = idx.pack()
         assert len(data) == 40
@@ -107,6 +108,8 @@ class TestIndex:
         assert idx2.confidence == idx.confidence
         assert idx2.accepted == idx.accepted
         assert idx2.rejected == idx.rejected
+        assert idx2.flags == idx.flags
+        assert data[39] == idx.flags  # flags byte at offset 39 per model/index.md
 
 
 # ── Timestamp helpers ────────────────────────────────────────────────
@@ -127,6 +130,12 @@ class TestTimestamp:
     def test_epoch_at_zero(self):
         assert to_epoch_us(0) == EPOCH_2010_US
         assert from_epoch_us(EPOCH_2010_US) == 0
+
+    def test_pre_2010_saturates_to_zero(self):
+        # Spec (messaging.md): pre-2010 inputs saturate to tick 0.
+        assert from_epoch_us(0) == 0
+        assert from_epoch_us(EPOCH_2010_US - 1) == 0
+        assert from_epoch_ms(0) == 0
 
 
 # ── Derived helpers ──────────────────────────────────────────────────

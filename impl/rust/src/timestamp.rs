@@ -1,4 +1,4 @@
-//! # MITCH Timestamp - the canonical clock for the NX/BTR pipeline
+//! # MITCH Timestamp - the canonical clock for all MITCH data
 //!
 //! Every timestamp in the system - wire messages, tick files, bar files, vol
 //! files, IPC rings - uses this single encoding.  There is no other format.

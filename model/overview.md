@@ -1,6 +1,6 @@
 # MITCH Protocol Overview
 
-**MITCH (Moded ITCH)** is a transport-agnostic binary protocol for financial market data serialization. Fixed-width fields, zero-copy parsing, little-endian byte order.
+**MITCH (Moded Individual Trade Clearing and Handling)** is a transport-agnostic binary protocol for financial market data serialization. Fixed-width fields, zero-copy parsing, little-endian byte order.
 
 ## Message Types
 
@@ -46,5 +46,5 @@ All multi-byte fields are **Little-Endian**. Floating points follow IEEE 754.
 
 - **Rust** (`../impl/rust/`): reference implementation
 - **TypeScript** (`../impl/typescript/mitch.ts`): Bun, Node, Deno
-- **MQL4** (`../impl/mql4/mitch.mq4`): MetaTrader 4
-- Additional ports under `../impl/` (C, C++, C#, Go, Java, Python, Zig)
+- **Python** (`../impl/python/`): CPython >= 3.11
+- Additional ports under `../impl/` (C, C++, C#, Go, Java, Zig)

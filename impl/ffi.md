@@ -4,7 +4,7 @@
 
 The Rust crate (`rust/`) is the reference implementation and compiles as `cdylib`/`staticlib` (see `rust/Cargo.toml`), but **currently exports no C ABI functions**: the previous FFI layer and the symbol-resolution logic were moved out of this crate (see `rust/src/lib.rs`). The `ffi` cargo feature and the design below describe the intended interface for when bindings are (re)built.
 
-Standalone ports (no FFI required): `typescript/mitch.ts`, `mql4/mitch.mq4`, plus `c/`, `cpp/`, `csharp/`, `go/`, `java/`, `python/`, `zig/`.
+Standalone ports (no FFI required): `typescript/mitch.ts`, `python/`, plus `c/`, `cpp/`, `csharp/`, `go/`, `java/`, `zig/`.
 
 ## Design Principles
 
@@ -27,7 +27,7 @@ Symbol/asset resolution is out of scope for the FFI layer (it lives in consumer 
 Cross-compilation is automated via `rust/Makefile`:
 
 1. `make install-targets` adds all required Rust targets via `rustup`
-2. `make build-all-platforms` compiles for every target (outputs organized under `dist/`)
+2. `make build-all-platforms` compiles for every target (outputs organized under `../libs/`, gitignored)
 
 | Platform | Targets | Tier |
 |----------|---------|------|

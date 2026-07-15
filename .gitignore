@@ -55,10 +55,8 @@ coverage/
 .idea/
 *.iml
 
-# Ignore Claude AI files
+# Ignore local tool configuration
 .claude/
-
-# Ignore Cursor editor files
 .cursor/
 
 # Ignore Go build files
@@ -66,3 +64,8 @@ coverage/
 *.test
 *.out
 /vendor/
+
+# Ignore prebuilt libraries (build with impl/rust/Makefile)
+*.dylib
+*.dll
+impl/libs/

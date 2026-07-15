@@ -1,6 +1,6 @@
 # Nasdaq ITCH 5.0 Complete Implementation Reference (TCP/IP Stream)
 
-> **Note**: This summary is derived from the official Nasdaq ITCH 5.0 specifications and reference documentation, and serves as the foundational basis for the MITCH specification implementation.
+> **Note**: This summary is derived from the official Nasdaq ITCH 5.0 specifications and reference documentation, and serves as the foundational basis for the MITCH specification implementation. The authoritative spec is published by NASDAQ at [nasdaqtrader.com](https://www.nasdaqtrader.com/Trader.aspx?id=Totalview2) ([TotalView-ITCH 5.0 PDF](https://www.nasdaqtrader.com/content/technicalsupport/specifications/dataproducts/NQTVITCHSpecification.pdf)); it is not redistributed here.
 
 ## 1. TCP/IP Stream Protocol
 

@@ -14,8 +14,8 @@ use core::fmt;
 /// `encoded = round(sqrt(ci_ubp) * CI_SCALE)`; `ci_ubp = (encoded / CI_SCALE)^2`.
 /// With `CI_SCALE = 16.0` the u16 covers `ci_ubp` up to ~16.77e6 (≈16.77% of mid)
 /// before saturation, vastly exceeding the prior 65535 ubp (0.065% of mid)
-/// linear limit. Used by `Index::ci`, `Bar::avg_ci_ubp`, and the SDK
-/// `bar_builder` / `tdwap` modules — all must agree.
+/// linear limit. Used by `Index::ci` and `Bar::avg_ci_ubp`; every encoder
+/// and decoder must agree on this scale.
 pub const CI_SCALE: f64 = 16.0;
 
 /// Decode a u16 CI wire value back to micro basis points of mid.
@@ -252,7 +252,7 @@ pub mod message_type_code {
 }
 
 /// ASCII (`b't'`, `b'o'`, ...) → 4-bit wire code lookup. Zero for any
-/// non-matching byte. Replaces 7-arm match (dedup wave-3 F4, 2026-06-01).
+/// non-matching byte. Replaces a per-type match.
 const ASCII_TO_CODE: [u8; 256] = {
     let mut t = [0u8; 256];
     t[message_type::TRADE      as usize] = message_type_code::TRADE;

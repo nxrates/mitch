@@ -1,7 +1,7 @@
 //! Market provider type definitions.
 //!
 //! Lookup functions (find_market_provider, get_market_provider_by_id, etc.)
-//! live in nxr-sdk::providers.
+//! are a consumer-side concern; the registry is `ids/market-providers.csv`.
 
 use crate::constants::DataEntry;
 

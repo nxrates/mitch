@@ -2,8 +2,8 @@
 name = "mitch"
 version = "0.1.0"
 edition = "2021"
-authors = ["BTR Supply <support@btr.supply>"]
-description = "MITCH (Moded ITCH) protocol implementation in Rust"
+authors = ["NX Rates"]
+description = "MITCH (Moded Individual Trade Clearing and Handling) protocol implementation in Rust"
 license = "MIT"
 keywords = ["finance", "market-data", "high-frequency", "low-latency"]
 categories = ["encoding"]

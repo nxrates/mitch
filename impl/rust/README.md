@@ -24,7 +24,7 @@ Cross-compiled dynamic libraries (`.so`, `.dylib`, `.dll`) for all supported tar
 
 ```sh
 make install-targets       # add Rust targets via rustup
-make build-all-platforms   # build every target, artifacts under dist/
+make build-all-platforms   # build every target, artifacts under ../libs/ (gitignored)
 ```
 
 ## Specification

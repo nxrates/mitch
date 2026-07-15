@@ -8,7 +8,7 @@
 //! Timestamps are stored as 6-byte u48 little-endian tick values using the
 //! [`crate::timestamp`] encoding (16 µs ticks since 2010-01-01).
 //!
-//! Shared between series-factory (writer) and btr/prime (reader).
+//! Shared wire format between bar writers and readers.
 //! Pod + Zeroable via bytemuck for safe zero-copy I/O.
 
 use crate::body::MitchBody;
@@ -87,7 +87,7 @@ pub struct Bar {
     /// `realized_var` to isolate jumps: `jump ≈ max(realized_var - bipower_var, 0)`.
     pub bipower_var: f32,
     /// OLS slope × duration_seconds / close. Slope from `mid = a + b·t` with t
-    /// in seconds; normalised, dimensionless. See `sdk/rust/src/bar_builder.rs::flush`.
+    /// in seconds; normalised, dimensionless. See `model/bar.md`.
     pub drift: f32,
     /// Signed order-flow imbalance: Σ sign(r_t) · (vbid+vask)_t / total_vol.
     pub vol_imbalance: f32,
@@ -101,9 +101,9 @@ pub struct Bar {
     pub reject_rate: u16,
     /// Bar construction kind: 0=kline, 1=renko, 2=dib, 3=tib. See [`BarKind`].
     pub kind: u8,
-    /// Per-bar flags. Bit 2 = `FLAG_RENKO_SYNTHETIC_BRICK` (see
-    /// `nxr_sdk::shard`). Other bits reserved (zero-filled by writers,
-    /// must be tolerated by readers).
+    /// Per-bar flags. Bit 2 = renko synthetic brick (see `model/bar.md`).
+    /// Other bits reserved (zero-filled by writers, must be tolerated by
+    /// readers).
     pub flags: u8,
     /// Reserved for future use (zero-filled).
     pub _reserved: [u8; 2],

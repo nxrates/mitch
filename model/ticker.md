@@ -153,7 +153,7 @@ Result: 0x460A8D644C100000
 
 ## Part 3: Symbol Resolution
 
-Symbol-to-ticker resolution (fuzzy matching, suffix stripping, quote detection) is a consumer-side concern; the reference resolver lives outside this repo (nxr-sdk). This section specifies the normative resolution rules so independent implementations agree.
+Symbol-to-ticker resolution (fuzzy matching, suffix stripping, quote detection) is a consumer-side concern; reference resolvers live outside this repo. This section specifies the normative resolution rules so independent implementations agree.
 
 All processing is **lowercase**: every input is normalized immediately; "BTC", "btc", "Btc" resolve identically. Data is pre-indexed in lowercase hashmaps for O(1) exact lookup, with class-scoped fuzzy matching (confidence score 0.0-1.0) as fallback.
 

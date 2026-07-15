@@ -1,7 +1,7 @@
 //! MITCH (Moded Individual Trade Clearing and Handling) Protocol
 //!
 //! A transport-agnostic binary protocol for ultra-low latency market data.
-//! See the [protocol overview](https://github.com/btr-trading/mitch/blob/main/model/overview.md) for more details.
+//! See the [protocol overview](https://github.com/nxrates/mitch/blob/main/model/overview.md) for more details.
 //!
 //! # Features
 //! - `std`: (Default) Enables standard library features.
@@ -67,8 +67,8 @@ pub mod ticker;
 /// Trade message implementation (24 bytes)
 pub mod trade;
 
-// FFI: removed from mitch. Resolution logic now lives in nxr-sdk.
-// C ABI will be rebuilt in nxr-forwarder (task #67).
+// FFI: no C ABI exports at present; symbol resolution is a consumer-side
+// concern (see ../ffi.md and model/ticker.md).
 
 // Re-export public API
 pub use crate::body::*;
@@ -125,9 +125,9 @@ pub const BUILD_INFO: &str = concat!(
 /// ```
 pub fn calculate_message_size(message_type: u8, count: u8) -> Result<usize, MitchError> {
     validate_message_type(message_type)?;
-    // Dedup wave-3 F4 (2026-06-01): 7-arm match → 256-byte LUT. Zero on
-    // invalid index — validate_message_type rejected non-types above, so
-    // a zero here is a bug, not a runtime error.
+    // 256-byte LUT instead of a per-type match. Zero on invalid index:
+    // validate_message_type rejected non-types above, so a zero here is
+    // a bug, not a runtime error.
     const BODY_SIZE: [usize; 256] = {
         let mut t = [0usize; 256];
         t[message_type::TRADE      as usize] = message_sizes::TRADE;

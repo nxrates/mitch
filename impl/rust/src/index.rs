@@ -38,14 +38,13 @@
 //!                                              (the `confidence` byte is Q0.8
 //!                                               freshness f=byte/255, not the
 //!                                               legacy active-provider count;
-//!                                               set by the TDWAP writer)
+//!                                               set by aggregating writers)
 //!                                       bits 2,4-7: reserved for INDEX records
 //!                                              (bit 2 is FLAG_RENKO_SYNTHETIC_-
 //!                                               BRICK in the *Bar* flag space)
 //! ```
-//! Canonical bit constants live in `nxr_sdk::shard` (FLAG_HEARTBEAT_SENTINEL,
-//! FLAG_HISTORICAL_BACKFILL, FLAG_CONF_FRESHNESS) so they stay in lock-step with
-//! the writer that sets them.
+//! Bit assignments are normative in `model/index.md`; writers and readers
+//! must stay in lock-step with that spec.
 
 use crate::body::MitchBody;
 use crate::common::{message_sizes, MitchError};
@@ -92,8 +91,8 @@ pub struct Index {
     /// u16 saturation, versus the old flat linear encoding which saturated
     /// at 65535 ubp (~0.065% of mid).
     ///
-    /// The reference encode / decode helpers live in
-    /// `nxr_sdk::tdwap::{encode_ci_ubp, decode_ci_ubp}`.
+    /// The reference encode / decode helpers are
+    /// [`crate::ci_encode`] / [`crate::ci_decode`].
     /// `Self::ci_price()` applies the inverse for you.
     pub ci: u16,
     /// Raw ticks in aggregation window (2 bytes)
@@ -108,10 +107,10 @@ pub struct Index {
     pub accepted: u8,
     /// Rejected providers (1 byte)
     pub rejected: u8,
-    /// Flags bitfield (1 byte). See module-level docs for bit assignments;
-    /// canonical constants in `nxr_sdk::shard` (`FLAG_HEARTBEAT_SENTINEL` =
-    /// `0b0000_0001`, `FLAG_HISTORICAL_BACKFILL` = `0b0000_0010`). Bits 2-7
-    /// are reserved and must be written as 0.
+    /// Flags bitfield (1 byte). See module-level docs and `model/index.md`
+    /// for bit assignments (bit 0 heartbeat sentinel = `0b0000_0001`, bit 1
+    /// historical backfill = `0b0000_0010`, bit 3 conf-freshness). Bits 2,
+    /// 4-7 are reserved and must be written as 0.
     pub flags: u8,
 }
 
