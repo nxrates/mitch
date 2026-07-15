@@ -182,7 +182,7 @@ uchar CombineTypeAndSide(uchar orderType, uchar side)
 ulong GenerateForexticker_id(string symbol)
 {
    // Simple implementation for common pairs
-   if(symbol == "EURUSD") return 0x03006F301CD00000;
+   if(symbol == "EURUSD") return 0x0305153138900000;
    if(symbol == "GBPUSD") return 0x030033A01CD00000;
    if(symbol == "USDJPY") return 0x0301CD018800000;
    if(symbol == "USDCHF") return 0x0301CD02F400000;

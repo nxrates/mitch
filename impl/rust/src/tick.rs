@@ -123,7 +123,7 @@ impl Tick {
     }
 
     /// Calculate volume imbalance.
-    /// Returns a value between -1.0 (all ask volume) and 1.0 (all bid volume).
+    /// Returns a value between -1.0 (all bid volume) and 1.0 (all ask volume).
     pub fn volume_imbalance(&self) -> f64 {
         let total = self.total_volume() as f64;
         if total > 0.0 {

@@ -19,7 +19,7 @@ ITCH messages are encapsulated in a SoupBinTCP stream. Each packet has a header 
 
 ---
 
-## 2. 🧠 Core Data Format
+## 2. Core Data Format
 
 * **Byte Order**: Big-endian (network byte order) for all multi-byte fields.
 * **Text Fields (`Alpha`)**: Left-justified, space-padded printable ASCII characters.
@@ -31,7 +31,7 @@ ITCH messages are encapsulated in a SoupBinTCP stream. Each packet has a header 
 
 ---
 
-## 3. 🗳️ Message Types & Sizes
+## 3. Message Types & Sizes
 
 | Type | Name                              | Size | Usage Priority |
 | ---- | --------------------------------- | ---- | -------------- |
@@ -60,7 +60,7 @@ ITCH messages are encapsulated in a SoupBinTCP stream. Each packet has a header 
 
 ---
 
-## 4. 📦 Essential Message Layouts
+## 4. Essential Message Layouts
 
 *Note: The `Stock` field in messages like Add Order (`A`/`F`) is only populated if `Stock Locate` is 0.*
 
@@ -246,7 +246,7 @@ Same as `E` plus:
 
 ---
 
-## 5. ⚡ TCP Implementation Notes
+## 5. TCP Implementation Notes
 
 ### Message Framing
 ```
@@ -278,7 +278,7 @@ Imbalance analysis requires: I
 
 ---
 
-## 6. 🔧 Implementation Examples
+## 6. Implementation Examples
 
 ### Price Conversion
 ```c
@@ -334,4 +334,4 @@ void process_message(const uint8_t* data, size_t len) {
 
 ---
 
-This reference provides complete implementation coverage for production-grade ITCH v5.0 adapters across multiple programming language, optimized for TCP transport with zero-copy parsing capabilities.
+This reference provides complete implementation coverage for production-grade ITCH v5.0 adapters across multiple programming languages, optimized for TCP transport with zero-copy parsing capabilities.

@@ -1,33 +1,29 @@
 # MITCH IDS Data Files
 
-This directory contains the core data files used for identifying and categorizing financial instruments within the BTR ecosystem. 
+This directory contains the data files identifying and categorizing financial instruments. These CSVs are the single source of truth: the Rust build (`impl/rust/build.rs`) compiles them into `mitch::constants` at build time.
 
-**For complete ticker system documentation, resolution algorithms, and implementation details, see [MITCH Ticker & Asset System](../model/ticker.md).**
+**For the ticker/asset encoding and resolution rules, see [MITCH Ticker & Asset System](../model/ticker.md).**
 
 ## Standardized CSV Format
 
-All asset data files follow a consistent three-column structure:
+All files use three columns:
 
-**Standard Format:**
-- `id` - Unique numeric identifier (MITCH ID)
+- `id` (or `mitch_id` in `instrument-types.csv`) - Unique numeric identifier (MITCH ID)
 - `name` - Full product/instrument name or description
-- `aliases` - Pipe-separated list of trading symbols and alternative names
+- `aliases` - Pipe-separated trading symbols and alternative names. In `asset-classes.csv` and `instrument-types.csv` the single alias doubles as the generated Rust enum variant name (e.g. `FX`, `SPOT`); rows with `*Reserved*` markers or empty aliases are skipped by codegen.
 
-**Metadata Files Exception:**
-- `asset-classes.csv` - Only has `id` and `name` (no aliases needed)
-- `instrument-types.csv` - Only has `id` and `name` (no aliases needed)
+## Classification Files
+- `asset-classes.csv`: Asset classes (generates `mitch::AssetClass`)
+- `instrument-types.csv`: Instrument types (generates `mitch::InstrumentType`)
+- `market-providers.csv`: Exchanges, brokers, and market data providers
 
-## Classification Standard Identifiers
-- `instrument-types.csv`: Master list of instrument types and their MITCH IDs
-- `asset-classes.csv`: Master list of asset classes and their MITCH IDs
-- `market-providers.csv`: Exchanges, providers, and market data providers
-
-## Asset Classes
-- `forex.csv`: Fiat currencies with MITCH IDs and ISO codes/aliases
-- `commodities.csv`: Commodities with MITCH IDs and trading symbol aliases
-- `indices.csv`: Stock indices with MITCH IDs and trading symbol aliases
-- `crypto-assets.csv`: Cryptocurrencies and tokens with MITCH IDs and trading symbol aliases
-- `equities.csv`: Individual stocks with MITCH IDs and trading symbol aliases
+## Asset Data Files (one per asset class)
+- `forex.csv`: Fiat currencies (ISO codes as aliases)
+- `commodities.csv`: Commodities
+- `indices.csv`: Market indices
+- `crypto-assets.csv`: Cryptocurrencies and tokens
+- `equities.csv`: Individual stocks
+- `sovereign-debt.csv`: Government bonds/bills
 
 ## CSV Data Rules
 

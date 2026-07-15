@@ -6,17 +6,17 @@
 
 | Field    | Offset | Size | Type      | Description                        |
 |----------|--------|------|-----------|------------------------------------|
-| ticker   | 0      | 8    | `u64`     | Instrument identifier              |
+| ticker   | 0      | 8    | `u64`     | Instrument identifier ([ticker.md](./ticker.md)) |
 | price    | 8      | 8    | `f64`     | Execution price                    |
-| volume   | 16     | 4    | `u32`     | Executed quantity                   |
-| trade_id | 20     | 3    | `[u8;3]`  | Unique trade ID (u24 LE)          |
-| side     | 23     | 1    | `u8`      | `0`: Buy, `1`: Sell               |
+| qty      | 16     | 4    | `u32`     | Executed quantity                  |
+| trade_id | 20     | 3    | `[u8;3]`  | Unique trade ID (u24 LE)           |
+| side     | 23     | 1    | `u8`      | `0`: Buy, `1`: Sell                |
 
 **Framed size**: 40B (16B MitchHeader + 24B body). See [framing.md](./framing.md).
 
 ## Field Notes
 
-**trade_id** is a 24-bit unsigned integer stored as 3 bytes little-endian. Range: 0 to 16,777,215. Decode:
+**trade_id** is a 24-bit unsigned integer stored as 3 bytes little-endian. Range: 1 to 16,777,215 (0 is invalid). Decode:
 
 ```rust
 let id = u32::from_le_bytes([trade_id[0], trade_id[1], trade_id[2], 0]);
@@ -24,20 +24,12 @@ let id = u32::from_le_bytes([trade_id[0], trade_id[1], trade_id[2], 0]);
 
 **side**: `0` = aggressor buying (lift the ask), `1` = aggressor selling (hit the bid).
 
-## Constraints
+## Constraints (enforced by `Trade::validate`)
 
 - `ticker != 0`
 - `price > 0.0`
-- `volume > 0`
+- `qty > 0`
+- `trade_id != 0`
 - `side` in `{0, 1}`
 
-## Validation
-
-```rust
-pub fn validate(&self) -> Result<(), &'static str> {
-    if self.ticker == 0 { return Err("ticker cannot be zero"); }
-    if self.price <= 0.0 { return Err("price must be positive"); }
-    if self.volume == 0 { return Err("volume must be positive"); }
-    Ok(())
-}
-```
+Reference: `impl/rust/src/trade.rs`.

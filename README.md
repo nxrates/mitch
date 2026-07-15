@@ -14,51 +14,36 @@
 
 ## Overview
 
-**MITCH (Moded Individual Trade Clearing and Handling)** is a transport-agnostic binary protocol for ultra-low latency market data packing and transmission. Inspired by [NASDAQ's ITCH](https://www.nasdaqtrader.com/content/technicalsupport/specifications/dataproducts/NQTVITCHSpecification.pdf), with altered types and batch packing. See [model/overview.md](./model/overview.md) for the full specification.
+**MITCH (Moded Individual Trade Clearing and Handling)** is a transport-agnostic binary protocol for ultra-low latency market data packing and transmission. Inspired by [NASDAQ's ITCH](./itch/README.md), with altered types, little-endian encoding, and batch packing.
 
 ## Protocol Specifications
 
 | Component | Description |
 |-----------|-------------|
-| **[Messaging](./messaging.md)** | Unified 16-byte header, batching, Channel IDs |
-| **[Ticker IDs](./model/ticker.md)** | 8-byte encoding for any financial instrument |
-| **[Assets](./model/asset.md)** | Standardized asset classification system |
-| **[Message Types](./model/overview.md#message-types)** | Trade, Order, Tick, Bar, Index, OrderBook |
+| **[Model Overview](./model/overview.md)** | Message types, data types, endianness |
+| **[Messaging](./messaging.md)** | 16-byte header, type codes, batching, timestamps, Channel IDs |
+| **[Framing](./model/framing.md)** | Frame composition, file format |
+| **[Ticker & Asset IDs](./model/ticker.md)** | 8-byte instrument encoding, asset classification |
 
-## Message Sizes
+Message sizes and per-type field layouts: see [messaging.md](./messaging.md#message-type-codes) and [model/](./model/overview.md#message-types).
 
-16-byte header + body (single-entry frame):
-
-| Type | Code | Body | Frame |
-|------|------|------|-------|
-| Trade | `t` | 24B | 40B |
-| Order | `o` | 32B | 48B |
-| Tick | `s` | 32B | 48B |
-| Index | `i` | 40B | 56B |
-| Bar | `k` | 96B | 112B |
-| Heartbeat | `h` | 16B | 32B |
-| OrderBook | `b` | 2072B | 2088B |
-
-Multi-entry batches: total = 16 + (count × body_size). See [messaging.md](./messaging.md).
-
-## Implementation Languages
+## Implementations
 
 | Language | Path | Target |
 |----------|------|--------|
 | **Rust** | `impl/rust/` | Reference implementation |
-| **TypeScript** | `impl/mitch.ts` | Bun, Node, Deno |
-| **MQL4** | `impl/mitch.mq4` | MetaTrader 4 |
+| **TypeScript** | `impl/typescript/mitch.ts` | Bun, Node, Deno |
+| **MQL4** | `impl/mql4/mitch.mq4` | MetaTrader 4 |
+
+Additional ports (C, C++, C#, Go, Java, Python, Zig) live under `impl/`; the Rust crate is the executable specification.
 
 ## Quick Example (Rust)
 
 ```rust
-let trade = Trade {
-    ticker: 0x03006F301CD00000,  // EUR/USD spot
-    price: 1.08750,
-    volume: 1000000,
-    trade_id: [0x40, 0xE2, 0x01], // 123456 as u24 LE
-    side: 0, // 0=Buy, 1=Sell
-};
+use mitch::{Trade, OrderSide};
+
+// EUR/USD spot = 0x0305153138900000 (see model/ticker.md)
+let trade = Trade::new(0x0305153138900000, 1.08750, 1_000_000, 123456, OrderSide::Buy)?;
 let bytes = trade.pack(); // 24 bytes, zero-copy
 ```
 
@@ -76,7 +61,7 @@ MIT License - see [LICENSE](./LICENSE)
 
 ## References
 
-- [Original NASDAQ ITCH Protocol](./itch/v5-specs.pdf)
+- [Original NASDAQ ITCH Protocol](./itch/v5-specs.pdf) ([summary](./itch/README.md))
 - [Model Specifications](./model/)
 - [Implementation Examples](./impl/examples/)
 

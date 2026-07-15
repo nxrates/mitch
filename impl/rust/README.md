@@ -4,31 +4,29 @@
 
 ## Overview
 
-This crate implements the MITCH binary protocol for ultra-low latency market data. It serves as the reference implementation and provides:
+This crate implements the MITCH binary protocol for ultra-low latency market data. It is the reference implementation and executable protocol specification.
 
-- High-performance Rust library
-- FFI-ready core for Python, Node.js, MQL4, and C/C++
-- Executable protocol specification
-- Dynamic library builds for all major platforms and targets (see below)
+- All MITCH message types: Trade, Order, Tick, Index, OrderBook, Bar, Heartbeat + MitchHeader, frames, ticker/channel IDs
+- Zero-copy pack/unpack via `#[repr(C, packed)]` structs; optional `bytemuck` Pod/Zeroable for mmap I/O
+- Consistent Little-Endian encoding on all platforms
+- Constants generated at build time from `../../ids/*.csv` and `../../bins/*.csv` (see `build.rs`)
+- Minimal dependencies: `chrono`; `bytemuck`/`serde` optional features
+- `cdylib`/`staticlib` output for C-compatible embedding (FFI status: see [../ffi.md](../ffi.md))
 
-## Features
+## Build & Test
 
-- **Ultra-low latency**: Zero-copy, direct memory casting
-- **Fire-and-forget**: Non-blocking pub/sub, no acknowledgments
-- **Complete protocol**: All MITCH message types (Trade, Order, Tick, Index, OrderBook)
-- **Cross-platform**: Consistent Little-Endian encoding
-- **No dependencies**: Core has zero external dependencies
-- **Memory safe**: Rust safety, optimized hot paths
-- **Market provider resolution**: Fuzzy string matching for exchange/provider names
-- **Dynamic library output**: Automated building of `.so`, `.dll`, and `.dylib` for all supported targets
-- **FFI-ready**: C-compatible interface
+```sh
+cargo build --release
+cargo test
+```
 
-## Building Dynamic Libraries
+Cross-compiled dynamic libraries (`.so`, `.dylib`, `.dll`) for all supported targets:
 
-MITCH provides automated scripts and Makefile targets to build dynamic shared libraries for all supported platforms and architectures. This includes:
+```sh
+make install-targets       # add Rust targets via rustup
+make build-all-platforms   # build every target, artifacts under dist/
+```
 
-- Linux (`.so`), macOS (`.dylib`), and Windows (`.dll`) outputs
-- 32-bit and 64-bit targets, including ARM and x86
-- Output artifacts organized by target for easy integration
+## Specification
 
-To build all dynamic libraries, use:
+Protocol docs live at the repo root: [model overview](../../model/overview.md), [messaging](../../messaging.md), [framing](../../model/framing.md), [ticker system](../../model/ticker.md).

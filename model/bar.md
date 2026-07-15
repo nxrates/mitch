@@ -37,10 +37,11 @@ to_epoch_ns}`.
 | Vol Imbalance    | 76     | 4    | `f32`      | Σ sign(r_t) × (vbid+vask)_t / total_vol (signed OFI)   |
 | Avg Spread bps   | 80     | 4    | `f32`      | mean((ask - bid) / mid) × 1e4                          |
 | Max Abs Return   | 84     | 4    | `f32`      | max \|log(mid_t/mid_{t-1})\| (tail / jump)             |
-| Avg CI ubp       | 88     | 2    | `u16`      | Mean inherited `Index.ci_ubp`, sqrt-compressed         |
+| Avg CI ubp       | 88     | 2    | `u16`      | Mean inherited `Index.ci_ubp`, sqrt-compressed (CI_SCALE=16) |
 | Reject Rate      | 90     | 2    | `u16`      | rejected / (accepted + rejected) × 65535               |
 | Kind             | 92     | 1    | `u8`       | 0=kline, 1=renko, 2=dib, 3=tib                         |
-| Reserved         | 93     | 3    | `[u8; 3]`  | Reserved (zero)                                        |
+| Flags            | 93     | 1    | `u8`       | Per-bar flags; bit 2 = renko synthetic brick, others reserved |
+| Reserved         | 94     | 2    | `[u8; 2]`  | Reserved (zero)                                        |
 
 `jump_var ≈ max(realized_var - bipower_var, 0)` decomposes total variation into
 continuous + jump components (Barndorff-Nielsen & Shephard 2004).
@@ -86,3 +87,5 @@ let bar = Bar::new_ohlcv(open_mts, close_mts, open, high, low, close, vbid, vask
 let dur_ms = bar.duration_ms();
 let ret    = bar.log_return();
 ```
+
+Reference: `impl/rust/src/bar.rs`.

@@ -18,7 +18,7 @@ void CreateIndexMessage()
     header.count = 1;
 
     Index index;
-    index.tickerId = 0x03006F301CD00000; // EUR/USD
+    index.tickerId = 0x0305153138900000; // EUR/USD
     index.mid = 1.08750;
     index.vbid = 500000;
     index.vask = 600000;
@@ -58,7 +58,7 @@ void CreateTradeMessage()
     header.count = 1;
 
     Trade trade;
-    trade.tickerId = 0x03006F301CD00000; // EUR/USD
+    trade.tickerId = 0x0305153138900000; // EUR/USD
     trade.price = 1.08750;
     trade.quantity = 100000;
     trade.tradeId = 12345;
@@ -91,7 +91,7 @@ void UnpackReceivedMessage()
     header.count = 1;
 
     Index index;
-    index.tickerId = 0x03006F301CD00000;
+    index.tickerId = 0x0305153138900000;
     index.mid = 1.08750;
     index.vbid = 500000;
     index.vask = 600000;
@@ -147,14 +147,14 @@ void WriteMessageToFile()
     Trade trades[2];
 
     // First trade
-    trades[0].tickerId = 0x03006F301CD00000; // EUR/USD
+    trades[0].tickerId = 0x0305153138900000; // EUR/USD
     trades[0].price = 1.08750;
     trades[0].quantity = 100000;
     trades[0].tradeId = 12345;
     trades[0].side = 0; // Buy
 
     // Second trade
-    trades[1].tickerId = 0x03006F301CD00000; // EUR/USD
+    trades[1].tickerId = 0x0305153138900000; // EUR/USD
     trades[1].price = 1.08755;
     trades[1].quantity = 50000;
     trades[1].tradeId = 12346;

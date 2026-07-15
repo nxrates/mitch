@@ -22,7 +22,7 @@ async function sendIndexTcp(): Promise<void> {
             };
 
             const index: Index = {
-                tickerId: 0x03006F301CD00000n, // EUR/USD
+                tickerId: 0x0305153138900000n, // EUR/USD
                 mid: 1.08750,
                 vbid: 500000,
                 vask: 600000,
@@ -118,7 +118,7 @@ async function sendTradeWebSocket(): Promise<void> {
             };
 
             const trade: Trade = {
-                tickerId: 0x03006F301CD00000n, // EUR/USD
+                tickerId: 0x0305153138900000n, // EUR/USD
                 price: 1.08750,
                 quantity: 100000,
                 tradeId: 12345,

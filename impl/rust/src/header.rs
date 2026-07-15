@@ -39,7 +39,7 @@ use crate::common::{
 ///
 /// Wire format: `[type_provider:u16][timestamp:u48][count:u8][flags:u8][sequence:u16][reserved:4B]`
 ///
-/// Resolution: 16 microseconds. Overflow: ~2162 (142 years from epoch).
+/// Resolution: 16 microseconds. Overflow: ~2152 (142 years from epoch).
 /// Encode/decode via `mitch::timestamp::{from_epoch_us, to_epoch_us}` etc.
 #[repr(C, packed)]
 #[derive(Debug, Clone, Copy, PartialEq)]

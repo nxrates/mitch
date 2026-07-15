@@ -22,7 +22,7 @@ fn send_index_tcp() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let index = Index {
-        ticker_id: 0x03006F301CD00000, // EUR/USD
+        ticker_id: 0x0305153138900000, // EUR/USD
         mid: 1.08750,
         vbid: 500000,
         vask: 600000,
@@ -98,7 +98,7 @@ fn send_trade_udp() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     let trade = Trade {
-        ticker_id: 0x03006F301CD00000, // EUR/USD
+        ticker_id: 0x0305153138900000, // EUR/USD
         price: 1.08750,
         quantity: 100000,
         trade_id: 12345,

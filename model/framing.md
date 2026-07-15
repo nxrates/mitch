@@ -1,93 +1,37 @@
 # MITCH Framing Specification
 
-*Part of the [MITCH Protocol](./overview.md) | See [Messaging](../messaging.md)*
+*Part of the [MITCH Protocol](./overview.md) | Header and timestamp encoding: [messaging.md](../messaging.md)*
 
 ## Frame Layout
 
-Every MITCH message on the wire or on disk is a **frame**: `[MitchHeader 16B][Body x count]`. The header carries message type, provider ID, timestamp, batch count, flags, sequence, and reserved padding. Body types never embed their own timestamps.
+Every MITCH message on the wire or on disk is a **frame**: `[MitchHeader 16B][Body x count]`. The header carries message type, provider ID, timestamp, batch count, flags, sequence, and reserved padding (field layout in [messaging.md](../messaging.md#message-header-16-bytes)). Body types never embed their own timestamps.
 
-```text
-[  MitchHeader 16B ][ Body 0 ][ Body 1 ]...[ Body N-1 ]
-|-- type_provider u16 --|  (low 4b = msg code, bits 4..16 = provider_id)
-|-- timestamp u48 ------|
-|-- count u8 -----------|
-|-- flags u8 -----------|
-|-- sequence u16 -------|
-|-- _reserved [u8; 4] --|
-```
+- **Wire (streaming)**: `count` may be 1..255, enabling batch transmission.
+- **File (storage)**: `count = 1` per frame for mmap compatibility (fixed stride).
 
-### Wire (Streaming)
+## Single-Entry Frame Sizes
 
-- `count` may be 1..255, enabling batch transmission
-- Timestamp = 16us ticks since 2010-01-01T00:00:00Z
+| Frame | Body | Total | Rust type |
+|-------|------|-------|-----------|
+| TradeFrame | Trade 24B | 40B | `Frame<Trade>` alias `TradeFrame` |
+| TickFrame | Tick 32B | 48B | `Frame<Tick>` alias `TickFrame` |
+| Index frame | Index 40B | 56B | no dedicated alias; `[MitchHeader][Index]` on wire |
+| BarFrame | Bar 96B | 112B | `Frame<Bar>` alias `BarFrame` |
+| HeartbeatFrame | Heartbeat 16B | 32B | `Frame<Heartbeat>` alias `HeartbeatFrame` |
 
-### File (Storage)
-
-- `count = 1` per frame for mmap compatibility (fixed stride)
-- Same timestamp encoding as wire
-
-## Timestamp Encoding
-
-**u48 = 16us ticks since 2010-01-01T00:00:00Z**
-
-| Property   | Value                        |
-|------------|------------------------------|
-| Resolution | 16 microseconds              |
-| Epoch      | 2010-01-01T00:00:00Z         |
-| Overflow   | ~2152 (142 years)            |
-| Encode     | `(epoch_us - EPOCH_2010) >> 4` |
-| Decode     | `(ticks << 4) + EPOCH_2010`    |
-
-Single-instruction shift-based codec. See `mitch::timestamp` module.
-
-## Concrete Frame Types
-
-### TradeFrame (40 bytes)
-
-`[MitchHeader 16B][Trade 24B]`
-
-| Field  | Offset | Size | Description              |
-|--------|--------|------|--------------------------|
-| Header | 0      | 16   | MitchHeader (type = `t`) |
-| Body   | 16     | 24   | Trade                    |
-
-### TickFrame (48 bytes)
-
-`[MitchHeader 16B][Tick 32B]`
-
-| Field  | Offset | Size | Description              |
-|--------|--------|------|--------------------------|
-| Header | 0      | 16   | MitchHeader (type = `s`) |
-| Body   | 16     | 32   | Tick                     |
-
-### IndexFrame (56 bytes)
-
-`[MitchHeader 16B][Index 40B]`
-
-| Field  | Offset | Size | Description              |
-|--------|--------|------|--------------------------|
-| Header | 0      | 16   | MitchHeader (type = `i`) |
-| Body   | 16     | 40   | Index                    |
-
-### BarFrame (112 bytes)
-
-`[MitchHeader 16B][Bar 96B]`
-
-| Field  | Offset | Size | Description              |
-|--------|--------|------|--------------------------|
-| Header | 0      | 16   | MitchHeader (type = `k`) |
-| Body   | 16     | 96   | Bar                      |
+Reference: `impl/rust/src/frame.rs` (generic `Frame<B>` wrapper, `#[repr(C, packed)]`, Pod + Zeroable).
 
 ### HeartbeatFrame (32 bytes)
 
-`[MitchHeader 16B][Heartbeat 16B]`
+Heartbeat body (16B, `impl/rust/src/heartbeat.rs`):
 
-| Field  | Offset | Size | Description              |
-|--------|--------|------|--------------------------|
-| Header | 0      | 16   | MitchHeader (type = `h`) |
-| Body   | 16     | 16   | Heartbeat                |
+| Field     | Offset | Size | Type      | Description                              |
+|-----------|--------|------|-----------|------------------------------------------|
+| ticker    | 0      | 8    | `u64` LE  | 0 = feed-wide, else per-symbol           |
+| msg_count | 8      | 4    | `u32` LE  | Data frames emitted since last beat (wraps at `u32::MAX`) |
+| _pad      | 12     | 4    | `[u8; 4]` | Reserved padding                         |
 
-Body: `ticker u64` (0 = feed-wide, else per-symbol), `msg_count u32` (data frames emitted since the last heartbeat, wraps at `u32::MAX`), `_pad [u8; 4]`. Consumers diff successive `msg_count` values to quantify gaps between beats; the header `sequence` field tracks gaps between the heartbeats themselves.
+Consumers diff successive `msg_count` values to quantify gaps between beats; the header `sequence` field tracks gaps between the heartbeats themselves.
 
 ## File Format
 
@@ -107,7 +51,7 @@ use mitch::{Tick, TickFrame, timestamp};
 
 let ticks = timestamp::from_epoch_ms(1_744_364_200_000);
 let tick = Tick::new_unchecked(ticker_id, 100.0, 100.05, 500, 600);
-let frame = TickFrame::new(ticks, tick);
+let frame = TickFrame::new(provider_id, ticks, tick);
 
 let epoch_ms = timestamp::to_epoch_ms(frame.timestamp());
 let mid = frame.mid_price();
