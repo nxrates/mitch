@@ -69,7 +69,7 @@ mod tests {
         assert!(index.validate().is_err());
         index.ask = get_default_index().ask;
 
-        // confidence is Q0.8 freshness since 1afd1bb (relaxed validate):
+        // confidence is percent freshness since 1afd1bb (relaxed validate):
         // accepted=0 + confidence>0 is legal (freshness stamp, not provider count).
         index.accepted = 0;
         index.confidence = 1;

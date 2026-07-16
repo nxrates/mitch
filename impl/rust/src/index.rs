@@ -19,10 +19,10 @@
 //! 28     | vask       | 4    | u32   | Aggregated ask volume
 //! 32     | ci         | 2    | u16   | Confidence interval in UBP
 //! 34     | tick_count | 2    | u16   | Raw ticks in aggregation window
-//! 36     | confidence | 1    | u8    | Aggregate freshness, Q0.8: f = byte/255
-//!        |            |      |       | (∈[0,1]) when FLAG_CONF_FRESHNESS (index
-//!        |            |      |       | flag bit 3) is set; legacy active-provider
-//!        |            |      |       | count when that flag is clear.
+//! 36     | confidence | 1    | u8    | Aggregate freshness percent, 0 to 100:
+//!        |            |      |       | f = byte/100 (∈[0,1]) when FLAG_CONF_FRESHNESS
+//!        |            |      |       | (index flag bit 3) is set; legacy active-
+//!        |            |      |       | provider count when that flag is clear.
 //! 37     | accepted   | 1    | u8    | Accepted providers
 //! 38     | rejected   | 1    | u8    | Rejected providers
 //! 39     | flags      | 1    | u8    | Bitfield:
@@ -35,9 +35,9 @@
 //!                                               backfill / migrate / merge,
 //!                                               not by the live aggregator)
 //!                                       bit 3: FLAG_CONF_FRESHNESS
-//!                                              (the `confidence` byte is Q0.8
-//!                                               freshness f=byte/255, not the
-//!                                               legacy active-provider count;
+//!                                              (the `confidence` byte is a
+//!                                               freshness percent 0-100, f=byte/100,
+//!                                               not the legacy active-provider count;
 //!                                               set by aggregating writers)
 //!                                       bits 2,4-7: reserved for INDEX records
 //!                                              (bit 2 is FLAG_RENKO_SYNTHETIC_-
@@ -97,11 +97,12 @@ pub struct Index {
     pub ci: u16,
     /// Raw ticks in aggregation window (2 bytes)
     pub tick_count: u16,
-    /// Aggregate freshness, Q0.8 fixed-point (1 byte): `f = byte / 255 ∈ [0,1]`
-    /// when the record's `FLAG_CONF_FRESHNESS` (index flag bit 3) is set —
-    /// ~1 when all providers are fresh, falling as components decay. When that
-    /// flag is clear this is the legacy integer active-provider count.
-    /// See [`conf_to_u8`] / [`conf_from_u8`] for the Q0.8 (de)coders.
+    /// Aggregate freshness percent, 0 to 100 (1 byte): `f = byte / 100 ∈ [0,1]`
+    /// (or read the byte directly as a percent) when the record's
+    /// `FLAG_CONF_FRESHNESS` (index flag bit 3) is set: ~100 when all providers
+    /// are fresh, falling as components decay. When that flag is clear this is
+    /// the legacy integer active-provider count.
+    /// See [`conf_to_u8`] / [`conf_from_u8`] for the percent (de)coders.
     pub confidence: u8,
     /// Accepted providers (1 byte)
     pub accepted: u8,
@@ -117,17 +118,18 @@ pub struct Index {
 // Compile-time size assertion
 const _: () = assert!(core::mem::size_of::<Index>() == 40, "Index must be exactly 40 bytes");
 
-/// Q0.8 fixed-point scale for the `Index::confidence` freshness byte: a freshness
-/// `f ∈ [0,1]` is stored as `round(f · 255)` and recovered as `byte / 255`.
-pub const MITCH_CONF_SCALE: f64 = 255.0;
+/// Percent scale for the `Index::confidence` freshness byte: a freshness
+/// `f ∈ [0,1]` is stored as `round(f · 100)` (a percent 0-100) and recovered
+/// as `byte / 100`.
+pub const MITCH_CONF_SCALE: f64 = 100.0;
 
-/// Encode a freshness float `f ∈ [0,1]` to the Q0.8 wire byte (`round(f·255)`).
+/// Encode a freshness float `f ∈ [0,1]` to the wire byte as a percent (`round(f·100)`).
 #[inline]
 pub fn conf_to_u8(f: f64) -> u8 {
     (f.clamp(0.0, 1.0) * MITCH_CONF_SCALE).round() as u8
 }
 
-/// Decode a Q0.8 wire byte back to a freshness float `∈ [0,1]` (`byte / 255`).
+/// Decode a percent wire byte back to a freshness float `∈ [0,1]` (`byte / 100`).
 #[inline]
 pub fn conf_from_u8(b: u8) -> f64 {
     b as f64 / MITCH_CONF_SCALE
@@ -243,7 +245,7 @@ impl Index {
     /// - `spread_bps > MAX_SPREAD_BPS` (20% cap: thin enough to reject corrupted
     ///   feeds, wide enough to admit the widest illiquid pairs).
     ///
-    /// NOTE: `confidence` is now an INDEPENDENT Q0.8 freshness byte (see
+    /// NOTE: `confidence` is now an INDEPENDENT freshness percent byte (see
     /// `FLAG_CONF_FRESHNESS`), so the old `confidence <= accepted` and
     /// `accepted==0 && confidence>0` cross-constraints have been removed — a
     /// fully-stale single-provider record can legitimately have low freshness
@@ -285,19 +287,19 @@ mod tests {
     fn validate_rejects_price_above_max() {
         // 2026-07-10 incident regression: a finite-but-astronomical price must
         // be rejected at the earliest gate, not just non-finite ones.
-        let bad = Index::new(1, MAX_PRICE * 2.0, MAX_PRICE * 2.0, 0, 0, 0, 0, 255, 1, 0);
+        let bad = Index::new(1, MAX_PRICE * 2.0, MAX_PRICE * 2.0, 0, 0, 0, 0, 100, 1, 0);
         assert!(bad.validate().is_err());
     }
 
     #[test]
     fn validate_accepts_price_at_max() {
-        let ok = Index::new(1, MAX_PRICE, MAX_PRICE, 0, 0, 0, 0, 255, 1, 0);
+        let ok = Index::new(1, MAX_PRICE, MAX_PRICE, 0, 0, 0, 0, 100, 1, 0);
         assert!(ok.validate().is_ok());
     }
 
     #[test]
     fn validate_accepts_normal_price() {
-        let ok = Index::new(1, 1.0006, 1.0008, 0, 0, 0, 0, 255, 1, 0);
+        let ok = Index::new(1, 1.0006, 1.0008, 0, 0, 0, 0, 100, 1, 0);
         assert!(ok.validate().is_ok());
     }
 }
