@@ -19,8 +19,9 @@
 //! 28     | vask       | 4    | u32   | Aggregated ask volume
 //! 32     | ci         | 2    | u16   | Confidence interval in UBP
 //! 34     | tick_count | 2    | u16   | Raw ticks in aggregation window
-//! 36     | confidence | 1    | u8    | Aggregate freshness percent, 0 to 100:
-//!        |            |      |       | f = byte/100 (∈[0,1]) when FLAG_CONF_FRESHNESS
+//! 36     | confidence | 1    | u8    | Aggregate freshness, u8 0-255 (fraction
+//!        |            |      |       | f = byte/255 ∈ [0,1]; percent = byte*100/255,
+//!        |            |      |       | 255 = 100% fresh) when FLAG_CONF_FRESHNESS
 //!        |            |      |       | (index flag bit 3) is set; legacy active-
 //!        |            |      |       | provider count when that flag is clear.
 //! 37     | accepted   | 1    | u8    | Accepted providers
@@ -36,8 +37,9 @@
 //!                                               not by the live aggregator)
 //!                                       bit 3: FLAG_CONF_FRESHNESS
 //!                                              (the `confidence` byte is a
-//!                                               freshness percent 0-100, f=byte/100,
-//!                                               not the legacy active-provider count;
+//!                                               freshness value (u8 0-255,
+//!                                               fraction byte/255), not the
+//!                                               legacy active-provider count;
 //!                                               set by aggregating writers)
 //!                                       bits 2,4-7: reserved for INDEX records
 //!                                              (bit 2 is FLAG_RENKO_SYNTHETIC_-
@@ -97,12 +99,12 @@ pub struct Index {
     pub ci: u16,
     /// Raw ticks in aggregation window (2 bytes)
     pub tick_count: u16,
-    /// Aggregate freshness percent, 0 to 100 (1 byte): `f = byte / 100 ∈ [0,1]`
-    /// (or read the byte directly as a percent) when the record's
-    /// `FLAG_CONF_FRESHNESS` (index flag bit 3) is set: ~100 when all providers
+    /// Aggregate freshness (1 byte, u8 0-255): fraction `f = byte / 255 ∈ [0,1]`,
+    /// or percent `byte * 100 / 255` for display (255 = 100% fresh), when the
+    /// record's `FLAG_CONF_FRESHNESS` (index flag bit 3) is set: ~255 when all providers
     /// are fresh, falling as components decay. When that flag is clear this is
     /// the legacy integer active-provider count.
-    /// See [`conf_to_u8`] / [`conf_from_u8`] for the percent (de)coders.
+    /// See [`conf_to_u8`] / [`conf_from_u8`] for the fraction (de)coders.
     pub confidence: u8,
     /// Accepted providers (1 byte)
     pub accepted: u8,
@@ -118,18 +120,18 @@ pub struct Index {
 // Compile-time size assertion
 const _: () = assert!(core::mem::size_of::<Index>() == 40, "Index must be exactly 40 bytes");
 
-/// Percent scale for the `Index::confidence` freshness byte: a freshness
-/// `f ∈ [0,1]` is stored as `round(f · 100)` (a percent 0-100) and recovered
-/// as `byte / 100`.
-pub const MITCH_CONF_SCALE: f64 = 100.0;
+/// Wire scale for the `Index::confidence` freshness byte: a freshness
+/// `f ∈ [0,1]` is stored as `round(f · 255)` (full u8 precision) and recovered
+/// as `byte / 255`. Display as a 0-100 percent via `byte * 100 / 255`.
+pub const MITCH_CONF_SCALE: f64 = 255.0;
 
-/// Encode a freshness float `f ∈ [0,1]` to the wire byte as a percent (`round(f·100)`).
+/// Encode a freshness float `f ∈ [0,1]` to the wire byte (`round(f·255)`).
 #[inline]
 pub fn conf_to_u8(f: f64) -> u8 {
     (f.clamp(0.0, 1.0) * MITCH_CONF_SCALE).round() as u8
 }
 
-/// Decode a percent wire byte back to a freshness float `∈ [0,1]` (`byte / 100`).
+/// Decode a wire byte back to a freshness float `∈ [0,1]` (`byte / 255`).
 #[inline]
 pub fn conf_from_u8(b: u8) -> f64 {
     b as f64 / MITCH_CONF_SCALE

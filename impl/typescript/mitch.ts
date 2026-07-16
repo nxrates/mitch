@@ -574,7 +574,7 @@ export const confidenceLevel = {
 
 /** Validate index confidence score */
 export function validateconfidence(confidence: number): boolean {
-  return Number.isInteger(confidence) && confidence >= 0 && confidence <= 100;
+  return Number.isInteger(confidence) && confidence >= 0 && confidence <= 255;
 }
 
 /** Validate index type */

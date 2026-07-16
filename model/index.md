@@ -15,7 +15,7 @@ Index messages (`i`) carry aggregated (multi-provider VWAP composite) market dat
 | vask       | 28     | 4    | `u32`   | Aggregated ask volume               |
 | ci         | 32     | 2    | `u16`   | Confidence interval, sqrt-compressed micro bps (below) |
 | tick_count | 34     | 2    | `u16`   | Raw ticks in aggregation window     |
-| confidence | 36     | 1    | `u8`    | freshness percent, 0-100 (`f = byte/100`) when flag bit 3 set; legacy active-provider count otherwise |
+| confidence | 36     | 1    | `u8`    | freshness percent, 0-100 (`f = byte/255`) when flag bit 3 set; legacy active-provider count otherwise |
 | accepted   | 37     | 1    | `u8`    | Accepted providers                  |
 | rejected   | 38     | 1    | `u8`    | Rejected providers                  |
 | flags      | 39     | 1    | `u8`    | bit 0: heartbeat sentinel; bit 1: historical backfill; bit 3: conf-freshness; bits 2, 4-7 reserved |
