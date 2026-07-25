@@ -10,7 +10,10 @@ mod codegen_lengths {
 
     #[test]
     fn data_array_lengths() {
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 205, "CRYPTO_ASSETS_DATA");
+        // 205 baseline + 9 rows allocated 2026-07-25 (ids 20701..21501: PEPE,
+        // SHIB, BONK, ONDO, PUMP, CVX, ETC, ZRO, LISTA) — these assets were
+        // previously served under FNV fallback ids.
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 214, "CRYPTO_ASSETS_DATA");
         assert_eq!(MARKET_PROVIDERS_DATA.len(), 148, "MARKET_PROVIDERS_DATA");
         assert_eq!(EQUITIES_DATA.len(), 1559, "EQUITIES_DATA");
         assert_eq!(FOREX_DATA.len(), 52, "FOREX_DATA");

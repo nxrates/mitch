@@ -286,9 +286,17 @@ impl Index {
         self.ask - self.bid
     }
 
-    /// Spread in basis points: (ask - bid) / mid * 10000
+    /// Spread in basis points: (ask - bid) / mid * 10000.
+    ///
+    /// Returns 0.0 for a non-positive mid rather than NaN/inf. This is the LIVE
+    /// path (`integrity_check`, `sdk/python`); the guard was previously only on
+    /// the sibling `Tick::spread_bps`.
     pub fn spread_bps(&self) -> f64 {
-        (self.ask - self.bid) / self.mid() * 10000.0
+        let mid = self.mid();
+        if mid <= 0.0 {
+            return 0.0;
+        }
+        (self.ask - self.bid) / mid * 10000.0
     }
 
     /// Volume imbalance: (vask - vbid) / (vask + vbid)
