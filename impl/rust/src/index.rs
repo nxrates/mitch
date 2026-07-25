@@ -19,11 +19,14 @@
 //! 28     | vask       | 4    | u32   | Aggregated ask volume
 //! 32     | ci         | 2    | u16   | Confidence interval in UBP
 //! 34     | tick_count | 2    | u16   | Raw ticks in aggregation window
-//! 36     | confidence | 1    | u8    | Aggregate freshness, u8 0-255 (fraction
-//!        |            |      |       | f = byte/255 ∈ [0,1]; percent = byte*100/255,
-//!        |            |      |       | 255 = 100% fresh) when FLAG_CONF_FRESHNESS
-//!        |            |      |       | (index flag bit 3) is set; legacy active-
-//!        |            |      |       | provider count when that flag is clear.
+//! 36     | confidence | 1    | u8    | FLAG-SELECTED, three states:
+//!        |            |      |       | bit6 FLAG_CONF_ACTIVE set → PACKED:
+//!        |            |      |       |   bits0..6 = active (ticking) leg count
+//!        |            |      |       |   0..64, bit7 = fresh-weight-share OK.
+//!        |            |      |       | else bit3 FLAG_CONF_FRESHNESS set →
+//!        |            |      |       |   legacy freshness fraction byte/255.
+//!        |            |      |       | else → legacy active-provider COUNT
+//!        |            |      |       |   (resampled / healed rows).
 //! 37     | accepted   | 1    | u8    | Accepted providers
 //! 38     | rejected   | 1    | u8    | Rejected providers
 //! 39     | flags      | 1    | u8    | Bitfield:
@@ -36,12 +39,19 @@
 //!                                               backfill / migrate / merge,
 //!                                               not by the live aggregator)
 //!                                       bit 3: FLAG_CONF_FRESHNESS
-//!                                              (the `confidence` byte is a
-//!                                               freshness value (u8 0-255,
-//!                                               fraction byte/255), not the
-//!                                               legacy active-provider count;
-//!                                               set by aggregating writers)
-//!                                       bits 2,4-7: reserved for INDEX records
+//!                                              (LEGACY: `confidence` is the
+//!                                               freshness fraction byte/255;
+//!                                               no live writer sets it — kept
+//!                                               normative for historical rows)
+//!                                       bit 6: FLAG_CONF_ACTIVE
+//!                                              (`confidence` is the packed
+//!                                               active-leg count + fresh-weight
+//!                                               bit; set by aggregating
+//!                                               writers. Numerically equals the
+//!                                               *Bar*-space FLAG_S10_FLAT_FILL;
+//!                                               safe because Index.flags is
+//!                                               never copied into Bar.flags)
+//!                                       bits 2,4,5,7: reserved for INDEX records
 //!                                              (bit 2 is FLAG_RENKO_SYNTHETIC_-
 //!                                               BRICK in the *Bar* flag space)
 //! ```
@@ -99,24 +109,33 @@ pub struct Index {
     pub ci: u16,
     /// Raw ticks in aggregation window (2 bytes)
     pub tick_count: u16,
-    /// Aggregate freshness (1 byte, u8 0-255): fraction `f = byte / 255 ∈ [0,1]`,
-    /// or percent `byte * 100 / 255` for display (255 = 100% fresh), when the
-    /// record's `FLAG_CONF_FRESHNESS` (index flag bit 3) is set: ~255 when all providers
-    /// are fresh, falling as components decay. When that flag is clear this is
-    /// the legacy integer active-provider count.
-    /// See [`conf_to_u8`] / [`conf_from_u8`] for the fraction (de)coders.
+    /// Liveness metadata (1 byte). MEANING IS FLAG-SELECTED — three states, and
+    /// a reader MUST branch on the flags in this order:
     ///
-    /// ⚠ NOT a quality score, and NEVER a quality gate. It is a base-weight
-    /// average of per-leg exponential decay, so it is ANTI-correlated with feed
-    /// breadth: every extra venue adds a leg that usually sits between ticks,
-    /// and forwarder BBO-dedup makes an unchanged deep book indistinguishable
-    /// from a dead one. Measured live 2026-07-25: a 1-leg Pyth composite
-    /// (PAXG/USD) scores 237-254 while the deepest books score 15-61
-    /// (BTC/USDC, 10 venues) and 21-67 (ETH/USDC, 10 venues) — and the corrupt
-    /// PAXG/USDT composite (one venue quoting a 1026 bps book) scores up to
-    /// 255. Gate breadth on [`Self::accepted`], recency on the record/provider
-    /// timestamp, and AGREEMENT on [`Self::ci`]; a threshold on this byte
-    /// selects single-source feeds over cross-validated ones.
+    /// 1. `FLAG_CONF_ACTIVE` (index flag bit 6) set — CURRENT live encoding:
+    ///    bits 0..6 = `active_count`, the number of legs genuinely TICKING
+    ///    (non-floored decay >= 0.1), saturated at [`CONF_MAX_ACTIVE_COUNT`];
+    ///    bit 7 = `fresh_weight_ok`, the fresh-weight share cleared
+    ///    `nxr_sdk::shard::FRESH_WEIGHT_SHARE_FLOOR`. (De)coders:
+    ///    [`conf_pack_active`] / [`conf_active_count`] / [`conf_fresh_weight_ok`].
+    /// 2. else `FLAG_CONF_FRESHNESS` (bit 3) set — LEGACY freshness fraction
+    ///    `f = byte / 255 ∈ [0,1]` (historical rows written before the
+    ///    2026-07-25 cutover, and replay of them). Decoder: [`conf_from_u8`].
+    /// 3. else — legacy integer active-provider COUNT. What `resample_idx` /
+    ///    heal leave on rewritten rows (decay inputs are not persisted, so a
+    ///    marker is never fabricated). Carries NO liveness guarantee.
+    ///
+    /// ⚠ Neither encoding is a quality score. The state-2 FRACTION in particular
+    /// is ANTI-correlated with feed breadth: every extra venue adds a leg that
+    /// usually sits between ticks, and forwarder BBO-dedup makes an unchanged
+    /// deep book indistinguishable from a dead one. Measured live 2026-07-25: a
+    /// 1-leg Pyth composite (PAXG/USD) scores 237-254 while the deepest books
+    /// score 15-61 (BTC/USDC, 10 venues) and 21-67 (ETH/USDC, 10 venues) — and
+    /// the corrupt PAXG/USDT composite (one venue quoting a 1026 bps book)
+    /// scores up to 255. That inversion is exactly why state 1 publishes a COUNT
+    /// of ticking legs instead. Still gate breadth on [`Self::accepted`] +
+    /// `active_count`, recency on the record/provider timestamp, and AGREEMENT
+    /// on [`Self::ci`].
     pub confidence: u8,
     /// Accepted providers (1 byte)
     pub accepted: u8,
@@ -124,8 +143,9 @@ pub struct Index {
     pub rejected: u8,
     /// Flags bitfield (1 byte). See module-level docs and `model/index.md`
     /// for bit assignments (bit 0 heartbeat sentinel = `0b0000_0001`, bit 1
-    /// historical backfill = `0b0000_0010`, bit 3 conf-freshness). Bits 2,
-    /// 4-7 are reserved and must be written as 0.
+    /// historical backfill = `0b0000_0010`, bit 3 legacy conf-freshness, bit 4
+    /// idx-healed, bit 5 no-book, bit 6 conf-active). Bits 2 and 7 are reserved
+    /// for INDEX records and must be written as 0.
     pub flags: u8,
 }
 
@@ -147,6 +167,45 @@ pub fn conf_to_u8(f: f64) -> u8 {
 #[inline]
 pub fn conf_from_u8(b: u8) -> f64 {
     b as f64 / MITCH_CONF_SCALE
+}
+
+/// Mask of the `active_count` field in the packed `confidence` byte (bits 0..6).
+pub const CONF_ACTIVE_COUNT_MASK: u8 = 0b0111_1111;
+
+/// Bit 7 of the packed `confidence` byte: the composite's fresh-WEIGHT share
+/// cleared its floor (`nxr_sdk::shard::FRESH_WEIGHT_SHARE_FLOOR`).
+pub const CONF_FRESH_WEIGHT_BIT: u8 = 0b1000_0000;
+
+/// Saturation ceiling for the packed `active_count`. Equals
+/// `core::aggregator::MAX_ACCEPTED_PROVIDERS` (64), which is what leaves bit 7
+/// free for [`CONF_FRESH_WEIGHT_BIT`]. Raising the aggregator constant above 127
+/// collides — re-encode first.
+pub const CONF_MAX_ACTIVE_COUNT: u32 = 64;
+
+/// Pack the ACTIVE-provider measurement into the `confidence` wire byte
+/// (`nxr_sdk::shard::FLAG_CONF_ACTIVE` semantics): `active_count` (saturated at
+/// [`CONF_MAX_ACTIVE_COUNT`]) in bits 0..6, `fresh_weight_ok` in bit 7.
+///
+/// Companion decoders: [`conf_active_count`] / [`conf_fresh_weight_ok`]. The
+/// historical fraction path keeps using [`conf_to_u8`] / [`conf_from_u8`].
+#[inline]
+pub fn conf_pack_active(active_count: u32, fresh_weight_ok: bool) -> u8 {
+    let n = active_count.min(CONF_MAX_ACTIVE_COUNT) as u8;
+    n | if fresh_weight_ok { CONF_FRESH_WEIGHT_BIT } else { 0 }
+}
+
+/// Number of genuinely-ticking legs from a packed `confidence` byte (bits 0..6).
+/// Only meaningful when the record carries `nxr_sdk::shard::FLAG_CONF_ACTIVE`.
+#[inline]
+pub fn conf_active_count(b: u8) -> u32 {
+    (b & CONF_ACTIVE_COUNT_MASK) as u32
+}
+
+/// Fresh-weight-share verdict from a packed `confidence` byte (bit 7).
+/// Only meaningful when the record carries `nxr_sdk::shard::FLAG_CONF_ACTIVE`.
+#[inline]
+pub fn conf_fresh_weight_ok(b: u8) -> bool {
+    (b & CONF_FRESH_WEIGHT_BIT) != 0
 }
 
 impl Index {
@@ -259,11 +318,12 @@ impl Index {
     /// - `spread_bps > MAX_SPREAD_BPS` (20% cap: thin enough to reject corrupted
     ///   feeds, wide enough to admit the widest illiquid pairs).
     ///
-    /// NOTE: `confidence` is now an INDEPENDENT freshness percent byte (see
-    /// `FLAG_CONF_FRESHNESS`), so the old `confidence <= accepted` and
+    /// NOTE: `confidence` is INDEPENDENT of `accepted` under both flagged
+    /// encodings (`FLAG_CONF_ACTIVE` packed count+bit7, or legacy
+    /// `FLAG_CONF_FRESHNESS` fraction), so the old `confidence <= accepted` and
     /// `accepted==0 && confidence>0` cross-constraints have been removed — a
     /// fully-stale single-provider record can legitimately have low freshness
-    /// with `accepted > 0`, and freshness no longer counts providers.
+    /// with `accepted > 0`, and a packed byte with bit 7 set exceeds any count.
     pub fn validate(&self) -> Result<(), MitchError> {
         match self.reject_reason() {
             Some(r) => Err(MitchError::InvalidFieldValue(r.into())),

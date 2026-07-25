@@ -15,10 +15,10 @@ Index messages (`i`) carry aggregated (multi-provider VWAP composite) market dat
 | vask       | 28     | 4    | `u32`   | Aggregated ask volume               |
 | ci         | 32     | 2    | `u16`   | Confidence interval, sqrt-compressed micro bps (below) |
 | tick_count | 34     | 2    | `u16`   | Raw ticks in aggregation window     |
-| confidence | 36     | 1    | `u8`    | freshness percent, 0-100 (`f = byte/255`) when flag bit 3 set; legacy active-provider count otherwise |
+| confidence | 36     | 1    | `u8`    | flag-selected liveness: bit 6 set = packed (bits 0..6 = active/ticking provider count 0..64, bit 7 = fresh-weight-share OK); else bit 3 set = freshness fraction `byte/255`; else legacy active-provider count |
 | accepted   | 37     | 1    | `u8`    | Accepted providers                  |
 | rejected   | 38     | 1    | `u8`    | Rejected providers                  |
-| flags      | 39     | 1    | `u8`    | bit 0: heartbeat sentinel; bit 1: historical backfill; bit 3: conf-freshness; bits 2, 4-7 reserved |
+| flags      | 39     | 1    | `u8`    | bit 0: heartbeat sentinel; bit 1: historical backfill; bit 3: conf-freshness (legacy fraction); bit 4: idx healed; bit 5: no book; bit 6: conf-active (packed count + fresh-weight bit); bits 2, 7 reserved |
 
 **Framed size**: 56B (16B MitchHeader + 40B body). See [framing.md](./framing.md).
 
@@ -48,6 +48,6 @@ where `ci_ubp` is in micro basis points of mid (1 ubp = 1e-8 x mid). The compres
 - `bid`, `ask` finite and `> 0.0`; `ask >= bid`
 - `bid`, `ask <= 1e9` (`MAX_PRICE` sanity cap: rejects finite-but-astronomical garbage)
 - `spread_bps <= 2000` (20% cap: rejects corrupted feeds, admits the widest illiquid pairs)
-- `confidence` is INDEPENDENT of `accepted`: when flag bit 3 (conf-freshness) is set, `confidence` is a freshness percent (0-100), not a provider count, so no `accepted >= confidence` cross-constraint applies.
+- `confidence` is INDEPENDENT of `accepted` under both flagged encodings: with bit 6 (conf-active) it is a packed count plus a high bit, with bit 3 (conf-freshness) it is a freshness fraction. Neither is comparable to a provider count, so no `accepted >= confidence` cross-constraint applies.
 
 Reference: `impl/rust/src/index.rs`.
