@@ -105,6 +105,18 @@ pub struct Index {
     /// are fresh, falling as components decay. When that flag is clear this is
     /// the legacy integer active-provider count.
     /// See [`conf_to_u8`] / [`conf_from_u8`] for the fraction (de)coders.
+    ///
+    /// ⚠ NOT a quality score, and NEVER a quality gate. It is a base-weight
+    /// average of per-leg exponential decay, so it is ANTI-correlated with feed
+    /// breadth: every extra venue adds a leg that usually sits between ticks,
+    /// and forwarder BBO-dedup makes an unchanged deep book indistinguishable
+    /// from a dead one. Measured live 2026-07-25: a 1-leg Pyth composite
+    /// (PAXG/USD) scores 237-254 while the deepest books score 15-61
+    /// (BTC/USDC, 10 venues) and 21-67 (ETH/USDC, 10 venues) — and the corrupt
+    /// PAXG/USDT composite (one venue quoting a 1026 bps book) scores up to
+    /// 255. Gate breadth on [`Self::accepted`], recency on the record/provider
+    /// timestamp, and AGREEMENT on [`Self::ci`]; a threshold on this byte
+    /// selects single-source feeds over cross-validated ones.
     pub confidence: u8,
     /// Accepted providers (1 byte)
     pub accepted: u8,
@@ -253,31 +265,37 @@ impl Index {
     /// fully-stale single-provider record can legitimately have low freshness
     /// with `accepted > 0`, and freshness no longer counts providers.
     pub fn validate(&self) -> Result<(), MitchError> {
+        match self.reject_reason() {
+            Some(r) => Err(MitchError::InvalidFieldValue(r.into())),
+            None => Ok(()),
+        }
+    }
+
+    /// Single source of truth for the reject sites above: `None` = valid,
+    /// `Some(label)` = a low-cardinality `&'static str` suitable both as a
+    /// Prometheus label value and as the `validate()` error text (same
+    /// `label()` convention as `nxr_sdk::udp_auth::AuthReject`). Callers on the
+    /// UDP hot path use this instead of `validate()` so a rising reject count
+    /// is attributable to a reason without parsing an error string.
+    pub fn reject_reason(&self) -> Option<&'static str> {
         // Copy out of the packed struct so we can do float math without
         // triggering unaligned-reference lints.
         let bid = self.bid;
         let ask = self.ask;
         let ticker = self.ticker;
 
-        if ticker == 0 { return Err(MitchError::InvalidFieldValue("Ticker cannot be zero".into())); }
-        if !bid.is_finite() { return Err(MitchError::InvalidFieldValue("Bid must be finite".into())); }
-        if !ask.is_finite() { return Err(MitchError::InvalidFieldValue("Ask must be finite".into())); }
-        if bid <= 0.0 { return Err(MitchError::InvalidFieldValue("Bid price must be positive".into())); }
-        if ask <= 0.0 { return Err(MitchError::InvalidFieldValue("Ask price must be positive".into())); }
-        if ask < bid { return Err(MitchError::InvalidFieldValue("Ask must be >= bid".into())); }
-        if bid > MAX_PRICE || ask > MAX_PRICE {
-            return Err(MitchError::InvalidFieldValue("price exceeds 1e9 sanity cap".into()));
-        }
+        if ticker == 0 { return Some("zero_ticker"); }
+        if !bid.is_finite() || !ask.is_finite() { return Some("non_finite"); }
+        if bid <= 0.0 || ask <= 0.0 { return Some("non_positive"); }
+        if ask < bid { return Some("crossed"); }
+        if bid > MAX_PRICE || ask > MAX_PRICE { return Some("above_max_price"); }
 
         const MAX_SPREAD_BPS: f64 = 2000.0;
         let mid = (bid + ask) / 2.0;
-        if mid > 0.0 {
-            let spread_bps = (ask - bid) / mid * 10_000.0;
-            if spread_bps > MAX_SPREAD_BPS {
-                return Err(MitchError::InvalidFieldValue("spread exceeds 2000 bps cap".into()));
-            }
+        if mid > 0.0 && (ask - bid) / mid * 10_000.0 > MAX_SPREAD_BPS {
+            return Some("spread_cap");
         }
-        Ok(())
+        None
     }
 }
 
