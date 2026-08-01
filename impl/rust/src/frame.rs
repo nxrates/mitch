@@ -292,7 +292,9 @@ mod tests {
     fn bar_frame_round_trip() {
         let open_mts = timestamp::from_epoch_ms(1_744_372_800_000);
         let close_mts = timestamp::from_epoch_ms(1_744_372_860_000);
-        let bar = Bar::new_ohlcv(open_mts, close_mts, 100.0, 105.0, 99.0, 103.0, 1000, 1200, 50);
+        let bar = Bar::new_ohlcv(
+            open_mts, close_mts, 100.0, 105.0, 99.0, 103.0, 1000, 1200, 50,
+        );
         let frame = BarFrame::new(101, open_mts, bar);
         let packed = frame.pack();
         let unpacked = BarFrame::unpack(&packed).unwrap();

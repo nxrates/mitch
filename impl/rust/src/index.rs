@@ -150,7 +150,10 @@ pub struct Index {
 }
 
 // Compile-time size assertion
-const _: () = assert!(core::mem::size_of::<Index>() == 40, "Index must be exactly 40 bytes");
+const _: () = assert!(
+    core::mem::size_of::<Index>() == 40,
+    "Index must be exactly 40 bytes"
+);
 
 /// Wire scale for the `Index::confidence` freshness byte: a freshness
 /// `f ∈ [0,1]` is stored as `round(f · 255)` (full u8 precision) and recovered
@@ -191,7 +194,11 @@ pub const CONF_MAX_ACTIVE_COUNT: u32 = 64;
 #[inline]
 pub fn conf_pack_active(active_count: u32, fresh_weight_ok: bool) -> u8 {
     let n = active_count.min(CONF_MAX_ACTIVE_COUNT) as u8;
-    n | if fresh_weight_ok { CONF_FRESH_WEIGHT_BIT } else { 0 }
+    n | if fresh_weight_ok {
+        CONF_FRESH_WEIGHT_BIT
+    } else {
+        0
+    }
 }
 
 /// Number of genuinely-ticking legs from a packed `confidence` byte (bits 0..6).
@@ -302,7 +309,9 @@ impl Index {
     /// Volume imbalance: (vask - vbid) / (vask + vbid)
     pub fn volume_imbalance(&self) -> f64 {
         let total = self.vask as f64 + self.vbid as f64;
-        if total == 0.0 { return 0.0; }
+        if total == 0.0 {
+            return 0.0;
+        }
         (self.vask as f64 - self.vbid as f64) / total
     }
 
@@ -352,11 +361,21 @@ impl Index {
         let ask = self.ask;
         let ticker = self.ticker;
 
-        if ticker == 0 { return Some("zero_ticker"); }
-        if !bid.is_finite() || !ask.is_finite() { return Some("non_finite"); }
-        if bid <= 0.0 || ask <= 0.0 { return Some("non_positive"); }
-        if ask < bid { return Some("crossed"); }
-        if bid > MAX_PRICE || ask > MAX_PRICE { return Some("above_max_price"); }
+        if ticker == 0 {
+            return Some("zero_ticker");
+        }
+        if !bid.is_finite() || !ask.is_finite() {
+            return Some("non_finite");
+        }
+        if bid <= 0.0 || ask <= 0.0 {
+            return Some("non_positive");
+        }
+        if ask < bid {
+            return Some("crossed");
+        }
+        if bid > MAX_PRICE || ask > MAX_PRICE {
+            return Some("above_max_price");
+        }
 
         const MAX_SPREAD_BPS: f64 = 2000.0;
         let mid = (bid + ask) / 2.0;

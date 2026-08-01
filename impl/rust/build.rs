@@ -83,7 +83,9 @@ fn main() {
     }
 
     // BINS LazyLock map.
-    out.push_str("pub static BINS: LazyLock<HashMap<BinAggregator, [f64; 128]>> = LazyLock::new(|| {\n");
+    out.push_str(
+        "pub static BINS: LazyLock<HashMap<BinAggregator, [f64; 128]>> = LazyLock::new(|| {\n",
+    );
     out.push_str("    let mut main_map = HashMap::new();\n");
     for (i, f) in bin_files.iter().enumerate() {
         let variant = &bin_variants[i];
@@ -95,7 +97,10 @@ fn main() {
             out.push_str(&format!("        {},\n", v));
         }
         out.push_str("    ];\n");
-        out.push_str(&format!("    main_map.insert(BinAggregator::{}, bins);\n", variant));
+        out.push_str(&format!(
+            "    main_map.insert(BinAggregator::{}, bins);\n",
+            variant
+        ));
     }
     out.push_str("    main_map\n");
     out.push_str("});\n");
@@ -183,8 +188,8 @@ fn rerun_dir(dir: &Path) {
 /// Minimal CSV parser: skips header row, splits on `,`, trims `\r` + surrounding quotes.
 /// Sufficient for the MITCH CSVs which contain no embedded commas or escape sequences.
 fn read_csv(path: &Path) -> Vec<Vec<String>> {
-    let content = fs::read_to_string(path)
-        .unwrap_or_else(|e| panic!("read {}: {}", path.display(), e));
+    let content =
+        fs::read_to_string(path).unwrap_or_else(|e| panic!("read {}: {}", path.display(), e));
     let mut rows = Vec::new();
     for (i, line) in content.lines().enumerate() {
         if i == 0 {
@@ -256,7 +261,10 @@ fn emit_data_array(out: &mut String, path: &Path) {
     let const_name = format!("{}_DATA", stem.replace('-', "_").to_uppercase());
     let rows = read_csv(path);
 
-    out.push_str(&format!("/// {} data: (id, name_lowercase, aliases_lowercase)\n", stem));
+    out.push_str(&format!(
+        "/// {} data: (id, name_lowercase, aliases_lowercase)\n",
+        stem
+    ));
     out.push_str(&format!("pub static {}: &[DataEntry] = &[\n", const_name));
 
     for r in &rows {
@@ -309,7 +317,10 @@ fn emit_convenience_fns(out: &mut String, path: &Path) {
         "pub fn resolve_{}(query: &str) -> Option<&'static DataEntry> {{\n",
         fn_base
     ));
-    out.push_str(&format!("    Resolver::find_by_name({}, query)\n", const_name));
+    out.push_str(&format!(
+        "    Resolver::find_by_name({}, query)\n",
+        const_name
+    ));
     out.push_str("}\n\n");
 
     out.push_str(&format!("/// Find {} by ID\n", pretty));

@@ -69,4 +69,3 @@ pub fn unpack_all<T: MitchBody>(bytes: &[u8]) -> Result<Vec<T>, MitchError> {
     }
     unpack_batch(bytes, bytes.len() / T::SIZE)
 }
-

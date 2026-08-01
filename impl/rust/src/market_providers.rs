@@ -21,6 +21,9 @@ pub struct ProviderMatch {
 
 impl From<&DataEntry> for MarketProvider {
     fn from(entry: &DataEntry) -> Self {
-        Self { id: entry.id as u16, name: entry.name.to_string() }
+        Self {
+            id: entry.id as u16,
+            name: entry.name.to_string(),
+        }
     }
 }

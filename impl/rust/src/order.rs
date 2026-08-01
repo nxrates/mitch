@@ -5,10 +5,10 @@
 
 use crate::body::MitchBody;
 use crate::common::{
-    message_sizes, combine_type_and_side, extract_order_side, extract_order_type, MitchError,
+    combine_type_and_side, extract_order_side, extract_order_type, message_sizes, MitchError,
     OrderSide, OrderType,
 };
-use crate::timestamp::{encode_u48, decode_u48};
+use crate::timestamp::{decode_u48, encode_u48};
 
 /// Order lifecycle event (32 bytes).
 ///
@@ -115,19 +115,27 @@ impl Order {
     /// Validate the contents of the Order message.
     pub fn validate(&self) -> Result<(), MitchError> {
         if self.ticker == 0 {
-            return Err(MitchError::InvalidFieldValue("ticker cannot be zero".into()));
+            return Err(MitchError::InvalidFieldValue(
+                "ticker cannot be zero".into(),
+            ));
         }
         if self.order_id == 0 {
-            return Err(MitchError::InvalidFieldValue("order_id cannot be zero".into()));
+            return Err(MitchError::InvalidFieldValue(
+                "order_id cannot be zero".into(),
+            ));
         }
 
         match self.get_order_type() {
             OrderType::Market | OrderType::Limit | OrderType::Stop => {
                 if self.price <= 0.0 {
-                    return Err(MitchError::InvalidFieldValue("price must be positive for this order type".into()));
+                    return Err(MitchError::InvalidFieldValue(
+                        "price must be positive for this order type".into(),
+                    ));
                 }
                 if self.qty == 0 {
-                    return Err(MitchError::InvalidFieldValue("qty must be positive for this order type".into()));
+                    return Err(MitchError::InvalidFieldValue(
+                        "qty must be positive for this order type".into(),
+                    ));
                 }
             }
             OrderType::Cancel => {} // No price/qty validation for Cancel orders
@@ -163,4 +171,7 @@ unsafe impl MitchBody for Order {
 }
 
 // Compile-time size assertion
-const _: () = assert!(core::mem::size_of::<Order>() == message_sizes::ORDER, "Order must be exactly 32 bytes");
+const _: () = assert!(
+    core::mem::size_of::<Order>() == message_sizes::ORDER,
+    "Order must be exactly 32 bytes"
+);

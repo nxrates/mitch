@@ -8,8 +8,8 @@
 //! - Message type code ↔ ASCII mapping
 
 #![allow(clippy::all)]
-use mitch::header::*;
 use mitch::common::*;
+use mitch::header::*;
 
 #[cfg(test)]
 mod tests {
@@ -128,8 +128,14 @@ mod tests {
     #[test]
     fn test_message_type_code_mapping() {
         // Verify all types round-trip through code mapping
-        for &mt in &[message_type::TRADE, message_type::ORDER, message_type::TICK,
-                     message_type::INDEX, message_type::ORDER_BOOK, message_type::BAR] {
+        for &mt in &[
+            message_type::TRADE,
+            message_type::ORDER,
+            message_type::TICK,
+            message_type::INDEX,
+            message_type::ORDER_BOOK,
+            message_type::BAR,
+        ] {
             let code = msg_type_to_code(mt);
             assert_ne!(code, 0, "code for {:?} should not be 0", mt as char);
             let back = code_to_msg_type(code);
@@ -144,7 +150,12 @@ mod tests {
             let header = MitchHeader::new(message_type::TICK, pid, 12345, 1);
             let packed = header.pack();
             let unpacked = MitchHeader::unpack(&packed).unwrap();
-            assert_eq!(unpacked.provider_id(), pid, "provider_id mismatch for {}", pid);
+            assert_eq!(
+                unpacked.provider_id(),
+                pid,
+                "provider_id mismatch for {}",
+                pid
+            );
             assert_eq!(unpacked.message_type(), message_type::TICK);
         }
     }

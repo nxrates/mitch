@@ -4,7 +4,7 @@
 //! Resolution logic (fuzzy matching, symbol parsing) is a consumer-side
 //! concern; the normative rules live in `model/ticker.md`.
 
-use crate::common::{MitchError, AssetClass, InstrumentType};
+use crate::common::{AssetClass, InstrumentType, MitchError};
 use core::fmt;
 
 // =============================================================================
@@ -102,7 +102,9 @@ impl TickerId {
         sub_type: u32,
     ) -> Result<Self, MitchError> {
         if sub_type > 0xFFFFF {
-            return Err(MitchError::InvalidData("Sub-type must fit in 20 bits".into()));
+            return Err(MitchError::InvalidData(
+                "Sub-type must fit in 20 bits".into(),
+            ));
         }
         let raw = ((instrument_type as u64) << 60)
             | ((base_class as u64) << 56)
@@ -113,7 +115,9 @@ impl TickerId {
         Ok(Self { raw })
     }
 
-    pub fn from_raw(raw: u64) -> Self { Self { raw } }
+    pub fn from_raw(raw: u64) -> Self {
+        Self { raw }
+    }
 
     pub fn instrument_type(&self) -> InstrumentType {
         InstrumentType::from_id(((self.raw >> 60) & 0x0F) as u8)
@@ -121,18 +125,29 @@ impl TickerId {
     pub fn base_asset_class(&self) -> AssetClass {
         AssetClass::from_id(((self.raw >> 56) & 0x0F) as u8)
     }
-    pub fn base_asset_id(&self) -> u16 { ((self.raw >> 40) & 0xFFFF) as u16 }
+    pub fn base_asset_id(&self) -> u16 {
+        ((self.raw >> 40) & 0xFFFF) as u16
+    }
     pub fn quote_asset_class(&self) -> AssetClass {
         AssetClass::from_id(((self.raw >> 36) & 0x0F) as u8)
     }
-    pub fn quote_asset_id(&self) -> u16 { ((self.raw >> 20) & 0xFFFF) as u16 }
-    pub fn sub_type(&self) -> u32 { (self.raw & 0xFFFFF) as u32 }
+    pub fn quote_asset_id(&self) -> u16 {
+        ((self.raw >> 20) & 0xFFFF) as u16
+    }
+    pub fn sub_type(&self) -> u32 {
+        (self.raw & 0xFFFFF) as u32
+    }
 
-    pub fn pack(&self) -> [u8; 8] { self.raw.to_le_bytes() }
+    pub fn pack(&self) -> [u8; 8] {
+        self.raw.to_le_bytes()
+    }
 
     pub fn unpack(bytes: &[u8]) -> Result<Self, MitchError> {
         if bytes.len() < 8 {
-            return Err(MitchError::BufferTooSmall { expected: 8, actual: bytes.len() });
+            return Err(MitchError::BufferTooSmall {
+                expected: 8,
+                actual: bytes.len(),
+            });
         }
         unsafe {
             let raw = (bytes.as_ptr() as *const u64).read_unaligned().to_le();
@@ -141,12 +156,12 @@ impl TickerId {
     }
 
     pub fn is_forex(&self) -> bool {
-        matches!(self.base_asset_class(), AssetClass::FX) ||
-        matches!(self.quote_asset_class(), AssetClass::FX)
+        matches!(self.base_asset_class(), AssetClass::FX)
+            || matches!(self.quote_asset_class(), AssetClass::FX)
     }
     pub fn is_crypto(&self) -> bool {
-        matches!(self.base_asset_class(), AssetClass::CR) ||
-        matches!(self.quote_asset_class(), AssetClass::CR)
+        matches!(self.base_asset_class(), AssetClass::CR)
+            || matches!(self.quote_asset_class(), AssetClass::CR)
     }
     pub fn is_spot(&self) -> bool {
         matches!(self.instrument_type(), InstrumentType::SPOT)
@@ -154,35 +169,81 @@ impl TickerId {
 }
 
 impl From<u64> for TickerId {
-    fn from(raw: u64) -> Self { Self::from_raw(raw) }
+    fn from(raw: u64) -> Self {
+        Self::from_raw(raw)
+    }
 }
 
 impl From<TickerId> for u64 {
-    fn from(ticker: TickerId) -> Self { ticker.raw }
+    fn from(ticker: TickerId) -> Self {
+        ticker.raw
+    }
 }
 
 impl fmt::Display for TickerId {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "TickerId({:016X}: {:?} base={:?}:{} quote={:?}:{} sub={})",
-            self.raw, self.instrument_type(),
-            self.base_asset_class(), self.base_asset_id(),
-            self.quote_asset_class(), self.quote_asset_id(),
-            self.sub_type())
+        write!(
+            f,
+            "TickerId({:016X}: {:?} base={:?}:{} quote={:?}:{} sub={})",
+            self.raw,
+            self.instrument_type(),
+            self.base_asset_class(),
+            self.base_asset_id(),
+            self.quote_asset_class(),
+            self.quote_asset_id(),
+            self.sub_type()
+        )
     }
 }
 
 // ---- Convenience constructors ----
 
-pub fn forex_ticker(base_id: u16, quote_id: u16, instrument_type: InstrumentType, sub_type: u32) -> Result<TickerId, MitchError> {
-    TickerId::new(instrument_type, AssetClass::FX, base_id, AssetClass::FX, quote_id, sub_type)
+pub fn forex_ticker(
+    base_id: u16,
+    quote_id: u16,
+    instrument_type: InstrumentType,
+    sub_type: u32,
+) -> Result<TickerId, MitchError> {
+    TickerId::new(
+        instrument_type,
+        AssetClass::FX,
+        base_id,
+        AssetClass::FX,
+        quote_id,
+        sub_type,
+    )
 }
 
-pub fn crypto_ticker(base_id: u16, quote_id: u16, instrument_type: InstrumentType, sub_type: u32) -> Result<TickerId, MitchError> {
-    TickerId::new(instrument_type, AssetClass::CR, base_id, AssetClass::CR, quote_id, sub_type)
+pub fn crypto_ticker(
+    base_id: u16,
+    quote_id: u16,
+    instrument_type: InstrumentType,
+    sub_type: u32,
+) -> Result<TickerId, MitchError> {
+    TickerId::new(
+        instrument_type,
+        AssetClass::CR,
+        base_id,
+        AssetClass::CR,
+        quote_id,
+        sub_type,
+    )
 }
 
-pub fn equity_ticker(equity_id: u16, quote_currency_id: u16, instrument_type: InstrumentType, sub_type: u32) -> Result<TickerId, MitchError> {
-    TickerId::new(instrument_type, AssetClass::EQ, equity_id, AssetClass::FX, quote_currency_id, sub_type)
+pub fn equity_ticker(
+    equity_id: u16,
+    quote_currency_id: u16,
+    instrument_type: InstrumentType,
+    sub_type: u32,
+) -> Result<TickerId, MitchError> {
+    TickerId::new(
+        instrument_type,
+        AssetClass::EQ,
+        equity_id,
+        AssetClass::FX,
+        quote_currency_id,
+        sub_type,
+    )
 }
 
 // ---- Batch operations ----
@@ -190,7 +251,10 @@ pub fn equity_ticker(equity_id: u16, quote_currency_id: u16, instrument_type: In
 pub fn unpack_ticker_batch(buffer: &[u8], count: usize) -> Result<Vec<TickerId>, MitchError> {
     let expected = count * 8;
     if buffer.len() < expected {
-        return Err(MitchError::BufferTooSmall { expected, actual: buffer.len() });
+        return Err(MitchError::BufferTooSmall {
+            expected,
+            actual: buffer.len(),
+        });
     }
     let mut tickers = Vec::with_capacity(count);
     unsafe {

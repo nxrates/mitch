@@ -32,13 +32,7 @@ pub struct Tick {
 
 impl Tick {
     /// Create a new Tick message with validation.
-    pub fn new(
-        ticker: u64,
-        bid: f64,
-        ask: f64,
-        vbid: u32,
-        vask: u32,
-    ) -> Result<Self, MitchError> {
+    pub fn new(ticker: u64, bid: f64, ask: f64, vbid: u32, vask: u32) -> Result<Self, MitchError> {
         let tick = Self {
             ticker,
             bid,
@@ -52,14 +46,14 @@ impl Tick {
 
     /// Create a new Tick without validation (use with trusted data, e.g. from wire format)
     #[inline]
-    pub const fn new_unchecked(
-        ticker: u64,
-        bid: f64,
-        ask: f64,
-        vbid: u32,
-        vask: u32,
-    ) -> Self {
-        Self { ticker, bid, ask, vbid, vask }
+    pub const fn new_unchecked(ticker: u64, bid: f64, ask: f64, vbid: u32, vask: u32) -> Self {
+        Self {
+            ticker,
+            bid,
+            ask,
+            vbid,
+            vask,
+        }
     }
 
     /// Pack Tick into bytes using zero-copy transmutation.
@@ -83,7 +77,9 @@ impl Tick {
     /// Validate the contents of the Tick message.
     pub fn validate(&self) -> Result<(), MitchError> {
         if self.ticker == 0 {
-            return Err(MitchError::InvalidFieldValue("ticker cannot be zero".into()));
+            return Err(MitchError::InvalidFieldValue(
+                "ticker cannot be zero".into(),
+            ));
         }
         if self.bid <= 0.0 {
             return Err(MitchError::InvalidFieldValue("bid must be positive".into()));
@@ -92,7 +88,9 @@ impl Tick {
             return Err(MitchError::InvalidFieldValue("ask must be positive".into()));
         }
         if self.ask < self.bid {
-            return Err(MitchError::InvalidFieldValue("ask cannot be less than bid".into()));
+            return Err(MitchError::InvalidFieldValue(
+                "ask cannot be less than bid".into(),
+            ));
         }
         Ok(())
     }
@@ -145,4 +143,7 @@ unsafe impl MitchBody for Tick {
 }
 
 // Compile-time size assertion
-const _: () = assert!(core::mem::size_of::<Tick>() == message_sizes::TICK, "Tick must be exactly 32 bytes");
+const _: () = assert!(
+    core::mem::size_of::<Tick>() == message_sizes::TICK,
+    "Tick must be exactly 32 bytes"
+);

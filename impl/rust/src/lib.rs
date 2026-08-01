@@ -32,18 +32,24 @@
 // MODULE DECLARATIONS
 // =============================================================================
 
-/// Ticker ID and channel implementation
-pub mod channel;
 /// Generic zero-copy batch helpers + MitchBody trait
 pub mod body;
+/// Ticker ID and channel implementation
+pub mod channel;
 /// Common types, enums, and constants used across all message types
 pub mod common;
 /// Generated constants from CSV files (emitted by build.rs into OUT_DIR).
 pub mod constants {
     include!(concat!(env!("OUT_DIR"), "/constants.rs"));
 }
+/// Bar - enriched OHLCV bar, kline or renko (96 bytes)
+pub mod bar;
+/// Frame types - MitchHeader + body composition for wire/file I/O
+pub mod frame;
 /// MITCH unified message header (16 bytes)
 pub mod header;
+/// Heartbeat message implementation (16 bytes)
+pub mod heartbeat;
 /// Index message implementation (40 bytes)
 pub mod index;
 /// Market provider type definitions
@@ -54,16 +60,10 @@ pub mod order;
 pub mod order_book;
 /// Tick message implementation (32 bytes)
 pub mod tick;
-/// Bar - enriched OHLCV bar, kline or renko (96 bytes)
-pub mod bar;
-/// Heartbeat message implementation (16 bytes)
-pub mod heartbeat;
-/// Frame types - MitchHeader + body composition for wire/file I/O
-pub mod frame;
-/// u48 timestamp encoding: 16µs ticks since 2010-01-01
-pub mod timestamp;
 /// Ticker ID encoding/decoding and asset type definitions
 pub mod ticker;
+/// u48 timestamp encoding: 16µs ticks since 2010-01-01
+pub mod timestamp;
 /// Trade message implementation (24 bytes)
 pub mod trade;
 
@@ -71,20 +71,20 @@ pub mod trade;
 // concern (see ../ffi.md and model/ticker.md).
 
 // Re-export public API
-pub use crate::body::*;
-pub use crate::common::*;
-pub use crate::header::*;
-pub use crate::trade::*;
-pub use crate::order::*;
-pub use crate::tick::*;
 pub use crate::bar::*;
-pub use crate::heartbeat::*;
-pub use crate::frame::*;
-pub use crate::index::*;
-pub use crate::order_book::*;
-pub use crate::ticker::*;
+pub use crate::body::*;
 pub use crate::channel::*;
+pub use crate::common::*;
+pub use crate::frame::*;
+pub use crate::header::*;
+pub use crate::heartbeat::*;
+pub use crate::index::*;
 pub use crate::market_providers::{MarketProvider, ProviderMatch};
+pub use crate::order::*;
+pub use crate::order_book::*;
+pub use crate::tick::*;
+pub use crate::ticker::*;
+pub use crate::trade::*;
 
 // =============================================================================
 // LIBRARY VERSION AND METADATA
@@ -98,7 +98,8 @@ pub const LIB_VERSION: &str = env!("CARGO_PKG_VERSION");
 
 /// Build information
 pub const BUILD_INFO: &str = concat!(
-    "mitch-rust v", env!("CARGO_PKG_VERSION"),
+    "mitch-rust v",
+    env!("CARGO_PKG_VERSION"),
     " (MITCH protocol v1.0.0)"
 );
 
@@ -130,13 +131,13 @@ pub fn calculate_message_size(message_type: u8, count: u8) -> Result<usize, Mitc
     // a bug, not a runtime error.
     const BODY_SIZE: [usize; 256] = {
         let mut t = [0usize; 256];
-        t[message_type::TRADE      as usize] = message_sizes::TRADE;
-        t[message_type::ORDER      as usize] = message_sizes::ORDER;
-        t[message_type::TICK       as usize] = message_sizes::TICK;
-        t[message_type::INDEX      as usize] = message_sizes::INDEX;
+        t[message_type::TRADE as usize] = message_sizes::TRADE;
+        t[message_type::ORDER as usize] = message_sizes::ORDER;
+        t[message_type::TICK as usize] = message_sizes::TICK;
+        t[message_type::INDEX as usize] = message_sizes::INDEX;
         t[message_type::ORDER_BOOK as usize] = message_sizes::ORDER_BOOK;
-        t[message_type::BAR        as usize] = message_sizes::BAR;
-        t[message_type::HEARTBEAT  as usize] = message_sizes::HEARTBEAT;
+        t[message_type::BAR as usize] = message_sizes::BAR;
+        t[message_type::HEARTBEAT as usize] = message_sizes::HEARTBEAT;
         t
     };
     Ok(message_sizes::HEADER + (count as usize * BODY_SIZE[message_type as usize]))

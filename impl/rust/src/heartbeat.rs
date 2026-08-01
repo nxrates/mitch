@@ -56,13 +56,21 @@ impl Heartbeat {
     /// message count since the previous beat.
     #[inline]
     pub const fn feed(msg_count: u32) -> Self {
-        Self { ticker: 0, msg_count, _pad: [0; 4] }
+        Self {
+            ticker: 0,
+            msg_count,
+            _pad: [0; 4],
+        }
     }
 
     /// Per-ticker heartbeat.
     #[inline]
     pub const fn ticker(ticker: u64, msg_count: u32) -> Self {
-        Self { ticker, msg_count, _pad: [0; 4] }
+        Self {
+            ticker,
+            msg_count,
+            _pad: [0; 4],
+        }
     }
 
     /// Pack into raw bytes (zero-copy transmute).

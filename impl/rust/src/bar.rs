@@ -389,15 +389,7 @@ mod tests {
         let open_mts = from_epoch_ms(1_744_372_800_000); // 2026-04-11 12:00:00 UTC
         let close_mts = from_epoch_ms(1_744_372_860_000); // +60s
         Bar::new_ohlcv(
-            open_mts,
-            close_mts,
-            100.0,
-            105.0,
-            99.0,
-            103.0,
-            1000,
-            1200,
-            50,
+            open_mts, close_mts, 100.0, 105.0, 99.0, 103.0, 1000, 1200, 50,
         )
     }
 

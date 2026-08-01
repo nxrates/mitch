@@ -5,17 +5,18 @@ use mitch::{self, common::*, tick::*};
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mitch::{MitchError, pack_batch, unpack_batch};
+    use mitch::{pack_batch, unpack_batch, MitchError};
 
     /// Returns a default, valid Tick message for testing.
     fn get_default_tick() -> Tick {
         Tick::new(
             0x0300_6F30_1CD0_0001, // Ticker: FX, EUR/USD, Venue 1
-            1.08750,              // bid_price
-            1.08752,              // ask_price
-            1_000_000,            // bid_volume
-            1_200_000,            // ask_volume
-        ).unwrap()
+            1.08750,               // bid_price
+            1.08752,               // ask_price
+            1_000_000,             // bid_volume
+            1_200_000,             // ask_volume
+        )
+        .unwrap()
     }
 
     #[test]

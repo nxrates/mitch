@@ -25,8 +25,10 @@ fn test_pack_unpack() {
     let unpacked_mid_price = unsafe { std::ptr::addr_of!(unpacked.mid_price).read_unaligned() };
     assert_eq!(original_mid_price, unpacked_mid_price);
 
-    let original_bin_aggregator = unsafe { std::ptr::addr_of!(original.bin_aggregator).read_unaligned() };
-    let unpacked_bin_aggregator = unsafe { std::ptr::addr_of!(unpacked.bin_aggregator).read_unaligned() };
+    let original_bin_aggregator =
+        unsafe { std::ptr::addr_of!(original.bin_aggregator).read_unaligned() };
+    let unpacked_bin_aggregator =
+        unsafe { std::ptr::addr_of!(unpacked.bin_aggregator).read_unaligned() };
     assert_eq!(original_bin_aggregator, unpacked_bin_aggregator);
 
     let original_bids = unsafe { std::ptr::addr_of!(original.bids).read_unaligned() };

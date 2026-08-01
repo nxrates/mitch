@@ -18,7 +18,7 @@
 //! ```
 
 use crate::body::MitchBody;
-use crate::common::{message_sizes, MitchError, BinAggregator};
+use crate::common::{message_sizes, BinAggregator, MitchError};
 
 /// Aggregated price-level bin (8 bytes).
 ///
@@ -41,7 +41,10 @@ pub struct Bin {
 impl Bin {
     /// Create a new bin
     pub fn new(order_count: u32, volume: u32) -> Self {
-        Self { order_count, volume }
+        Self {
+            order_count,
+            volume,
+        }
     }
 
     /// Check if bin is empty
@@ -188,5 +191,11 @@ unsafe impl MitchBody for Bin {
 }
 
 // Compile-time size assertions
-const _: () = assert!(core::mem::size_of::<Bin>() == message_sizes::BIN, "Bin must be exactly 8 bytes");
-const _: () = assert!(core::mem::size_of::<OrderBook>() == message_sizes::ORDER_BOOK, "OrderBook must be exactly 2072 bytes");
+const _: () = assert!(
+    core::mem::size_of::<Bin>() == message_sizes::BIN,
+    "Bin must be exactly 8 bytes"
+);
+const _: () = assert!(
+    core::mem::size_of::<OrderBook>() == message_sizes::ORDER_BOOK,
+    "OrderBook must be exactly 2072 bytes"
+);

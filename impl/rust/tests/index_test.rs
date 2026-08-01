@@ -8,21 +8,21 @@ use mitch::{self, common::*, index::*};
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mitch::{MitchError, pack_batch, unpack_batch};
+    use mitch::{pack_batch, unpack_batch, MitchError};
 
     /// Returns a default, valid Index message for testing.
     fn get_default_index() -> Index {
         Index::new(
-            0x0A00_6F30_1CD0_0001,     // ticker
-            1.08740,                   // bid
-            1.08760,                   // ask
-            14,                        // ci (micro basis points)
-            1_000_000,                 // vbid
-            1_200_000,                 // vask
-            15,                        // tick_count
-            9,                         // confidence
-            9,                         // accepted
-            1,                         // rejected
+            0x0A00_6F30_1CD0_0001, // ticker
+            1.08740,               // bid
+            1.08760,               // ask
+            14,                    // ci (micro basis points)
+            1_000_000,             // vbid
+            1_200_000,             // vask
+            15,                    // tick_count
+            9,                     // confidence
+            9,                     // accepted
+            1,                     // rejected
         )
     }
 

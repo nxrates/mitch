@@ -44,19 +44,19 @@ pub fn ci_encode(val: f64) -> u16 {
 /// MITCH message type codes (ASCII)
 pub mod message_type {
     /// Trade message ('t')
-    pub const TRADE: u8 = b't';        // 116
+    pub const TRADE: u8 = b't'; // 116
     /// Order message ('o')
-    pub const ORDER: u8 = b'o';        // 111
+    pub const ORDER: u8 = b'o'; // 111
     /// Tick message ('s')
-    pub const TICK: u8 = b's';         // 115
+    pub const TICK: u8 = b's'; // 115
     /// Index message ('i')
-    pub const INDEX: u8 = b'i';        // 105
+    pub const INDEX: u8 = b'i'; // 105
     /// Order book message ('b')
-    pub const ORDER_BOOK: u8 = b'b';   // 98
+    pub const ORDER_BOOK: u8 = b'b'; // 98
     /// Bar / kline ('k')
-    pub const BAR: u8 = b'k';         // 107
+    pub const BAR: u8 = b'k'; // 107
     /// Heartbeat message ('h')
-    pub const HEARTBEAT: u8 = b'h';   // 104
+    pub const HEARTBEAT: u8 = b'h'; // 104
 }
 
 /// Message size constants in bytes
@@ -137,7 +137,7 @@ impl Default for OrderType {
 // =============================================================================
 
 /// Re-export types from constants module
-pub use crate::constants::{AssetClass, InstrumentType, BinAggregator};
+pub use crate::constants::{AssetClass, BinAggregator, InstrumentType};
 
 // =============================================================================
 // ERROR HANDLING
@@ -255,13 +255,13 @@ pub mod message_type_code {
 /// non-matching byte. Replaces a per-type match.
 const ASCII_TO_CODE: [u8; 256] = {
     let mut t = [0u8; 256];
-    t[message_type::TRADE      as usize] = message_type_code::TRADE;
-    t[message_type::ORDER      as usize] = message_type_code::ORDER;
-    t[message_type::TICK       as usize] = message_type_code::TICK;
-    t[message_type::INDEX      as usize] = message_type_code::INDEX;
+    t[message_type::TRADE as usize] = message_type_code::TRADE;
+    t[message_type::ORDER as usize] = message_type_code::ORDER;
+    t[message_type::TICK as usize] = message_type_code::TICK;
+    t[message_type::INDEX as usize] = message_type_code::INDEX;
     t[message_type::ORDER_BOOK as usize] = message_type_code::ORDER_BOOK;
-    t[message_type::BAR        as usize] = message_type_code::BAR;
-    t[message_type::HEARTBEAT  as usize] = message_type_code::HEARTBEAT;
+    t[message_type::BAR as usize] = message_type_code::BAR;
+    t[message_type::HEARTBEAT as usize] = message_type_code::HEARTBEAT;
     t
 };
 
@@ -298,4 +298,3 @@ pub fn validate_message_type_code(code: u8) -> Result<(), MitchError> {
         Err(MitchError::InvalidMessageType(code))
     }
 }
-

@@ -30,9 +30,8 @@
 //! natural alignment for u64/f64 fields and enabling zero-copy SIMD loads.
 
 use crate::common::{
-    message_sizes, MitchError,
-    validate_message_type, msg_type_to_code, code_to_msg_type,
-    validate_message_type_code,
+    code_to_msg_type, message_sizes, msg_type_to_code, validate_message_type,
+    validate_message_type_code, MitchError,
 };
 
 /// MITCH unified message header (16 bytes)
@@ -73,7 +72,10 @@ impl MitchHeader {
     pub fn new(message_type: u8, provider_id: u16, timestamp: u64, count: u8) -> Self {
         validate_message_type(message_type).expect("Invalid message type");
         assert!(count > 0, "Count must be greater than 0");
-        assert!(provider_id <= 0x0FFF, "Provider ID must fit in 12 bits (max 4095)");
+        assert!(
+            provider_id <= 0x0FFF,
+            "Provider ID must fit in 12 bits (max 4095)"
+        );
 
         let code = msg_type_to_code(message_type);
         let tp = (code as u16 & 0x0F) | (provider_id << 4);
@@ -102,14 +104,23 @@ impl MitchHeader {
     ///
     /// # Returns
     /// Result containing new MitchHeader or error
-    pub fn new_validated(message_type: u8, provider_id: u16, timestamp: u64, count: u8) -> Result<Self, MitchError> {
+    pub fn new_validated(
+        message_type: u8,
+        provider_id: u16,
+        timestamp: u64,
+        count: u8,
+    ) -> Result<Self, MitchError> {
         validate_message_type(message_type)?;
 
         if count == 0 {
-            return Err(MitchError::InvalidData("Count must be greater than 0".to_string()));
+            return Err(MitchError::InvalidData(
+                "Count must be greater than 0".to_string(),
+            ));
         }
         if provider_id > 0x0FFF {
-            return Err(MitchError::InvalidData("Provider ID must fit in 12 bits (max 4095)".to_string()));
+            return Err(MitchError::InvalidData(
+                "Provider ID must fit in 12 bits (max 4095)".to_string(),
+            ));
         }
 
         let code = msg_type_to_code(message_type);
@@ -247,11 +258,15 @@ impl MitchHeader {
         validate_message_type_code(self.message_type_code())?;
 
         if self.count == 0 {
-            return Err(MitchError::InvalidData("Count must be greater than 0".to_string()));
+            return Err(MitchError::InvalidData(
+                "Count must be greater than 0".to_string(),
+            ));
         }
 
         if self.provider_id() > 0x0FFF {
-            return Err(MitchError::InvalidData("Provider ID exceeds 12 bits".to_string()));
+            return Err(MitchError::InvalidData(
+                "Provider ID exceeds 12 bits".to_string(),
+            ));
         }
 
         Ok(())
@@ -303,4 +318,7 @@ impl core::fmt::Display for MitchHeader {
 // =============================================================================
 
 // Compile-time size assertion
-const _: () = assert!(core::mem::size_of::<MitchHeader>() == message_sizes::HEADER, "MitchHeader must be exactly 16 bytes");
+const _: () = assert!(
+    core::mem::size_of::<MitchHeader>() == message_sizes::HEADER,
+    "MitchHeader must be exactly 16 bytes"
+);

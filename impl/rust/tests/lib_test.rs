@@ -4,7 +4,10 @@ use mitch::*;
 fn test_message_size_calculation() {
     // Trade messages (16B header + 24B body)
     assert_eq!(calculate_message_size(message_type::TRADE, 1).unwrap(), 40);
-    assert_eq!(calculate_message_size(message_type::TRADE, 10).unwrap(), 256);
+    assert_eq!(
+        calculate_message_size(message_type::TRADE, 10).unwrap(),
+        256
+    );
 
     // Order messages (16B header + 32B body)
     assert_eq!(calculate_message_size(message_type::ORDER, 1).unwrap(), 48);

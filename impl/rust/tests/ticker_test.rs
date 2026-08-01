@@ -13,7 +13,8 @@ fn test_ticker_creation_and_extraction() {
         AssetClass::FX,
         840, // USD
         0,
-    ).unwrap();
+    )
+    .unwrap();
 
     assert_eq!(ticker.instrument_type(), InstrumentType::SPOT);
     assert_eq!(ticker.base_asset_class(), AssetClass::FX);
@@ -28,11 +29,12 @@ fn test_ticker_pack_unpack() {
     let original = TickerId::new(
         InstrumentType::PERP,
         AssetClass::CR,
-        1,   // BTC
+        1, // BTC
         AssetClass::CR,
-        2,   // USDT
+        2, // USDT
         100,
-    ).unwrap();
+    )
+    .unwrap();
 
     let packed = original.pack();
     let unpacked = TickerId::unpack(&packed).unwrap();
@@ -58,10 +60,25 @@ fn test_ticker_convenience_functions() {
 #[test]
 fn test_ticker_validation() {
     // Valid ticker
-    let _ticker = TickerId::new(InstrumentType::SPOT, AssetClass::FX, 978, AssetClass::FX, 840, 0).unwrap();
+    let _ticker = TickerId::new(
+        InstrumentType::SPOT,
+        AssetClass::FX,
+        978,
+        AssetClass::FX,
+        840,
+        0,
+    )
+    .unwrap();
 
     // Sub-type overflow
-    let result = TickerId::new(InstrumentType::SPOT, AssetClass::FX, 978, AssetClass::FX, 840, 0x100000);
+    let result = TickerId::new(
+        InstrumentType::SPOT,
+        AssetClass::FX,
+        978,
+        AssetClass::FX,
+        840,
+        0x100000,
+    );
     assert!(result.is_err());
 }
 
@@ -91,7 +108,8 @@ fn test_bit_manipulation_accuracy() {
         AssetClass::IN,
         65535,
         0xFFFFF,
-    ).unwrap();
+    )
+    .unwrap();
 
     assert_eq!(ticker.instrument_type(), InstrumentType::STRUCT);
     assert_eq!(ticker.base_asset_class(), AssetClass::LR);
@@ -104,11 +122,17 @@ fn test_bit_manipulation_accuracy() {
 #[test]
 fn test_spec_compliance() {
     let ticker = TickerId::new(
-        InstrumentType::SPOT, AssetClass::FX, 111, AssetClass::FX, 461, 0,
-    ).unwrap();
+        InstrumentType::SPOT,
+        AssetClass::FX,
+        111,
+        AssetClass::FX,
+        461,
+        0,
+    )
+    .unwrap();
 
-    let expected_raw = (0x0u64 << 60) | (0x3u64 << 56) | (111u64 << 40)
-        | (0x3u64 << 36) | (461u64 << 20) | 0u64;
+    let expected_raw =
+        (0x0u64 << 60) | (0x3u64 << 56) | (111u64 << 40) | (0x3u64 << 36) | (461u64 << 20) | 0u64;
     assert_eq!(ticker.raw, expected_raw);
 }
 

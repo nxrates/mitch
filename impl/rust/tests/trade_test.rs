@@ -12,17 +12,18 @@ use mitch::{self, common::*, trade::*};
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mitch::{MitchError, pack_batch, unpack_batch};
+    use mitch::{pack_batch, unpack_batch, MitchError};
 
     /// Returns a default, valid Trade message for testing.
     fn get_default_trade() -> Trade {
         Trade::new(
             0x0300_6F30_1CD0_0001, // Ticker: FX, EUR/USD, Venue 1
-            1.08750,              // price
-            1_000_000,            // qty
-            12345,                // trade_id
-            OrderSide::Buy,       // side
-        ).unwrap()
+            1.08750,               // price
+            1_000_000,             // qty
+            12345,                 // trade_id
+            OrderSide::Buy,        // side
+        )
+        .unwrap()
     }
 
     #[test]
@@ -46,11 +47,26 @@ mod tests {
         assert!(trade.validate().is_ok());
 
         // --- Invalid fields ---
-        assert!(Trade::new(0, 1.0, 1, 1, OrderSide::Buy).is_err(), "Zero ticker");
-        assert!(Trade::new(1, 0.0, 1, 1, OrderSide::Buy).is_err(), "Zero price");
-        assert!(Trade::new(1, -1.0, 1, 1, OrderSide::Buy).is_err(), "Negative price");
-        assert!(Trade::new(1, 1.0, 0, 1, OrderSide::Buy).is_err(), "Zero qty");
-        assert!(Trade::new(1, 1.0, 1, 0, OrderSide::Buy).is_err(), "Zero trade ID");
+        assert!(
+            Trade::new(0, 1.0, 1, 1, OrderSide::Buy).is_err(),
+            "Zero ticker"
+        );
+        assert!(
+            Trade::new(1, 0.0, 1, 1, OrderSide::Buy).is_err(),
+            "Zero price"
+        );
+        assert!(
+            Trade::new(1, -1.0, 1, 1, OrderSide::Buy).is_err(),
+            "Negative price"
+        );
+        assert!(
+            Trade::new(1, 1.0, 0, 1, OrderSide::Buy).is_err(),
+            "Zero qty"
+        );
+        assert!(
+            Trade::new(1, 1.0, 1, 0, OrderSide::Buy).is_err(),
+            "Zero trade ID"
+        );
     }
 
     #[test]
@@ -124,7 +140,7 @@ mod tests {
 
         // Buffer too small for batch
         let res_batch: Result<Vec<Trade>, _> = unpack_batch(&packed, 2);
-         assert!(matches!(
+        assert!(matches!(
             res_batch,
             Err(MitchError::BufferTooSmall {
                 expected: 48,

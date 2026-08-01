@@ -5,19 +5,20 @@ use mitch::{self, common::*, order::*};
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mitch::{MitchError, pack_batch, unpack_batch};
+    use mitch::{pack_batch, unpack_batch, MitchError};
 
     /// Returns a default, valid Order message for testing.
     fn get_default_order() -> Order {
         Order::new(
             0x0300_6F30_1CD0_0001, // Ticker: FX, EUR/USD, Venue 1
-            54321,                // order_id
-            1.08750,              // price
-            1_000_000,            // quantity
-            OrderType::Limit,     // order_type
-            OrderSide::Buy,       // side
-            1700000000123,        // expiry (in ms)
-        ).unwrap()
+            54321,                 // order_id
+            1.08750,               // price
+            1_000_000,             // quantity
+            OrderType::Limit,      // order_type
+            OrderSide::Buy,        // side
+            1700000000123,         // expiry (in ms)
+        )
+        .unwrap()
     }
 
     #[test]
@@ -56,7 +57,7 @@ mod tests {
         assert_eq!(order.get_order_type(), OrderType::Limit);
         assert_eq!(order.get_order_side(), OrderSide::Buy);
 
-        let market_sell = Order::new(1,1,1.0,1, OrderType::Market, OrderSide::Sell, 0).unwrap();
+        let market_sell = Order::new(1, 1, 1.0, 1, OrderType::Market, OrderSide::Sell, 0).unwrap();
         assert_eq!(market_sell.get_order_type(), OrderType::Market);
         assert_eq!(market_sell.get_order_side(), OrderSide::Sell);
     }
@@ -111,8 +112,9 @@ mod tests {
             1000,
             OrderType::Limit,
             OrderSide::Buy,
-            1640995200000 // Unix timestamp
-        ).unwrap();
+            1640995200000, // Unix timestamp
+        )
+        .unwrap();
 
         // Copy individual fields to avoid packed field access issues
         let ticker = order.ticker;
@@ -139,7 +141,8 @@ mod tests {
             OrderType::Limit,
             OrderSide::Buy,
             1700000000123456,
-        ).unwrap();
+        )
+        .unwrap();
 
         let packed = original.pack();
         let unpacked = Order::unpack(&packed).unwrap();
@@ -164,7 +167,8 @@ mod tests {
 
     #[test]
     fn test_expiry_handling_alt() {
-        let mut order = Order::new(0x1, 1, 100.0, 100, OrderType::Market, OrderSide::Buy, 0).unwrap();
+        let mut order =
+            Order::new(0x1, 1, 100.0, 100, OrderType::Market, OrderSide::Buy, 0).unwrap();
 
         // Test GTC (expiry = 0)
         assert!(order.is_gtc());
@@ -200,7 +204,8 @@ mod tests {
     #[test]
     fn test_order_helpers() {
         let buy_order = Order::new(0x1, 1, 100.0, 10, OrderType::Limit, OrderSide::Buy, 0).unwrap();
-        let sell_order = Order::new(0x1, 2, 100.0, 10, OrderType::Market, OrderSide::Sell, 0).unwrap();
+        let sell_order =
+            Order::new(0x1, 2, 100.0, 10, OrderType::Market, OrderSide::Sell, 0).unwrap();
 
         assert!(buy_order.is_buy());
         assert!(!buy_order.is_sell());
@@ -226,7 +231,8 @@ mod tests {
 
     #[test]
     fn test_48bit_expiry_truncation() {
-        let mut order = Order::new(0x1, 1, 100.0, 100, OrderType::Market, OrderSide::Buy, 0).unwrap();
+        let mut order =
+            Order::new(0x1, 1, 100.0, 100, OrderType::Market, OrderSide::Buy, 0).unwrap();
 
         // Test setting large expiry (should truncate to 48 bits)
         let large_expiry = 0xFFFFFFFFFFFFFFFF_u64;

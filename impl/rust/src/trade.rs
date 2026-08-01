@@ -4,7 +4,7 @@
 //! capturing price, volume, participant, and timing information.
 
 use crate::body::MitchBody;
-use crate::common::{message_sizes, OrderSide, MitchError};
+use crate::common::{message_sizes, MitchError, OrderSide};
 
 /// Trade execution data (24 bytes)
 ///
@@ -66,11 +66,7 @@ impl Trade {
     ///
     /// Only the low 24 bits are stored; the top byte is silently discarded.
     pub fn set_trade_id(&mut self, id: u32) {
-        self.trade_id = [
-            id as u8,
-            (id >> 8) as u8,
-            (id >> 16) as u8,
-        ];
+        self.trade_id = [id as u8, (id >> 8) as u8, (id >> 16) as u8];
     }
 
     /// Pack Trade into bytes using zero-copy transmutation.
@@ -94,16 +90,22 @@ impl Trade {
     /// Validate the contents of the Trade message.
     pub fn validate(&self) -> Result<(), MitchError> {
         if self.ticker == 0 {
-            return Err(MitchError::InvalidFieldValue("ticker cannot be zero".into()));
+            return Err(MitchError::InvalidFieldValue(
+                "ticker cannot be zero".into(),
+            ));
         }
         if self.price <= 0.0 {
-            return Err(MitchError::InvalidFieldValue("price must be positive".into()));
+            return Err(MitchError::InvalidFieldValue(
+                "price must be positive".into(),
+            ));
         }
         if self.qty == 0 {
             return Err(MitchError::InvalidFieldValue("qty must be positive".into()));
         }
         if self.get_trade_id() == 0 {
-            return Err(MitchError::InvalidFieldValue("trade_id cannot be zero".into()));
+            return Err(MitchError::InvalidFieldValue(
+                "trade_id cannot be zero".into(),
+            ));
         }
         Ok(())
     }
@@ -115,7 +117,11 @@ impl Trade {
 
     /// Get the trade side as an OrderSide enum.
     pub fn get_side(&self) -> OrderSide {
-        if self.side == 1 { OrderSide::Sell } else { OrderSide::Buy }
+        if self.side == 1 {
+            OrderSide::Sell
+        } else {
+            OrderSide::Buy
+        }
     }
 
     /// Get notional value (price * quantity).
@@ -172,4 +178,7 @@ unsafe impl MitchBody for Trade {
 }
 
 // Compile-time size assertion
-const _: () = assert!(core::mem::size_of::<Trade>() == message_sizes::TRADE, "Trade must be exactly 24 bytes");
+const _: () = assert!(
+    core::mem::size_of::<Trade>() == message_sizes::TRADE,
+    "Trade must be exactly 24 bytes"
+);

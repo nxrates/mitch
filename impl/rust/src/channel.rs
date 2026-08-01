@@ -50,7 +50,10 @@ impl ChannelId {
     /// Unpack from bytes
     pub fn unpack(bytes: &[u8]) -> Result<Self, MitchError> {
         if bytes.len() < 4 {
-            return Err(MitchError::BufferTooSmall { expected: 4, actual: bytes.len() });
+            return Err(MitchError::BufferTooSmall {
+                expected: 4,
+                actual: bytes.len(),
+            });
         }
         unsafe {
             let ptr = bytes.as_ptr() as *const u32;
@@ -71,6 +74,11 @@ impl ChannelId {
 
 impl core::fmt::Display for ChannelId {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        write!(f, "Channel(provider={}, type='{}')", self.provider(), self.msg_type())
+        write!(
+            f,
+            "Channel(provider={}, type='{}')",
+            self.provider(),
+            self.msg_type()
+        )
     }
 }
