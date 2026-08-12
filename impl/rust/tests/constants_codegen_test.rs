@@ -25,7 +25,7 @@ mod codegen_lengths {
         // universe. The last one exists because CHINAH and its contract code HHI
         // were aliased onto China A50 and Hang Seng respectively: three distinct
         // Chinese indices sharing two ids, so a CHINAH quote marked the wrong one.
-        assert_eq!(INDICES_DATA.len(), 84, "INDICES_DATA");
+        assert_eq!(INDICES_DATA.len(), 85, "INDICES_DATA");
         assert_eq!(SOVEREIGN_DEBT_DATA.len(), 183, "SOVEREIGN_DEBT_DATA");
     }
 
