@@ -16,9 +16,13 @@ mod codegen_lengths {
         assert_eq!(CRYPTO_ASSETS_DATA.len(), 214, "CRYPTO_ASSETS_DATA");
         assert_eq!(MARKET_PROVIDERS_DATA.len(), 148, "MARKET_PROVIDERS_DATA");
         assert_eq!(EQUITIES_DATA.len(), 1559, "EQUITIES_DATA");
-        assert_eq!(FOREX_DATA.len(), 52, "FOREX_DATA");
+        // 52 baseline + 4 rows (ids 05201..05501: KES, UGX, ZMW, BWP) for the
+        // cTrader African exotics.
+        assert_eq!(FOREX_DATA.len(), 56, "FOREX_DATA");
         assert_eq!(COMMODITIES_DATA.len(), 58, "COMMODITIES_DATA");
-        assert_eq!(INDICES_DATA.len(), 78, "INDICES_DATA");
+        // 78 baseline + 5 rows (ids 07701..08101: MDAX, OBX, Hang Seng Tech,
+        // Gold Index, TecDAX) for the cTrader index universe.
+        assert_eq!(INDICES_DATA.len(), 83, "INDICES_DATA");
         assert_eq!(SOVEREIGN_DEBT_DATA.len(), 183, "SOVEREIGN_DEBT_DATA");
     }
 
