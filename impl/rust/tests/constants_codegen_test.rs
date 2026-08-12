@@ -20,11 +20,12 @@ mod codegen_lengths {
         // cTrader African exotics.
         assert_eq!(FOREX_DATA.len(), 56, "FOREX_DATA");
         assert_eq!(COMMODITIES_DATA.len(), 58, "COMMODITIES_DATA");
-        // 78 baseline + 6 rows (ids 07701..08201: MDAX, OBX, Hang Seng Tech,
-        // Gold Index, TecDAX, Hang Seng China Enterprises) for the cTrader index
-        // universe. The last one exists because CHINAH and its contract code HHI
-        // were aliased onto China A50 and Hang Seng respectively: three distinct
-        // Chinese indices sharing two ids, so a CHINAH quote marked the wrong one.
+        // 78 baseline + 7 rows (ids 07701..08301: MDAX, OBX, Hang Seng Tech,
+        // Gold Index, TecDAX, Hang Seng China Enterprises, MSCI Singapore) for the
+        // cTrader index universe. The last two exist because a broker symbol was
+        // pointing at an index it is not: CHINAH and its contract code HHI sat on
+        // China A50 and Hang Seng, and SCI25 (25 constituents) would otherwise
+        // have landed on the 30-constituent Straits Times.
         assert_eq!(INDICES_DATA.len(), 85, "INDICES_DATA");
         assert_eq!(SOVEREIGN_DEBT_DATA.len(), 183, "SOVEREIGN_DEBT_DATA");
     }
