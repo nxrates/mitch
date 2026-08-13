@@ -13,7 +13,10 @@ mod codegen_lengths {
         // 205 baseline + 9 rows allocated 2026-07-25 (ids 20701..21501: PEPE,
         // SHIB, BONK, ONDO, PUMP, CVX, ETC, ZRO, LISTA) — these assets were
         // previously served under FNV fallback ids.
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 214, "CRYPTO_ASSETS_DATA");
+        // + 5 rows allocated 2026-08-13 (ids 21601..22001: QCAD, AUDF, BRLA,
+        // JPYC, KRW1) — the FX-wrapper stablecoins of the BTR FX Core pool,
+        // each pegged 1:1 to a forex.csv currency.
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 219, "CRYPTO_ASSETS_DATA");
         assert_eq!(MARKET_PROVIDERS_DATA.len(), 148, "MARKET_PROVIDERS_DATA");
         assert_eq!(EQUITIES_DATA.len(), 1559, "EQUITIES_DATA");
         // 52 baseline + 4 rows (ids 05201..05501: KES, UGX, ZMW, BWP) for the

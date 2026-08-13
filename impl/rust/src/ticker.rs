@@ -12,7 +12,7 @@ use core::fmt;
 // =============================================================================
 
 /// Pack asset class and ID into 32-bit global identifier (as per asset.md)
-pub fn pack_asset(asset_class: AssetClass, class_id: u16) -> u32 {
+pub const fn pack_asset(asset_class: AssetClass, class_id: u16) -> u32 {
     ((asset_class as u32) << 16) | (class_id as u32)
 }
 
