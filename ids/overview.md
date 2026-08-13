@@ -56,3 +56,15 @@ Asset IDs coordinate with external reference data sources:
 - **Equities**: Stock exchange ticker symbols and alternative listings
 
 Converting these external identifiers to MITCH IDs enables standardized communication with MITCH-enabled services while maintaining compatibility with existing financial data infrastructure.
+
+## Aliases name the asset, not the wrapper
+
+An alias resolves the ASSET. The instrument type lives in the ticker id's 4 bits
+(Spot, Future, CFD, Fund or Trust, ...), so a futures code legitimately aliases the
+asset it settles against: `ES` on S&P 500, `FDAX` on DAX, `GC` on Gold. Stripping
+those would break resolution for no gain.
+
+An ETF ticker is different. A fund that tracks an index is its own asset, with fees
+and tracking error, so it gets its own Fund-typed row rather than an alias on the
+index. `SOXX` (PHLX Semiconductor) and `MDY` (S&P 400 MidCap) were removed on that
+basis 2026-08-13.
