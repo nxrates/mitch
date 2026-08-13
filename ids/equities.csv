@@ -53,6 +53,7 @@ id,name,aliases
 00511,Allstate,ALL
 00521,Alnylam Pharmaceuticals,ALNY
 00531,Alphabet,GOOGL
+00536,Alphabet Class C,GOOG
 00541,Alps Electric,6770
 00551,Altice,ATC
 00561,Altria,MO
@@ -78,6 +79,7 @@ id,name,aliases
 00751,Anheuser-Busch InBev,ABI
 00761,Ansys,ANSS
 00771,Anta Sports,2020
+00776,Anthropic,ANTH
 00781,ANZ Holdings,ANZ
 00791,Aon,AON
 00801,Aozora Bank,8304
@@ -135,7 +137,7 @@ id,name,aliases
 01321,Bank Hapoalim,POLI
 01331,Bank Leumi Le-Israel,LUMI
 01341,Bank of Montreal,BMO
-01351,Bank of New York Mellon,BK
+01351,Bank of New York Mellon,BNY|BK
 01361,Bank of Nova Scotia,BNS
 01371,Bank of America,BAC
 01381,Bank of China,3988
@@ -158,9 +160,10 @@ id,name,aliases
 01551,BHP,BHP
 01561,Bio-Techne,TECH
 01571,Biogen,BIIB
+01576,Birkenstock,BIRK
 01581,BlackRock,BLK
 01591,Blackstone,BX
-01601,Block,SQ
+01601,Block,XYZ|SQ
 01611,BMW,BMW
 01621,BNK Financial,138930
 01631,BNP Paribas,BNP
@@ -367,6 +370,7 @@ id,name,aliases
 03631,Danske Bank,DANSKE
 03641,Darden Restaurants,DRI
 03651,Dassault Systèmes,DSY
+03656,Databricks,DBRK
 03661,Datadog,DDOG
 03671,DaVita,DVA
 03681,Dayforce,DAY
@@ -530,6 +534,7 @@ id,name,aliases
 05261,Furukawa Electric,5801
 05271,Galaxy Entertainment,0027
 05281,Arthur J. Gallagher & Co.,AJG
+05286,GameStop,GME
 05291,Garmin,GRMN
 05301,Gartner,IT
 05311,Gas Natural SDG,GAS
@@ -872,6 +877,7 @@ id,name,aliases
 08671,LVMH Moet Hennessy,MC
 08681,LX International,001120
 08691,LY Corporation,4689
+08696,Lyft,LYFT
 08701,LyondellBasell,LYB
 08711,M&T Bank,MTB
 08721,M3,2413
@@ -983,6 +989,7 @@ id,name,aliases
 09781,Nike,NKE
 09791,Nikon,7731
 09801,Nintendo,7974
+09806,NIO,NIO
 09811,Nippon Electric Glass,5214
 09821,Nippon Express,9147
 09831,Nippon Paper Industries,3863
@@ -1041,6 +1048,7 @@ id,name,aliases
 10361,Omron,6645
 10371,ON Semiconductor,ON
 10381,ONEOK,OKE
+10386,OpenAI,OIAI
 10391,Oracle,ORCL
 10401,Orange,ORA
 10411,Orient Overseas,0316
@@ -1143,6 +1151,7 @@ id,name,aliases
 11381,Resona,8308
 11391,Resona Holdings,8308
 11401,Restaurant Brands International,QSR
+11406,Revolut,RVLT
 11411,Revvity,RVTY
 11421,Rexam,REX
 11431,Rheinmetall,RHM
@@ -1269,6 +1278,7 @@ id,name,aliases
 12631,Smiths,SMIN
 12641,Smurfit WestRock,SMWR
 12651,Snam Rete Gas,SRG
+12656,Snap,SNAP
 12661,Snap-on,SNA
 12671,Snowflake,SNOW
 12681,Société Générale,GLE
@@ -1303,6 +1313,7 @@ id,name,aliases
 12961,Steris,STE
 12971,STMicroelectronics,STM
 12981,Straumann Holding,STMN
+12986,Stripe,STRP
 12991,Stryker Corporation,SYK
 13001,Subaru,7270
 13011,Suez Environnement,SEV
@@ -1519,6 +1530,7 @@ id,name,aliases
 15121,Williams Companies,WMB
 15131,Williams-Sonoma,WSM
 15141,Willis Towers Watson,WTW
+15146,Wix,WIX
 15151,Wolseley,WOSG
 15161,Wolters Kluwer,WLN
 15171,Woodside Energy,WDS
@@ -1557,4 +1569,100 @@ id,name,aliases
 15501,Zoetis,ZTS
 15511,Zoom Communications,ZM
 15521,Zscaler,ZS
-15531,Zurich 15541,ZURN
+15531,Zurich Insurance Group,ZURN
+16001,The 3D Printing ETF,PRNT
+16011,abrdn Physical Gold Shares ETF,SGOL
+16021,ARK Blockchain & Fintech Innovation ETF,ARKF
+16031,ARK Genomic Revolution ETF,ARKG
+16041,ARK Innovation ETF,ARKK
+16051,ARK Next Generation Internet ETF,ARKW
+16061,ARK Space & Defense Innovation ETF,ARKX
+16071,First Trust Cloud Computing ETF,SKYY
+16081,First Trust Global Wind Energy ETF,FAN
+16091,First Trust Nasdaq Cybersecurity ETF,CIBR
+16101,Global X Copper Miners ETF,COPX
+16111,Global X Lithium & Battery Tech ETF,LIT
+16121,Global X MSCI Norway ETF,NORW
+16131,Global X Silver Miners ETF,SIL
+16141,Global X Uranium ETF,URA
+16151,Invesco DB Agriculture Fund,DBA
+16161,Invesco QQQ Trust Series 1,QQQ
+16171,iShares 0-1 Year Treasury Bond ETF,SHV
+16181,iShares 1-3 Year Treasury Bond ETF,SHY
+16191,iShares 20+ Year Treasury Bond ETF,TLT
+16201,iShares 7-10 Year Treasury Bond ETF,IEF
+16211,iShares China Large-Cap ETF,FXI
+16221,iShares Core S&P U.S. Growth ETF,IUSG
+16231,iShares Europe ETF,IEV
+16241,iShares Global Clean Energy ETF,ICLN
+16251,iShares Global Comm Services ETF,IXP
+16261,iShares Global Energy ETF,IXC
+16271,iShares Global Financials ETF,IXG
+16281,iShares Global Industrials ETF,EXI
+16291,iShares Global Infrastructure ETF,IGF
+16301,iShares Global Timber & Forestry ETF,WOOD
+16311,iShares India 50 ETF,INDY
+16321,iShares Latin America 40 ETF,ILF
+16331,iShares MSCI ACWI ETF,ACWI
+16341,iShares MSCI All Country Asia ex Japan ETF,AAXJ
+16351,iShares MSCI Australia ETF,EWA
+16361,iShares MSCI Brazil ETF,EWZ
+16371,iShares MSCI Canada ETF,EWC
+16381,iShares MSCI Chile ETF,ECH
+16391,iShares MSCI China ETF,MCHI
+16401,iShares MSCI EAFE ETF,EFA
+16411,iShares MSCI Emerging Markets ETF,EEM
+16421,iShares MSCI France ETF,EWQ
+16431,iShares MSCI Germany ETF,EWG
+16441,iShares MSCI Hong Kong ETF,EWH
+16451,iShares MSCI India ETF,INDA
+16461,iShares MSCI Indonesia ETF,EIDO
+16471,iShares MSCI Malaysia ETF,EWM
+16481,iShares MSCI Mexico ETF,EWW
+16491,iShares MSCI New Zealand ETF,ENZL
+16501,iShares MSCI Pacific ex Japan ETF,EPP
+16511,iShares MSCI Peru and Global Exposure ETF,EPU
+16521,iShares MSCI Philippines ETF,EPHE
+16531,iShares MSCI Qatar ETF,QAT
+16541,iShares MSCI Singapore ETF,EWS
+16551,iShares MSCI South Africa ETF,EZA
+16561,iShares MSCI Spain ETF,EWP
+16571,iShares MSCI Sweden ETF,EWD
+16581,iShares MSCI Taiwan ETF,EWT
+16591,iShares MSCI Thailand ETF,THD
+16601,iShares MSCI United Kingdom ETF,EWU
+16611,iShares North American Natural Resources ETF,IGE
+16621,iShares Preferred and Income Securities ETF,PFF
+16631,iShares Russell 2000 ETF,IWM
+16641,iShares Russell 3000 ETF,IWV
+16651,iShares Select Dividend ETF,DVY
+16661,iShares Semiconductor ETF,SOXX
+16671,iShares U.S. Real Estate ETF,IYR
+16681,KraneShares Global Carbon Strategy ETF,KRBN
+16691,ProShares Short VIX Short-Term Futures ETF,SVXY
+16701,ProShares VIX Short-Term Futures ETF,VIXY
+16711,Roundhill Video Games ETF,NERD
+16721,State Street Energy Select Sector SPDR ETF,XLE
+16741,State Street SPDR Dow Jones Industrial Average ETF Trust,DIA
+16751,State Street SPDR S&P 500 ETF Trust,SPY
+16761,State Street SPDR S&P Bank ETF,KBE
+16771,State Street SPDR S&P Biotech ETF,XBI
+16781,State Street SPDR S&P Dividend ETF,SDY
+16791,State Street SPDR S&P Emerging Markets Small Cap ETF,EWX
+16801,State Street SPDR S&P Homebuilders ETF,XHB
+16811,State Street SPDR S&P Metals & Mining ETF,XME
+16821,State Street SPDR S&P MIDCAP 400 ETF Trust,MDY
+16831,State Street SPDR S&P Oil & Gas Exploration & Production ETF,XOP
+16841,State Street SPDR S&P Pharmaceuticals ETF,XPH
+16851,State Street SPDR S&P Regional Banking ETF,KRE
+16861,State Street SPDR S&P Retail ETF,XRT
+16871,United States Natural Gas Fund LP,UNG
+16881,United States Oil Fund LP,USO
+16891,VanEck Agribusiness ETF,MOO
+16901,VanEck Brazil Small-Cap ETF,BRF
+16911,VanEck Gold Miners ETF,GDX
+16921,VanEck Junior Gold Miners ETF,GDXJ
+16931,VanEck Social Sentiment ETF,BUZZ
+16941,VanEck Vietnam ETF,VNM
+16951,Vanguard Consumer Staples ETF,VDC
+16961,Vanguard Russell 1000 Growth ETF,VONG
