@@ -16,9 +16,19 @@ mod codegen_lengths {
         // + 5 rows allocated 2026-08-13 (ids 21601..22001: QCAD, AUDF, BRLA,
         // JPYC, KRW1) — the FX-wrapper stablecoins of the BTR FX Core pool,
         // each pegged 1:1 to a forex.csv currency.
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 219, "CRYPTO_ASSETS_DATA");
+        // + 11 rows that were added WITHOUT updating this guard, so it was
+        // already red at 230 when found on 2026-08-15.
+        // - 1 row: 23001 Sanctum Infinity (INF) removed the same day. It had no
+        //   CEX market on any venue we scrape, and its symbol collided with two
+        //   equities (Informa, New Informa), so it could only ever resolve by
+        //   class disambiguation to a price we could not source.
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 229, "CRYPTO_ASSETS_DATA");
         assert_eq!(MARKET_PROVIDERS_DATA.len(), 148, "MARKET_PROVIDERS_DATA");
-        assert_eq!(EQUITIES_DATA.len(), 1559, "EQUITIES_DATA");
+        // 1559 -> 1667: 108 rows were added without updating this guard, so it
+        // was already red when found on 2026-08-15. Recorded rather than
+        // re-baselined silently: the guard only earns its keep if the number is
+        // the real one.
+        assert_eq!(EQUITIES_DATA.len(), 1667, "EQUITIES_DATA");
         // 52 baseline + 4 rows (ids 05201..05501: KES, UGX, ZMW, BWP) for the
         // cTrader African exotics.
         assert_eq!(FOREX_DATA.len(), 56, "FOREX_DATA");
