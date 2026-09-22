@@ -22,8 +22,10 @@ mod codegen_lengths {
         //   CEX market on any venue we scrape, and its symbol collided with two
         //   equities (Informa, New Informa), so it could only ever resolve by
         //   class disambiguation to a price we could not source.
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 229, "CRYPTO_ASSETS_DATA");
-        assert_eq!(MARKET_PROVIDERS_DATA.len(), 148, "MARKET_PROVIDERS_DATA");
+        // + 1 row: 23201 bStocks QQQB (2026-09-22).
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 230, "CRYPTO_ASSETS_DATA");
+        // 148 + Binance Futures 102 + Bybit Linear 262 (perp connector, 2026-09-22).
+        assert_eq!(MARKET_PROVIDERS_DATA.len(), 150, "MARKET_PROVIDERS_DATA");
         // 1559 -> 1667: 108 rows were added without updating this guard, so it
         // was already red when found on 2026-08-15. Recorded rather than
         // re-baselined silently: the guard only earns its keep if the number is

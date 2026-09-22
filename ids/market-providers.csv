@@ -13,6 +13,7 @@ id,name,aliases
 00081,BigONE,
 00091,Bilaxy,
 00101,Binance,
+00102,Binance Futures,binance_futures
 00111,BingX,
 00121,Biswap,
 00122,Bitbank,
@@ -34,6 +35,7 @@ id,name,aliases
 00241,BTSE,
 00251,Bullish,
 00261,Bybit,
+00262,Bybit Linear,bybit_linear
 00271,Camelot,
 00281,CBOE,
 00291,CBOT,
