@@ -24,7 +24,8 @@ mod codegen_lengths {
         //   class disambiguation to a price we could not source.
         // 23201 bStocks QQQB added and removed 2026-09-22: the Binance wrapper is
         //   the QQQ equity itself (alias on equities.csv 16161), not a CR asset.
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 229, "CRYPTO_ASSETS_DATA");
+        // + 23301 Monad (MON), 2026-09-28.
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 230, "CRYPTO_ASSETS_DATA");
         // 148 + Binance Futures 102 + Bybit Linear 262 (perp connector, 2026-09-22).
         assert_eq!(MARKET_PROVIDERS_DATA.len(), 150, "MARKET_PROVIDERS_DATA");
         // 1559 -> 1667: 108 rows were added without updating this guard, so it
