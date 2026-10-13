@@ -229,3 +229,10 @@ id,name,aliases
 22901,Render Network,RENDER|RNDR
 23101,Venus Protocol,XVS
 23301,Monad,MON
+23401,Maple Syrup USDC,SYRUPUSDC
+23501,Metronome Synth USD,MSUSD
+23601,Metronome Synth ETH,MSETH
+23701,Binance Wrapped Beacon ETH,WBETH
+23801,Unit Bitcoin,UBTC
+23901,Unit Ethereum,UETH
+24001,Hyperunit Solana,USOL
