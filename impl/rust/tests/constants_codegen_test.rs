@@ -25,10 +25,13 @@ mod codegen_lengths {
         // 23201 bStocks QQQB added and removed 2026-09-22: the Binance wrapper is
         //   the QQQ equity itself (alias on equities.csv 16161), not a CR asset.
         // + 23301 Monad (MON), 2026-09-28.
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 230, "CRYPTO_ASSETS_DATA");
+        // + 8 rows landed without a bump (guard red at 230, real 238 on 2026-10-15),
+        // + 5 rows 24201..24601 (USDGO, reUSD, apxUSD, USDAT, FIDD) = 243.
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 243, "CRYPTO_ASSETS_DATA");
         // 148 + Binance Futures 102 + Bybit Linear 262 (perp connector, 2026-09-22)
         // + bitFlyer 132 (landed without this bump) + BloFin 205 (2026-09-29).
-        assert_eq!(MARKET_PROVIDERS_DATA.len(), 152, "MARKET_PROVIDERS_DATA");
+        // + Pyth App 1013, NXR Onchain 00882 (landed without a bump).
+        assert_eq!(MARKET_PROVIDERS_DATA.len(), 154, "MARKET_PROVIDERS_DATA");
         // 1559 -> 1667: 108 rows were added without updating this guard, so it
         // was already red when found on 2026-08-15. Recorded rather than
         // re-baselined silently: the guard only earns its keep if the number is
