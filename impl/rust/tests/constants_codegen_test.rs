@@ -27,7 +27,8 @@ mod codegen_lengths {
         // + 23301 Monad (MON), 2026-09-28.
         // + 8 rows landed without a bump (guard red at 230, real 238 on 2026-10-15),
         // + 5 rows 24201..24601 (USDGO, reUSD, apxUSD, USDAT, FIDD) = 243.
-        assert_eq!(CRYPTO_ASSETS_DATA.len(), 243, "CRYPTO_ASSETS_DATA");
+        // + 24701 Lido Staked ETH (stETH) = 244.
+        assert_eq!(CRYPTO_ASSETS_DATA.len(), 244, "CRYPTO_ASSETS_DATA");
         // 148 + Binance Futures 102 + Bybit Linear 262 (perp connector, 2026-09-22)
         // + bitFlyer 132 (landed without this bump) + BloFin 205 (2026-09-29).
         // + Pyth App 1013, NXR Onchain 00882 (landed without a bump).
