@@ -153,3 +153,15 @@ id,name,aliases
 01281,WhiteBIT,
 01291,XM Market,
 01301,XT.COM,xtcom
+01311,NXR Onchain Monad Uniswap V4,onchain_monad_uniswap-v4
+01312,NXR Onchain Monad PancakeSwap V3,onchain_monad_pancakeswap-v3
+01313,NXR Onchain Linea Etherex,onchain_linea_etherex
+01314,NXR Onchain Linea PancakeSwap V3,onchain_linea_pancakeswap-v3
+01315,NXR Onchain Base Aerodrome Slipstream,onchain_base_aerodrome-slipstream
+01316,NXR Onchain Base Uniswap V3,onchain_base_uniswap-v3
+01317,NXR Onchain Ethereum Uniswap V3,onchain_ethereum_uniswap-v3
+01318,NXR Onchain Ethereum Uniswap V4,onchain_ethereum_uniswap-v4
+01319,NXR Onchain Ethereum Curve,onchain_ethereum_curve
+01320,NXR Onchain Ethereum Fluid,onchain_ethereum_fluid
+01321,NXR Onchain Monad Curve,onchain_monad_curve
+01322,NXR Onchain HyperEVM Project X,onchain_hyperevm_project-x
