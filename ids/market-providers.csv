@@ -107,6 +107,7 @@ id,name,aliases
 00871,Nordnet,
 00881,NSE,
 00882,NXR Onchain,onchain
+00883,NXR Onchain Rate,onchain_rate
 00891,NYMEX,
 00901,Oanda,
 00911,OKX,
