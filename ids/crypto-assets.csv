@@ -199,7 +199,7 @@ id,name,aliases
 19901,Algorand,ALGO
 20001,Humanity,H
 20101,Pax Gold,PAXG
-20201,Tether Gold,XAUT
+20201,Tether Gold,XAUT|XAUT0
 20301,Sui,SUI
 20401,Stellar,XLM
 20501,United Stables,U
@@ -228,7 +228,7 @@ id,name,aliases
 22801,Meteora,MET
 22901,Render Network,RENDER|RNDR
 23101,Venus Protocol,XVS
-23301,Monad,MON
+23301,Monad,MON|WMON
 23401,Maple Syrup USDC,SYRUPUSDC
 23501,Metronome Synth USD,MSUSD
 23601,Metronome Synth ETH,MSETH
@@ -243,3 +243,4 @@ id,name,aliases
 24501,Saturn Dollar,USDAT
 24601,Fidelity Digital Dollar,FIDD
 24701,Lido Staked ETH,stETH
+24801,Kinetiq Staked HYPE,kHYPE
