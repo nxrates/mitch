@@ -32,8 +32,9 @@ mod codegen_lengths {
         // 148 + Binance Futures 102 + Bybit Linear 262 (perp connector, 2026-09-22)
         // + bitFlyer 132 (landed without this bump) + BloFin 205 (2026-09-29).
         // + Pyth App 1013, NXR Onchain 00882 (landed without a bump).
-        // + 12 per-venue onchain providers 1311..1322 = 166.
-        assert_eq!(MARKET_PROVIDERS_DATA.len(), 166, "MARKET_PROVIDERS_DATA");
+        // + 12 per-venue onchain providers 1311..1322, onchain_rate 883 (no bump) = 167.
+        // + Bitget Tokens 142 (state-only rStock reference legs, 2026-11-02) = 168.
+        assert_eq!(MARKET_PROVIDERS_DATA.len(), 168, "MARKET_PROVIDERS_DATA");
         // 1559 -> 1667: 108 rows were added without updating this guard, so it
         // was already red when found on 2026-08-15. Recorded rather than
         // re-baselined silently: the guard only earns its keep if the number is
