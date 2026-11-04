@@ -15,7 +15,7 @@ All files use three columns:
 ## Classification Files
 - `asset-classes.csv`: Asset classes (generates `mitch::AssetClass`)
 - `instrument-types.csv`: Instrument types (generates `mitch::InstrumentType`)
-- `market-providers.csv`: Exchanges, brokers, and market data providers
+- `market-providers.csv`: Exchanges, brokers, and market data providers. Ids `01401`-`01999` are RESERVED for per-pool on-chain sources (`onchain_<chain>_<dex>_<locator8>`, allocated append-only by nx-rates `scripts/alloc-pool-ids.py`): allocate CEX, broker and relay providers outside that block and never edit or renumber a row in it.
 
 ## Asset Data Files (one per asset class)
 - `forex.csv`: Fiat currencies (ISO codes as aliases)
