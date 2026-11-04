@@ -167,3 +167,83 @@ id,name,aliases
 01320,NXR Onchain Ethereum Fluid,onchain_ethereum_fluid
 01321,NXR Onchain Monad Curve,onchain_monad_curve
 01322,NXR Onchain HyperEVM Project X,onchain_hyperevm_project-x
+01401,NXR Onchain Monad Uniswap V4 mUSD USDC c4105dd1,onchain_monad_uniswap-v4_c4105dd1
+01402,NXR Onchain Ethereum Uniswap V4 mUSD USDC 72daf39b,onchain_ethereum_uniswap-v4_72daf39b
+01403,NXR Onchain Ethereum Uniswap V3 AUSD USDC bafead7c,onchain_ethereum_uniswap-v3_bafead7c
+01404,NXR Onchain Monad Curve AUSD USDC 94264410,onchain_monad_curve_94264410
+01405,NXR Onchain Monad Uniswap V4 AUSD USDC 092b6504,onchain_monad_uniswap-v4_092b6504
+01406,NXR Onchain Ethereum Uniswap V3 AUSD USDT 84f0bde4,onchain_ethereum_uniswap-v3_84f0bde4
+01407,NXR Onchain Monad Uniswap V4 GHO USDC eeb60c8a,onchain_monad_uniswap-v4_eeb60c8a
+01408,NXR Onchain Monad Uniswap V4 syrupUSDC USDC e24635d9,onchain_monad_uniswap-v4_e24635d9
+01409,NXR Onchain Monad Uniswap V4 MON USDC 18a9fc87,onchain_monad_uniswap-v4_18a9fc87
+01410,NXR Onchain Ethereum Uniswap V4 syrupUSDC USDC cdb422a8,onchain_ethereum_uniswap-v4_cdb422a8
+01411,NXR Onchain Solana Orca syrupUSDC USDC 6fteknvm,onchain_solana_orca_6fteknvm
+01412,NXR Onchain Base Uniswap V3 CBBTC USDC fbb6eed8,onchain_base_uniswap-v3_fbb6eed8
+01413,NXR Onchain Base Aerodrome Slipstream CBBTC USDC 42609aa1,onchain_base_aerodrome-slipstream_42609aa1
+01414,NXR Onchain Ethereum Uniswap V4 CBBTC USDC 7067a500,onchain_ethereum_uniswap-v4_7067a500
+01415,NXR Onchain Ethereum Uniswap V3 WBTC USDC 99ac8ca7,onchain_ethereum_uniswap-v3_99ac8ca7
+01416,NXR Onchain Base Aerodrome Slipstream msUSD USDC 7501bc8b,onchain_base_aerodrome-slipstream_7501bc8b
+01417,NXR Onchain Ethereum Curve USDtb USDC c2921134,onchain_ethereum_curve_c2921134
+01418,NXR Onchain Ethereum Curve crvUSD USDT 390f3595,onchain_ethereum_curve_390f3595
+01419,NXR Onchain Ethereum Curve crvUSD USDC 4dece678,onchain_ethereum_curve_4dece678
+01420,NXR Onchain Ethereum Curve USD0 USDC 14100f81,onchain_ethereum_curve_14100f81
+01421,NXR Onchain Ethereum Uniswap V4 GHO USDT 4eceeb5a,onchain_ethereum_uniswap-v4_4eceeb5a
+01422,NXR Onchain Ethereum Curve GHO USDC 635ef005,onchain_ethereum_curve_635ef005
+01423,NXR Onchain Ethereum Uniswap V3 USD0 USDC 4e665157,onchain_ethereum_uniswap-v3_4e665157
+01424,NXR Onchain Ethereum Uniswap V4 sUSDe USDT b20351bc,onchain_ethereum_uniswap-v4_b20351bc
+01425,NXR Onchain Ethereum Uniswap V4 DOLA USDC 6ebb5159,onchain_ethereum_uniswap-v4_6ebb5159
+01426,NXR Onchain Ethereum Uniswap V3 GHO USDC 706dcb5e,onchain_ethereum_uniswap-v3_706dcb5e
+01427,NXR Onchain Ethereum Uniswap V4 GHO USDC b3ec039d,onchain_ethereum_uniswap-v4_b3ec039d
+01428,NXR Onchain Ethereum Fluid GHO USDC de632c3a,onchain_ethereum_fluid_de632c3a
+01429,NXR Onchain Ethereum Uniswap V4 apxUSD USDC 9f2d9491,onchain_ethereum_uniswap-v4_9f2d9491
+01430,NXR Onchain Ethereum Curve apxUSD USDC 6f63deed,onchain_ethereum_curve_6f63deed
+01431,NXR Onchain Ethereum Curve USDAT USDC f4d0cf32,onchain_ethereum_curve_f4d0cf32
+01432,NXR Onchain Ethereum Curve frxUSD USDT d6937ea8,onchain_ethereum_curve_d6937ea8
+01433,NXR Onchain Ethereum Curve frxUSD USDT 13e12bb0,onchain_ethereum_curve_13e12bb0
+01434,NXR Onchain Ethereum Curve OUSD USDC 6d18e1a7,onchain_ethereum_curve_6d18e1a7
+01435,NXR Onchain Ethereum Curve PYUSD USDC 383e6b44,onchain_ethereum_curve_383e6b44
+01436,NXR Onchain Ethereum Uniswap V3 PYUSD USDC 13394005,onchain_ethereum_uniswap-v3_13394005
+01437,NXR Onchain Ethereum Curve RLUSD USDC d001ae43,onchain_ethereum_curve_d001ae43
+01438,NXR Onchain Ethereum Uniswap V3 RLUSD USDC cc6d2f26,onchain_ethereum_uniswap-v3_cc6d2f26
+01439,NXR Onchain Ethereum Curve USDG USDC c061caa0,onchain_ethereum_curve_c061caa0
+01440,NXR Onchain Ethereum Uniswap V4 USDG USDC eda62d29,onchain_ethereum_uniswap-v4_eda62d29
+01441,NXR Onchain Ethereum Uniswap V4 USDe USDC 56fc29b8,onchain_ethereum_uniswap-v4_56fc29b8
+01442,NXR Onchain Ethereum Uniswap V3 USDe USDC e6d7ebb9,onchain_ethereum_uniswap-v3_e6d7ebb9
+01443,NXR Onchain Ethereum Fluid USDe USDT f063bd20,onchain_ethereum_fluid_f063bd20
+01444,NXR Onchain Ethereum Curve USDe USDT 5b03ccca,onchain_ethereum_curve_5b03ccca
+01445,NXR Onchain Ethereum Curve USDe USDC 02950460,onchain_ethereum_curve_02950460
+01446,NXR Onchain Ethereum Curve USDe USDC f55b0f6f,onchain_ethereum_curve_f55b0f6f
+01447,NXR Onchain Ethereum Uniswap V4 USDe USDT 63bb22f4,onchain_ethereum_uniswap-v4_63bb22f4
+01448,NXR Onchain Ethereum Curve sUSDe USDC 57064f49,onchain_ethereum_curve_57064f49
+01449,NXR Onchain Ethereum Curve sUSDe USDT 47ab5f9d,onchain_ethereum_curve_47ab5f9d
+01450,NXR Onchain Ethereum Uniswap V4 USDS USDT 3b1b1f2e,onchain_ethereum_uniswap-v4_3b1b1f2e
+01451,NXR Onchain Ethereum Uniswap V3 USDF USDT c275a739,onchain_ethereum_uniswap-v3_c275a739
+01452,NXR Onchain Ethereum Uniswap V3 FIDD USDC bb5b7614,onchain_ethereum_uniswap-v3_bb5b7614
+01453,NXR Onchain Ethereum Uniswap V3 FIDD USDT 31d0e24b,onchain_ethereum_uniswap-v3_31d0e24b
+01454,NXR Onchain Ethereum Curve stETH ETH dc24316b,onchain_ethereum_curve_dc24316b
+01455,NXR Onchain Ethereum Curve stETH ETH 21e27a5e,onchain_ethereum_curve_21e27a5e
+01456,NXR Onchain Base Aerodrome Slipstream msETH ETH 74f72788,onchain_base_aerodrome-slipstream_74f72788
+01457,NXR Onchain Ethereum Uniswap V3 weETH ETH 202a6012,onchain_ethereum_uniswap-v3_202a6012
+01458,NXR Onchain Ethereum Uniswap V3 weETH ETH 7a415b19,onchain_ethereum_uniswap-v3_7a415b19
+01459,NXR Onchain Base Aerodrome Slipstream weETH ETH bd3cd0d9,onchain_base_aerodrome-slipstream_bd3cd0d9
+01460,NXR Onchain Ethereum Uniswap V3 wstETH ETH 109830a1,onchain_ethereum_uniswap-v3_109830a1
+01461,NXR Onchain Ethereum Fluid wstETH ETH 0b1a513e,onchain_ethereum_fluid_0b1a513e
+01462,NXR Onchain Ethereum Fluid weETH ETH 86f87421,onchain_ethereum_fluid_86f87421
+01463,NXR Onchain Base Aerodrome Slipstream wstETH ETH 861a2922,onchain_base_aerodrome-slipstream_861a2922
+01464,NXR Onchain Base Aerodrome Slipstream cbETH ETH 47ca96ea,onchain_base_aerodrome-slipstream_47ca96ea
+01465,NXR Onchain Ethereum Uniswap V3 cbETH ETH 840deeef,onchain_ethereum_uniswap-v3_840deeef
+01466,NXR Onchain Ethereum Uniswap V3 rETH ETH 553e9c49,onchain_ethereum_uniswap-v3_553e9c49
+01467,NXR Onchain Ethereum Uniswap V3 mETH ETH 04708077,onchain_ethereum_uniswap-v3_04708077
+01468,NXR Onchain Ethereum Curve FIDD USDC e47e8ced,onchain_ethereum_curve_e47e8ced
+01469,NXR Onchain Ethereum Curve FIDD USDT 8273cb2c,onchain_ethereum_curve_8273cb2c
+01470,NXR Onchain Ethereum Curve USDF USDC 72310daa,onchain_ethereum_curve_72310daa
+01471,NXR Onchain Ethereum Fluid syrupUSDC USDC 79eea4a1,onchain_ethereum_fluid_79eea4a1
+01472,NXR Onchain Ethereum Fluid sUSDe USDT 1dd125c3,onchain_ethereum_fluid_1dd125c3
+01473,NXR Onchain Ethereum Curve weETH ETH db74dfdd,onchain_ethereum_curve_db74dfdd
+01474,NXR Onchain Ethereum Uniswap V4 rETH ETH 70946c97,onchain_ethereum_uniswap-v4_70946c97
+01475,NXR Onchain Ethereum Uniswap V4 USDG USDC 0d3d26ec,onchain_ethereum_uniswap-v4_0d3d26ec
+01476,NXR Onchain Monad Curve USDAT USDC fd945d71,onchain_monad_curve_fd945d71
+01477,NXR Onchain Ethereum Aerodrome Slipstream DOLA USDC 8751b749,onchain_ethereum_aerodrome-slipstream_8751b749
+01478,NXR Onchain Ethereum Aerodrome Slipstream USDe USDC 37e47343,onchain_ethereum_aerodrome-slipstream_37e47343
+01479,NXR Onchain Solana Orca PYUSD USDC 9txiurrw,onchain_solana_orca_9txiurrw
+01480,NXR Onchain Solana Orca USDG USDC 9rqdtfwc,onchain_solana_orca_9rqdtfwc
