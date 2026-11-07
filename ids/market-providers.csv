@@ -247,3 +247,19 @@ id,name,aliases
 01478,NXR Onchain Ethereum Aerodrome Slipstream USDe USDC 37e47343,onchain_ethereum_aerodrome-slipstream_37e47343
 01479,NXR Onchain Solana Orca PYUSD USDC 9txiurrw,onchain_solana_orca_9txiurrw
 01480,NXR Onchain Solana Orca USDG USDC 9rqdtfwc,onchain_solana_orca_9rqdtfwc
+01481,NXR Onchain Base Aerodrome Slipstream CBBTC USDC 784e539f,onchain_base_aerodrome-slipstream_784e539f
+01482,NXR Onchain Monad Uniswap V4 CBBTC USDC 7fc6232a,onchain_monad_uniswap-v4_7fc6232a
+01483,NXR Onchain Ethereum Uniswap V3 WBTC USDT 56534741,onchain_ethereum_uniswap-v3_56534741
+01484,NXR Onchain Ethereum Aerodrome Slipstream WBTC USDT 941ddc62,onchain_ethereum_aerodrome-slipstream_941ddc62
+01485,NXR Onchain Ethereum Uniswap V3 WBTC USDT 9db9e0e5,onchain_ethereum_uniswap-v3_9db9e0e5
+01486,NXR Onchain Ethereum Uniswap V4 WBTC USDT 4a24fcf3,onchain_ethereum_uniswap-v4_4a24fcf3
+01487,NXR Onchain Ethereum Uniswap V4 WBTC USDC 3ea74c37,onchain_ethereum_uniswap-v4_3ea74c37
+01488,NXR Onchain Ethereum Uniswap V4 WBTC USDC b98437c7,onchain_ethereum_uniswap-v4_b98437c7
+01489,NXR Onchain Ethereum Uniswap V4 WBTC USDT 20c3a15e,onchain_ethereum_uniswap-v4_20c3a15e
+01490,NXR Onchain Ethereum Uniswap V3 WBTC USDC 9a772018,onchain_ethereum_uniswap-v3_9a772018
+01491,NXR Onchain Ethereum Uniswap V3 WBTC ETH 4585fe77,onchain_ethereum_uniswap-v3_4585fe77
+01492,NXR Onchain Ethereum Uniswap V4 WBTC ETH 599326d9,onchain_ethereum_uniswap-v4_599326d9
+01493,NXR Onchain Ethereum Aerodrome Slipstream WBTC ETH 4650ff4f,onchain_ethereum_aerodrome-slipstream_4650ff4f
+01494,NXR Onchain Ethereum Uniswap V3 WBTC ETH e6ff8b9a,onchain_ethereum_uniswap-v3_e6ff8b9a
+01495,NXR Onchain Ethereum Uniswap V4 WBTC ETH 3d8a4e3c,onchain_ethereum_uniswap-v4_3d8a4e3c
+01496,NXR Onchain Ethereum Uniswap V3 WBTC ETH cbcdf962,onchain_ethereum_uniswap-v3_cbcdf962
