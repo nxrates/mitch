@@ -36,7 +36,8 @@ mod codegen_lengths {
         // + Bitget Tokens 142 (state-only rStock reference legs, 2026-11-02) = 168.
         // + 80 per-pool onchain providers 1401..1480 (`nx-rates/scripts/alloc-pool-ids.py`, append-only) = 248.
         // + 16 discovered WBTC/cbBTC pools 1481..1496 (`nx-rates/scripts/discover-pools.py`) = 264.
-        assert_eq!(MARKET_PROVIDERS_DATA.len(), 264, "MARKET_PROVIDERS_DATA");
+        // + 32 catalog-discovered cbBTC/WBTC pools 1497..1528 (`nx-rates/scripts/discover-pools.py`) = 296.
+        assert_eq!(MARKET_PROVIDERS_DATA.len(), 296, "MARKET_PROVIDERS_DATA");
         // 1559 -> 1667: 108 rows were added without updating this guard, so it
         // was already red when found on 2026-08-15. Recorded rather than
         // re-baselined silently: the guard only earns its keep if the number is

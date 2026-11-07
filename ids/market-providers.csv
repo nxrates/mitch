@@ -263,3 +263,35 @@ id,name,aliases
 01494,NXR Onchain Ethereum Uniswap V3 WBTC ETH e6ff8b9a,onchain_ethereum_uniswap-v3_e6ff8b9a
 01495,NXR Onchain Ethereum Uniswap V4 WBTC ETH 3d8a4e3c,onchain_ethereum_uniswap-v4_3d8a4e3c
 01496,NXR Onchain Ethereum Uniswap V3 WBTC ETH cbcdf962,onchain_ethereum_uniswap-v3_cbcdf962
+01497,NXR Onchain Base Aerodrome Slipstream CBBTC ETH ec3c3755,onchain_base_aerodrome-slipstream_ec3c3755
+01498,NXR Onchain Base Aerodrome Slipstream CBBTC ETH bb5507da,onchain_base_aerodrome-slipstream_bb5507da
+01499,NXR Onchain Base Pancakeswap V3 CBBTC ETH c211e1f8,onchain_base_pancakeswap-v3_c211e1f8
+01500,NXR Onchain Base Uniswap V3 CBBTC ETH 7aea2e8a,onchain_base_uniswap-v3_7aea2e8a
+01501,NXR Onchain Base Aerodrome Slipstream CBBTC ETH 7c7420dd,onchain_base_aerodrome-slipstream_7c7420dd
+01502,NXR Onchain Base Pancakeswap V3 CBBTC USDC b94b2233,onchain_base_pancakeswap-v3_b94b2233
+01503,NXR Onchain Base Uniswap V4 CBBTC USDC 12d76c5c,onchain_base_uniswap-v4_12d76c5c
+01504,NXR Onchain Base Aerodrome Slipstream CBBTC USDC 160d7e9d,onchain_base_aerodrome-slipstream_160d7e9d
+01505,NXR Onchain Base Aerodrome Slipstream CBBTC USDC 3e66e55e,onchain_base_aerodrome-slipstream_3e66e55e
+01506,NXR Onchain Base Aerodrome Slipstream CBBTC USDC 4e962bb3,onchain_base_aerodrome-slipstream_4e962bb3
+01507,NXR Onchain Base Aerodrome Slipstream CBBTC ETH 42d4a22c,onchain_base_aerodrome-slipstream_42d4a22c
+01508,NXR Onchain Base Uniswap V4 CBBTC ETH 2fbe93bf,onchain_base_uniswap-v4_2fbe93bf
+01509,NXR Onchain Base Uniswap V3 CBBTC ETH 8c708056,onchain_base_uniswap-v3_8c708056
+01510,NXR Onchain Base Uniswap V3 CBBTC USDC ec558e48,onchain_base_uniswap-v3_ec558e48
+01511,NXR Onchain Base Uniswap V4 CBBTC USDC f97db199,onchain_base_uniswap-v4_f97db199
+01512,NXR Onchain Base Pancakeswap V3 CBBTC ETH d974d59e,onchain_base_pancakeswap-v3_d974d59e
+01513,NXR Onchain Base Uniswap V4 CBBTC USDC 4ca7dd5d,onchain_base_uniswap-v4_4ca7dd5d
+01514,NXR Onchain Base Pancakeswap V3 CBBTC USDC 26e263ef,onchain_base_pancakeswap-v3_26e263ef
+01515,NXR Onchain Base Aerodrome Slipstream CBBTC ETH 22aee369,onchain_base_aerodrome-slipstream_22aee369
+01516,NXR Onchain Base Aerodrome Slipstream CBBTC ETH 70acdf2a,onchain_base_aerodrome-slipstream_70acdf2a
+01517,NXR Onchain Ethereum Curve CBBTC USDT 83f24023,onchain_ethereum_curve_83f24023
+01518,NXR Onchain Ethereum Curve CBBTC USDT 862cb4e9,onchain_ethereum_curve_862cb4e9
+01519,NXR Onchain Solana Orca CBBTC USDC hxa6skw5,onchain_solana_orca_hxa6skw5
+01520,NXR Onchain Ethereum Curve WBTC USDT d51a44d3,onchain_ethereum_curve_d51a44d3
+01521,NXR Onchain Ethereum Curve WBTC USDT 31369866,onchain_ethereum_curve_31369866
+01522,NXR Onchain Ethereum Curve WBTC USDC 7f86bf17,onchain_ethereum_curve_7f86bf17
+01523,NXR Onchain Ethereum Curve WBTC USDT f5f5b976,onchain_ethereum_curve_f5f5b976
+01524,NXR Onchain Monad Uniswap V4 WBTC ETH 1c93dd2f,onchain_monad_uniswap-v4_1c93dd2f
+01525,NXR Onchain Optimism Aerodrome Slipstream WBTC ETH 2a7606f1,onchain_optimism_aerodrome-slipstream_2a7606f1
+01526,NXR Onchain Optimism Aerodrome Slipstream WBTC USDC 1c5b5321,onchain_optimism_aerodrome-slipstream_1c5b5321
+01527,NXR Onchain Optimism Uniswap V3 WBTC USDC 394a9fcb,onchain_optimism_uniswap-v3_394a9fcb
+01528,NXR Onchain Optimism Velodrome Slipstream WBTC ETH 319c0dd3,onchain_optimism_velodrome-slipstream_319c0dd3
