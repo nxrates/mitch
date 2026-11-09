@@ -295,3 +295,4 @@ id,name,aliases
 01526,NXR Onchain Optimism Aerodrome Slipstream WBTC USDC 1c5b5321,onchain_optimism_aerodrome-slipstream_1c5b5321
 01527,NXR Onchain Optimism Uniswap V3 WBTC USDC 394a9fcb,onchain_optimism_uniswap-v3_394a9fcb
 01528,NXR Onchain Optimism Velodrome Slipstream WBTC ETH 319c0dd3,onchain_optimism_velodrome-slipstream_319c0dd3
+01529,NXR Onchain Ethereum Uniswap V4 WBTC ETH 54c72c46,onchain_ethereum_uniswap-v4_54c72c46
