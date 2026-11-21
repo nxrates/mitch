@@ -334,3 +334,9 @@ id,name,aliases
 01565,NXR Onchain Base Aerodrome Slipstream WSTETH ETH 7f5964d8,onchain_base_aerodrome-slipstream_7f5964d8
 01566,NXR Onchain Ethereum Aerodrome Slipstream WSTETH ETH 1409cac1,onchain_ethereum_aerodrome-slipstream_1409cac1
 01567,NXR Onchain Ethereum Uniswap V4 WSTETH ETH 1d5b2949,onchain_ethereum_uniswap-v4_1d5b2949
+01568,NXR Onchain Ethereum Uniswap V4 FRXUSD USDS 9edf5d6c,onchain_ethereum_uniswap-v4_9edf5d6c
+01569,NXR Onchain Ethereum Aerodrome Slipstream FRXUSD USDS aca0cce4,onchain_ethereum_aerodrome-slipstream_aca0cce4
+01570,NXR Onchain Ethereum Uniswap V4 PYUSD USDS e63e32b2,onchain_ethereum_uniswap-v4_e63e32b2
+01571,NXR Onchain Ethereum Uniswap V4 RLUSD USDS 9035721b,onchain_ethereum_uniswap-v4_9035721b
+01572,NXR Onchain Arbitrum Uniswap V3 USDE USDC 3223859e,onchain_arbitrum_uniswap-v3_3223859e
+01573,NXR Onchain Optimism Uniswap V3 WBTC USDC adab76dd,onchain_optimism_uniswap-v3_adab76dd
