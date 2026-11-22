@@ -341,3 +341,12 @@ id,name,aliases
 01572,NXR Onchain Arbitrum Uniswap V3 USDE USDC 3223859e,onchain_arbitrum_uniswap-v3_3223859e
 01573,NXR Onchain Optimism Uniswap V3 WBTC USDC adab76dd,onchain_optimism_uniswap-v3_adab76dd
 01574,NXR Onchain Unichain Uniswap V4 WBTC ETH 51f9d63d,onchain_unichain_uniswap-v4_51f9d63d
+01575,NXR Onchain Ethereum Uniswap V3 CBBTC USDC 4548280a,onchain_ethereum_uniswap-v3_4548280a
+01576,NXR Onchain Arbitrum Uniswap V3 WBTC ETH 2f5e87c9,onchain_arbitrum_uniswap-v3_2f5e87c9
+01577,NXR Onchain Arbitrum Uniswap V3 WBTC USDC 0e483131,onchain_arbitrum_uniswap-v3_0e483131
+01578,NXR Onchain Arbitrum Uniswap V4 WBTC USDC 80c735c5,onchain_arbitrum_uniswap-v4_80c735c5
+01579,NXR Onchain Arbitrum Uniswap V4 WBTC ETH 8b378147,onchain_arbitrum_uniswap-v4_8b378147
+01580,NXR Onchain Arbitrum Uniswap V4 WBTC USDC 70bf44c3,onchain_arbitrum_uniswap-v4_70bf44c3
+01581,NXR Onchain Arbitrum Uniswap V3 WBTC ETH 149e36e7,onchain_arbitrum_uniswap-v3_149e36e7
+01582,NXR Onchain Arbitrum Uniswap V3 WBTC USDC 6985cb98,onchain_arbitrum_uniswap-v3_6985cb98
+01583,NXR Onchain Base Uniswap V4 WBTC USDC f272fa03,onchain_base_uniswap-v4_f272fa03
