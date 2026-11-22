@@ -340,3 +340,4 @@ id,name,aliases
 01571,NXR Onchain Ethereum Uniswap V4 RLUSD USDS 9035721b,onchain_ethereum_uniswap-v4_9035721b
 01572,NXR Onchain Arbitrum Uniswap V3 USDE USDC 3223859e,onchain_arbitrum_uniswap-v3_3223859e
 01573,NXR Onchain Optimism Uniswap V3 WBTC USDC adab76dd,onchain_optimism_uniswap-v3_adab76dd
+01574,NXR Onchain Unichain Uniswap V4 WBTC ETH 51f9d63d,onchain_unichain_uniswap-v4_51f9d63d
